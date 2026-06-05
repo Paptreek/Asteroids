@@ -8,7 +8,7 @@
             "actions": [
                 {
                     "name": "Move",
-                    "type": "Value",
+                    "type": "Button",
                     "id": "50f91689-88e4-4194-bfb0-4f2d0d936d68",
                     "expectedControlType": "",
                     "processors": "",

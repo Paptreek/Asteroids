@@ -3,7 +3,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
-    private float _moveSpeed = 500;
+    private float _moveSpeed = 15.0f;
     private float _turnSpeed = 250;
     private Rigidbody2D _rb;
     private InputAction _moveAction;
@@ -18,19 +18,19 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
+        ScreenManager.WrapAroundScreen(transform);
+
         Accelerate();
         Turn();
     }
 
     private void Accelerate()
     {
-        float moveValue = _moveAction.ReadValue<float>();
         float moveSpeed = _moveSpeed * Time.fixedDeltaTime;
-        float maxVelocity = 2.5f;
 
-        if (_rb.linearVelocityY <= maxVelocity)
+        if (_moveAction.IsPressed())
         {
-            _rb.AddRelativeForceY(moveValue * moveSpeed);
+            _rb.AddRelativeForceY(moveSpeed);
         }
     }
 
