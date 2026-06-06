@@ -268,8 +268,9 @@ GameObject:
   - component: {fileID: 719431913}
   - component: {fileID: 719431916}
   - component: {fileID: 719431918}
-  - component: {fileID: 719431915}
   - component: {fileID: 719431917}
+  - component: {fileID: 719431915}
+  - component: {fileID: 719431919}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -375,8 +376,8 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 0.01
-  m_LinearDamping: 2
+  m_Mass: 1
+  m_LinearDamping: 1.5
   m_AngularDamping: 0.05
   m_GravityScale: 0
   m_Material: {fileID: 0}
@@ -470,6 +471,19 @@ PolygonCollider2D:
       - {x: -0.5, y: -0.28866667}
       - {x: 0.5, y: -0.28866667}
   m_UseDelaunayMesh: 1
+--- !u!114 &719431919
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 719431912}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4883863d0a5ca5418e574b57609c6c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerAttack
+  _bulletObject: {fileID: 410969236330375896, guid: ae7cc9eec0f188b46b05659b90ba5077, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

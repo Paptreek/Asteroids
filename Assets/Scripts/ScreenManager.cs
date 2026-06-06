@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class ScreenManager : MonoBehaviour
+public class ScreenManager
 {
     public static void WrapAroundScreen(Transform transform)
     {
