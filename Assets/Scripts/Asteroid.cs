@@ -17,28 +17,30 @@ public class Asteroid : MonoBehaviour
     [SerializeField] private float _moveSpeed = 4;
 
     private Vector3 _moveDirection;
-    private Vector3 _scale; // maybe turn this into an enum { Small, Medium, Large }
+    private Vector3 _spawnLocation;
 
     private void Awake()
     {
-        float moveDirectionX = Random.Range(-1.0f, 1.0f);
-        float moveDirectionY = Random.Range(-1.0f, 1.0f);
+        float moveDirectionX = Random.value > 0.5f ? Random.Range(-1.0f, -0.5f) : Random.Range(0.5f, 1.0f);
+        float moveDirectionY = Random.value > 0.5f ? Random.Range(-1.0f, -0.5f) : Random.Range(0.5f, 1.0f);
         _moveDirection = new Vector3(moveDirectionX, moveDirectionY);
 
-        // testing only. don't actually need random sizes, everything should spawn as a Large and split into smaller ones as they get destroyed
-        float scale = Random.Range(1.0f, 5.0f);
-        _scale = new Vector3(scale, scale);
+        float spawnLocationX = Random.Range(-15.0f, 15.0f);
+        float spawnLocationY = Random.Range(-10.5f, 10.5f);
+        _spawnLocation = new Vector3(spawnLocationX, spawnLocationY);
+
+        Debug.Log($"X Direction: {moveDirectionX}, Y Direction: {moveDirectionY}");
     }
 
     private void Start()
     {
-        transform.localScale = _scale;
+        transform.position = _spawnLocation;
     }
 
     private void Update()
     {
         MoveInRandomDirection();
-        ScreenManager.WrapAroundScreen(transform);
+        ScreenManager.WrapAroundScreen(transform, 20.0f, 16.0f);
     }
 
     private void MoveInRandomDirection()
@@ -47,5 +49,13 @@ public class Asteroid : MonoBehaviour
         float moveSpeedY = _moveDirection.y * _moveSpeed * Time.deltaTime;
 
         transform.Translate(moveSpeedX, moveSpeedY, 0);
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Bullet"))
+        {
+            Destroy(gameObject);
+        }
     }
 }

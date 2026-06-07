@@ -2,21 +2,21 @@ using UnityEngine;
 
 public class ScreenManager
 {
-    public static void WrapAroundScreen(Transform transform)
+    public static void WrapAroundScreen(Transform transform, float maximumX, float maximumY)
     {
-        if (transform.position.x <= -17.5f)
+        if (transform.position.x <= -maximumX)
         {
             transform.position = new Vector2(-transform.position.x, transform.position.y);
         }
-        else if (transform.position.x >= 17.5f)
+        else if (transform.position.x >= maximumX)
         {
             transform.position = new Vector2(-transform.position.x, transform.position.y);
         }
-        else if (transform.position.y <= -13.0f)
+        else if (transform.position.y <= -maximumY)
         {
             transform.position = new Vector2(transform.position.x, -transform.position.y);
         }
-        else if (transform.position.y >= 13.0f)
+        else if (transform.position.y >= maximumY)
         {
             transform.position = new Vector2(transform.position.x, -transform.position.y);
         }
