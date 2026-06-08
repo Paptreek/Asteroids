@@ -3,41 +3,56 @@ using UnityEngine;
 
 public class AsteroidSpawner : MonoBehaviour
 {
-    [SerializeField] private GameObject _largeAsteroid;
+    [SerializeField] private Asteroid _asteroid;
 
-    private List<GameObject> _largeAsteroids = new();
+    private List<Asteroid> _asteroids = new();
 
     private void Start()
     {
-        for (int i = 0; i < 4; i++)
-        {
-            GameObject largeAsteroid = Instantiate(_largeAsteroid);
-            _largeAsteroids.Add(largeAsteroid);
-        }
-
-        Debug.Log($"Number of Large Asteroids: {_largeAsteroids.Count}");
+        SpawnNewAsteroids(4, Asteroid.Size.Large);
     }
 
     private void Update()
     {
-        for (int i = 0; i < _largeAsteroids.Count; i++)
-        {
-            if (_largeAsteroids[i] == null)
-            {
-                Debug.Log($"Found a null asteroid. Removing from list.");
-                _largeAsteroids.Remove(_largeAsteroids[i]);
-            }
-        }
+        RemoveDestroyedAsteroids();
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Bullet"))
         {
-            _largeAsteroids.Remove(gameObject);
+            _asteroids.Remove(_asteroid);
             Destroy(gameObject);
 
-            Debug.Log($"Number of Large Asteroids: {_largeAsteroids.Count}");
+            Debug.Log($"Number of Large Asteroids: {_asteroids.Count}");
+        }
+    }
+
+    private void SpawnNewAsteroids(int numberToSpawn, Asteroid.Size size)
+    {
+        for (int i = 0; i < numberToSpawn; i++)
+        {
+            float directionX = Random.value > 0.5f ? Random.Range(-1.0f, -0.25f) : Random.Range(0.25f, 1.0f);
+            float directionY = Random.value > 0.5f ? Random.Range(-1.0f, -0.25f) : Random.Range(0.25f, 1.0f);
+            float locationX = Random.value > 0.5f ? Random.Range(-15.0f, -5.0f) : Random.Range(5.0f, 15.0f);
+            float locationY = Random.value > 0.5f ? Random.Range(-15.0f, -5.0f) : Random.Range(5.0f, 15.0f);
+
+            Asteroid asteroid = Instantiate(_asteroid);
+            asteroid.SetSize(size);
+            asteroid.SetInitialSpawnData(directionX, directionY, locationX, locationY);
+            _asteroids.Add(asteroid);
+        }
+    }
+
+    private void RemoveDestroyedAsteroids()
+    {
+        for (int i = 0; i < _asteroids.Count; i++)
+        {
+            if (_asteroids[i] == null)
+            {
+                Debug.Log($"Found a null asteroid. Removing from list.");
+                _asteroids.Remove(_asteroids[i]);
+            }
         }
     }
 }

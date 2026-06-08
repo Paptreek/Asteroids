@@ -9,6 +9,8 @@ public class PlayerAttack : MonoBehaviour
     private float _secondsBetweenShots = 0.25f;
     private float _cooldownTimer;
 
+    private GameObject _testObj;
+
     private void Awake()
     {
         _attackAction = InputSystem.actions.FindAction("Attack");
@@ -25,7 +27,9 @@ public class PlayerAttack : MonoBehaviour
     {
         if (_attackAction.IsPressed() && _cooldownTimer <= 0)
         {
-            Bullet bullet = Instantiate(_bulletPrefab, new Vector3(transform.position.x, transform.position.y), transform.rotation);
+            Vector3 spawnPosition = transform.position;
+
+            Bullet bullet = Instantiate(_bulletPrefab, spawnPosition, transform.rotation);
             bullet.SetFiringShipSpeed(this);
 
             _cooldownTimer = _secondsBetweenShots;

@@ -6,19 +6,19 @@ public class ScreenManager
     {
         if (transform.position.x <= -maximumX)
         {
-            transform.position = new Vector2(-transform.position.x, transform.position.y);
+            transform.position = new Vector3(-transform.position.x - 0.25f, transform.position.y);
         }
         else if (transform.position.x >= maximumX)
         {
-            transform.position = new Vector2(-transform.position.x, transform.position.y);
+            transform.position = new Vector3(-transform.position.x + 0.25f, transform.position.y);
         }
         else if (transform.position.y <= -maximumY)
         {
-            transform.position = new Vector2(transform.position.x, -transform.position.y);
+            transform.position = new Vector3(transform.position.x, -transform.position.y - 0.25f);
         }
         else if (transform.position.y >= maximumY)
         {
-            transform.position = new Vector2(transform.position.x, -transform.position.y);
+            transform.position = new Vector3(transform.position.x, -transform.position.y + 0.25f);
         }
     }
 }

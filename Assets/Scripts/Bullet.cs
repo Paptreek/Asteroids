@@ -39,6 +39,6 @@ public class Bullet : MonoBehaviour
         float firingShipSpeedX = Mathf.Abs(firingShipRB.linearVelocityX);
         float firingShipSpeedY = Mathf.Abs(firingShipRB.linearVelocityY);
 
-        _firingShipSpeed = firingShipSpeedX > firingShipSpeedY ? firingShipSpeedX : firingShipSpeedY;
+        _firingShipSpeed = Mathf.Max(firingShipSpeedX, firingShipSpeedY);
     }
 }
