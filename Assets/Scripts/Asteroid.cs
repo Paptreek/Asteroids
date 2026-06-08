@@ -25,8 +25,8 @@ public class Asteroid : MonoBehaviour
         float moveDirectionY = Random.value > 0.5f ? Random.Range(-1.0f, -0.5f) : Random.Range(0.5f, 1.0f);
         _moveDirection = new Vector3(moveDirectionX, moveDirectionY);
 
-        float spawnLocationX = Random.Range(-15.0f, 15.0f);
-        float spawnLocationY = Random.Range(-10.5f, 10.5f);
+        float spawnLocationX = Random.value > 0.5f ? Random.Range(-15.0f, -5.0f) : Random.Range(5.0f, 15.0f);
+        float spawnLocationY = Random.value > 0.5f ? Random.Range(-15.0f, -5.0f) : Random.Range(5.0f, 15.0f);
         _spawnLocation = new Vector3(spawnLocationX, spawnLocationY);
 
         Debug.Log($"X Direction: {moveDirectionX}, Y Direction: {moveDirectionY}");

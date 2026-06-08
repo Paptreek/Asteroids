@@ -3,17 +3,15 @@ using UnityEngine.InputSystem;
 
 public class PlayerAttack : MonoBehaviour
 {
-    [SerializeField] private GameObject _bulletPrefab;
+    [SerializeField] private Bullet _bulletPrefab;
 
     private InputAction _attackAction;
-    private Rigidbody2D _rb;
     private float _secondsBetweenShots = 0.25f;
     private float _cooldownTimer;
 
     private void Awake()
     {
         _attackAction = InputSystem.actions.FindAction("Attack");
-        _rb = GetComponent<Rigidbody2D>();
     }
 
     private void Update()
@@ -27,10 +25,8 @@ public class PlayerAttack : MonoBehaviour
     {
         if (_attackAction.IsPressed() && _cooldownTimer <= 0)
         {
-            GameObject bullet = _bulletPrefab;
-            bullet.GetComponent<Bullet>().FiringShipSpeed = Mathf.Abs(_rb.linearVelocityY);
-
-            Instantiate(bullet, new Vector3(transform.position.x, transform.position.y), transform.rotation);
+            Bullet bullet = Instantiate(_bulletPrefab, new Vector3(transform.position.x, transform.position.y), transform.rotation);
+            bullet.SetFiringShipSpeed(this);
 
             _cooldownTimer = _secondsBetweenShots;
         }

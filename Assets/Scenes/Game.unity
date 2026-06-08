@@ -135,7 +135,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &89053074
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -529,8 +529,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4883863d0a5ca5418e574b57609c6c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerAttack
-  _bulletPrefab: {fileID: 410969236330375896, guid: ae7cc9eec0f188b46b05659b90ba5077, type: 3}
-  _bulletObject: {fileID: 410969236330375896, guid: ae7cc9eec0f188b46b05659b90ba5077, type: 3}
+  _bulletPrefab: {fileID: 7550064382406723819, guid: ae7cc9eec0f188b46b05659b90ba5077, type: 3}
 --- !u!114 &719431920
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -4,14 +4,13 @@ public class Bullet : MonoBehaviour
 {
     private float _destroyTimer = 0.75f;
     private float _baseSpeed = 25;
-
-    [field: SerializeField] public float FiringShipSpeed { get; set; }
+    private float _firingShipSpeed;
 
     private void Update()
     {
         _destroyTimer -= Time.deltaTime;
 
-        transform.Translate(new Vector2(0, (FiringShipSpeed + _baseSpeed) * Time.deltaTime));
+        transform.Translate(new Vector2(0, (_firingShipSpeed + _baseSpeed) * Time.deltaTime));
 
         ScreenManager.WrapAroundScreen(transform, 18.0f, 14.0f);
         DestroyAfterCountdown();
@@ -31,5 +30,15 @@ public class Bullet : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+
+    public void SetFiringShipSpeed(PlayerAttack firingShip)
+    {
+        Rigidbody2D firingShipRB = firingShip.GetComponent<Rigidbody2D>();
+
+        float firingShipSpeedX = Mathf.Abs(firingShipRB.linearVelocityX);
+        float firingShipSpeedY = Mathf.Abs(firingShipRB.linearVelocityY);
+
+        _firingShipSpeed = firingShipSpeedX > firingShipSpeedY ? firingShipSpeedX : firingShipSpeedY;
     }
 }
