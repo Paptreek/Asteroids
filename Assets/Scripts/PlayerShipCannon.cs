@@ -1,9 +1,9 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerAttack : MonoBehaviour
+public class PlayerShipCannon : MonoBehaviour
 {
-    [SerializeField] private GameObject _bulletObject;
+    [SerializeField] private Bullet _bulletPrefab;
 
     private InputAction _attackAction;
     private float _secondsBetweenShots = 0.25f;
@@ -25,7 +25,10 @@ public class PlayerAttack : MonoBehaviour
     {
         if (_attackAction.IsPressed() && _cooldownTimer <= 0)
         {
-            Instantiate(_bulletObject, new Vector3(transform.position.x, transform.position.y), transform.rotation);
+            Vector3 spawnPosition = transform.position;
+
+            Bullet bullet = Instantiate(_bulletPrefab, spawnPosition, transform.rotation);
+            bullet.SetFiringShipSpeed(this);
 
             _cooldownTimer = _secondsBetweenShots;
         }

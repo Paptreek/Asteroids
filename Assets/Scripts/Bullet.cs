@@ -3,15 +3,16 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     private float _destroyTimer = 0.75f;
-    private float _travelSpeed = 25;
+    private float _baseSpeed = 25;
+    private float _firingShipSpeed;
 
     private void Update()
     {
         _destroyTimer -= Time.deltaTime;
 
-        transform.Translate(new Vector2(0, _travelSpeed * Time.deltaTime));
+        transform.Translate(new Vector2(0, (_firingShipSpeed + _baseSpeed) * Time.deltaTime));
 
-        ScreenManager.WrapAroundScreen(transform);
+        ScreenManager.WrapAroundScreen(transform, 18.0f, 14.0f);
         DestroyAfterCountdown();
     }
 
@@ -21,5 +22,23 @@ public class Bullet : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Enemy"))
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    public void SetFiringShipSpeed(PlayerShipCannon firingShip)
+    {
+        Rigidbody2D firingShipRB = firingShip.GetComponent<Rigidbody2D>();
+
+        float firingShipSpeedX = Mathf.Abs(firingShipRB.linearVelocityX);
+        float firingShipSpeedY = Mathf.Abs(firingShipRB.linearVelocityY);
+
+        _firingShipSpeed = Mathf.Max(firingShipSpeedX, firingShipSpeedY);
     }
 }
