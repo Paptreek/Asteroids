@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class PlayerShip : MonoBehaviour
 {
+    [SerializeField] private ParticleSystem _explosionEffect;
+
     private void Update()
     {
         ScreenManager.WrapAroundScreen(transform, 17.5f, 13.0f);
@@ -11,6 +13,8 @@ public class PlayerShip : MonoBehaviour
     {
         if (collision.CompareTag("Enemy"))
         {
+            Instantiate(_explosionEffect, transform.position, Quaternion.identity);
+            //_explosionEffect.Play();
             Destroy(gameObject);
         }
     }
