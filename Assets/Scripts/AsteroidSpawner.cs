@@ -5,53 +5,60 @@ public class AsteroidSpawner : MonoBehaviour
 {
     [SerializeField] private Asteroid _asteroid;
 
-    private List<Asteroid> _asteroids = new();
+    public List<Asteroid> Asteroids { get; private set; } = new();
 
     private void Start()
     {
-        SpawnNewAsteroids(4, Asteroid.Size.Large);
+        SpawnNewRound(4, Asteroid.Size.Large);
     }
 
     private void Update()
     {
-        RemoveDestroyedAsteroids();
+        //RemoveDestroyedAsteroids();
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    public void SpawnAsteroids(Asteroid.Size size, Vector3 location)
     {
-        if (collision.gameObject.CompareTag("Bullet"))
+        for (int i = 0; i < 2; i++)
         {
-            _asteroids.Remove(_asteroid);
-            Destroy(gameObject);
+            float directionX = Random.value > 0.5f ? Random.Range(-1.0f, -0.25f) : Random.Range(0.25f, 1.0f);
+            float directionY = Random.value > 0.5f ? Random.Range(-1.0f, -0.25f) : Random.Range(0.25f, 1.0f);
+            Vector3 direction = new Vector3(directionX, directionY);
 
-            Debug.Log($"Number of Large Asteroids: {_asteroids.Count}");
+            Asteroid asteroid = Instantiate(_asteroid);
+            asteroid.SetSize(size);
+            asteroid.SetInitialSpawnData(direction, location);
+            Asteroids.Add(asteroid);
         }
     }
 
-    private void SpawnNewAsteroids(int numberToSpawn, Asteroid.Size size)
+    private void SpawnNewRound(int numberToSpawn, Asteroid.Size size)
     {
         for (int i = 0; i < numberToSpawn; i++)
         {
             float directionX = Random.value > 0.5f ? Random.Range(-1.0f, -0.25f) : Random.Range(0.25f, 1.0f);
             float directionY = Random.value > 0.5f ? Random.Range(-1.0f, -0.25f) : Random.Range(0.25f, 1.0f);
+            Vector3 direction = new Vector3(directionX, directionY);
+
             float locationX = Random.value > 0.5f ? Random.Range(-15.0f, -5.0f) : Random.Range(5.0f, 15.0f);
             float locationY = Random.value > 0.5f ? Random.Range(-15.0f, -5.0f) : Random.Range(5.0f, 15.0f);
+            Vector3 location = new Vector3(locationX, locationY);
 
             Asteroid asteroid = Instantiate(_asteroid);
             asteroid.SetSize(size);
-            asteroid.SetInitialSpawnData(directionX, directionY, locationX, locationY);
-            _asteroids.Add(asteroid);
+            asteroid.SetInitialSpawnData(direction, location);
+            Asteroids.Add(asteroid);
         }
     }
 
     private void RemoveDestroyedAsteroids()
     {
-        for (int i = 0; i < _asteroids.Count; i++)
+        for (int i = 0; i < Asteroids.Count; i++)
         {
-            if (_asteroids[i] == null)
+            if (Asteroids[i] == null)
             {
-                Debug.Log($"Found a null asteroid. Removing from list.");
-                _asteroids.Remove(_asteroids[i]);
+                Debug.Log($"AsteroidSpawner found a null asteroid. Removing from list.");
+                Asteroids.Remove(Asteroids[i]);
             }
         }
     }
