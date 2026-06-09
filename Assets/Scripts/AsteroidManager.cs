@@ -14,7 +14,7 @@ public class AsteroidManager : MonoBehaviour
     {
         foreach (Asteroid asteroid in _asteroidSpawner.Asteroids.ToArray())
         {
-            if (asteroid.HasBeenShot)
+            if (asteroid.HasBeenHit)
             {
                 if (asteroid.AsteroidSize == Asteroid.Size.Large)
                 {

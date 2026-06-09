@@ -32,7 +32,7 @@ public class Bullet : MonoBehaviour
         }
     }
 
-    public void SetFiringShipSpeed(PlayerAttack firingShip)
+    public void SetFiringShipSpeed(PlayerShipCannon firingShip)
     {
         Rigidbody2D firingShipRB = firingShip.GetComponent<Rigidbody2D>();
 

@@ -18,8 +18,6 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        ScreenManager.WrapAroundScreen(transform, 17.5f, 13.0f);
-
         Accelerate();
         Turn();
     }

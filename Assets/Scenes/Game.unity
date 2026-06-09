@@ -363,7 +363,7 @@ GameObject:
   - component: {fileID: 719431917}
   - component: {fileID: 719431920}
   - component: {fileID: 719431915}
-  - component: {fileID: 719431919}
+  - component: {fileID: 719431921}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -564,19 +564,6 @@ PolygonCollider2D:
       - {x: -0.5, y: -0.28866667}
       - {x: 0.5, y: -0.28866667}
   m_UseDelaunayMesh: 1
---- !u!114 &719431919
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 719431912}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b4883863d0a5ca5418e574b57609c6c6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerAttack
-  _bulletPrefab: {fileID: 7550064382406723819, guid: ae7cc9eec0f188b46b05659b90ba5077, type: 3}
 --- !u!114 &719431920
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -589,6 +576,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5c6b57f5100aac49a1f2bcd141c28c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerShip
+--- !u!114 &719431921
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 719431912}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e965c12227c5ed4f9f3202758548b28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerShipCannon
+  _bulletPrefab: {fileID: 7550064382406723819, guid: ae7cc9eec0f188b46b05659b90ba5077, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

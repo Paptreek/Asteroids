@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerAttack : MonoBehaviour
+public class PlayerShipCannon : MonoBehaviour
 {
     [SerializeField] private Bullet _bulletPrefab;
 

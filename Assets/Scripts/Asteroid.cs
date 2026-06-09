@@ -7,7 +7,7 @@ public class Asteroid : MonoBehaviour
     private Vector3 _moveDirection;
     private Vector3 _spawnLocation;
 
-    public bool HasBeenShot { get; private set; }
+    public bool HasBeenHit { get; private set; }
     public Size AsteroidSize { get; private set; }
     public enum Size { Large, Medium, Small }
 
@@ -66,9 +66,9 @@ public class Asteroid : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Bullet"))
+        if (collision.CompareTag("Bullet") || collision.CompareTag("Player"))
         {
-            HasBeenShot = true;
+            HasBeenHit = true;
         }
     }
 }
