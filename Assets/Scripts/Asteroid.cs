@@ -3,6 +3,7 @@ using UnityEngine;
 public class Asteroid : MonoBehaviour
 {
     [SerializeField] private Sprite[] _sprites = new Sprite[3];
+    [SerializeField] private ParticleSystem _explosionEffect;
     
     private float _moveSpeed;
     private float _rotationSpeed;
@@ -94,6 +95,7 @@ public class Asteroid : MonoBehaviour
     {
         if (collision.CompareTag("Bullet") || collision.CompareTag("Player"))
         {
+            Instantiate(_explosionEffect, transform.position, Quaternion.identity);
             HasBeenHit = true;
         }
     }
