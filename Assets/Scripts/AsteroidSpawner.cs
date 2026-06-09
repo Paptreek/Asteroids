@@ -9,12 +9,7 @@ public class AsteroidSpawner : MonoBehaviour
 
     private void Start()
     {
-        SpawnNewRound(4, Asteroid.Size.Large);
-    }
-
-    private void Update()
-    {
-        //RemoveDestroyedAsteroids();
+        SpawnNewRound(4, Asteroid.Size.Large); // this call should move to GameManager eventually
     }
 
     public void SpawnAsteroids(Asteroid.Size size, Vector3 location)
@@ -48,18 +43,6 @@ public class AsteroidSpawner : MonoBehaviour
             asteroid.SetSize(size);
             asteroid.SetInitialSpawnData(direction, location);
             Asteroids.Add(asteroid);
-        }
-    }
-
-    private void RemoveDestroyedAsteroids()
-    {
-        for (int i = 0; i < Asteroids.Count; i++)
-        {
-            if (Asteroids[i] == null)
-            {
-                Debug.Log($"AsteroidSpawner found a null asteroid. Removing from list.");
-                Asteroids.Remove(Asteroids[i]);
-            }
         }
     }
 }

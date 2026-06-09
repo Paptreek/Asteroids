@@ -9,8 +9,6 @@ public class PlayerAttack : MonoBehaviour
     private float _secondsBetweenShots = 0.25f;
     private float _cooldownTimer;
 
-    private GameObject _testObj;
-
     private void Awake()
     {
         _attackAction = InputSystem.actions.FindAction("Attack");

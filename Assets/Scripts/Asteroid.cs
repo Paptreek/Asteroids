@@ -4,16 +4,16 @@ public class Asteroid : MonoBehaviour
 {
     private float _moveSpeed;
     private Vector3 _size;
-    
-    public Vector3 MoveDirection { get; set; }
-    public Vector3 SpawnLocation { get; set; }
-    public bool HasBeenShot { get; set; }
+    private Vector3 _moveDirection;
+    private Vector3 _spawnLocation;
+
+    public bool HasBeenShot { get; private set; }
     public Size AsteroidSize { get; private set; }
     public enum Size { Large, Medium, Small }
 
     private void Start()
     {
-        transform.position = SpawnLocation;
+        transform.position = _spawnLocation;
     }
 
     private void Update()
@@ -24,8 +24,8 @@ public class Asteroid : MonoBehaviour
 
     public void SetInitialSpawnData(Vector3 direction, Vector3 location)
     {
-        MoveDirection = direction;
-        SpawnLocation = location;
+        _moveDirection = direction;
+        _spawnLocation = location;
 
         Debug.Log($"X Direction: {direction.x}, Y Direction: {direction.y}");
     }
@@ -58,8 +58,8 @@ public class Asteroid : MonoBehaviour
 
     private void Move()
     {
-        float moveSpeedX = MoveDirection.x * _moveSpeed * Time.deltaTime;
-        float moveSpeedY = MoveDirection.y * _moveSpeed * Time.deltaTime;
+        float moveSpeedX = _moveDirection.x * _moveSpeed * Time.deltaTime;
+        float moveSpeedY = _moveDirection.y * _moveSpeed * Time.deltaTime;
 
         transform.Translate(moveSpeedX, moveSpeedY, 0);
     }
@@ -69,7 +69,6 @@ public class Asteroid : MonoBehaviour
         if (collision.CompareTag("Bullet"))
         {
             HasBeenShot = true;
-            //Destroy(gameObject);
         }
     }
 }
