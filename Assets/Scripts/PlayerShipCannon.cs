@@ -4,9 +4,11 @@ using UnityEngine.InputSystem;
 public class PlayerShipCannon : MonoBehaviour
 {
     [SerializeField] private Bullet _bulletPrefab;
+    [SerializeField] private Transform _cannonTransform;
 
     private InputAction _attackAction;
-    private float _secondsBetweenShots = 0.25f;
+    private Vector3 _cannonPosition;
+    private float _secondsBetweenShots = 0.50f;
     private float _cooldownTimer;
 
     private void Awake()
@@ -25,9 +27,9 @@ public class PlayerShipCannon : MonoBehaviour
     {
         if (_attackAction.IsPressed() && _cooldownTimer <= 0)
         {
-            Vector3 spawnPosition = transform.position;
+            _cannonPosition = _cannonTransform.position;
 
-            Bullet bullet = Instantiate(_bulletPrefab, spawnPosition, transform.rotation);
+            Bullet bullet = Instantiate(_bulletPrefab, _cannonPosition, transform.rotation);
             bullet.SetFiringShipSpeed(this);
 
             _cooldownTimer = _secondsBetweenShots;

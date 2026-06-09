@@ -20,9 +20,12 @@ public class AsteroidSpawner : MonoBehaviour
             float directionY = Random.value > 0.5f ? Random.Range(-1.0f, -0.25f) : Random.Range(0.25f, 1.0f);
             Vector3 direction = new Vector3(directionX, directionY);
 
+            float randomLocationX = Random.Range(-1.0f, 1.0f);
+            float randomLocationY = Random.Range(-1.0f, 1.0f);
+
             Asteroid asteroid = Instantiate(_asteroid);
             asteroid.SetSize(size);
-            asteroid.SetInitialSpawnData(direction, location);
+            asteroid.SetInitialSpawnData(direction, new Vector3(location.x + randomLocationX, location.y + randomLocationY));
             Asteroids.Add(asteroid);
         }
     }
