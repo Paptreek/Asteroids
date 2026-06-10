@@ -36,9 +36,11 @@ public class AsteroidSpawner : MonoBehaviour
             Vector3 location = new(locationX, locationY);
 
             Asteroid asteroid = Instantiate(_asteroid);
-            asteroid.SetSize(size);
+            asteroid.SetSize(size); // this isn't really necessary, but useful for testing
             asteroid.SetInitialSpawnData(direction, location);
             asteroidList.Add(asteroid);
         }
+
+        Debug.Log($"Number of asteroids spawned: {numberToSpawn}");
     }
 }
