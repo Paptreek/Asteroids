@@ -1,9 +1,12 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class AsteroidManager : MonoBehaviour
 {
     [SerializeField] private AsteroidSpawner _asteroidSpawner;
     [SerializeField] private Asteroid _asteroid;
+
+    public List<Asteroid> Asteroids { get; private set; } = new List<Asteroid>();
 
     private void Update()
     {
@@ -12,21 +15,21 @@ public class AsteroidManager : MonoBehaviour
 
     private void SplitDestroyedAsteroids()
     {
-        foreach (Asteroid asteroid in _asteroidSpawner.Asteroids.ToArray())
+        foreach (Asteroid asteroid in Asteroids.ToArray())
         {
             if (asteroid.HasBeenHit)
             {
                 if (asteroid.AsteroidSize == Asteroid.Size.Large)
                 {
-                    _asteroidSpawner.SpawnAsteroids(Asteroid.Size.Medium, asteroid.transform.position);
+                    _asteroidSpawner.SpawnFromDestroyed(Asteroid.Size.Medium, asteroid.transform.position, Asteroids);
                 }
 
                 if (asteroid.AsteroidSize == Asteroid.Size.Medium)
                 {
-                    _asteroidSpawner.SpawnAsteroids(Asteroid.Size.Small, asteroid.transform.position);
+                    _asteroidSpawner.SpawnFromDestroyed(Asteroid.Size.Small, asteroid.transform.position, Asteroids);
                 }
 
-                _asteroidSpawner.Asteroids.Remove(asteroid);
+                Asteroids.Remove(asteroid);
                 Destroy(asteroid.gameObject);
             }
         }

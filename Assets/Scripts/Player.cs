@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PlayerShip : MonoBehaviour
+public class Player : MonoBehaviour
 {
     [SerializeField] private ParticleSystem _explosionEffect;
 
@@ -14,7 +14,6 @@ public class PlayerShip : MonoBehaviour
         if (collision.CompareTag("Enemy"))
         {
             Instantiate(_explosionEffect, transform.position, Quaternion.identity);
-            //_explosionEffect.Play();
             Destroy(gameObject);
         }
     }
