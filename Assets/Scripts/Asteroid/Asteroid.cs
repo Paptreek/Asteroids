@@ -34,7 +34,7 @@ public class Asteroid : MonoBehaviour
     {
         Move();
         Rotate();
-        ScreenManager.WrapAroundScreen(transform, 19.5f, 15.25f);
+        WrapAroundScreen();
     }
 
     public void SetInitialSpawnData(Vector3 direction, Vector3 location)
@@ -97,6 +97,22 @@ public class Asteroid : MonoBehaviour
         {
             Instantiate(_explosionEffect, transform.position, Quaternion.identity);
             HasBeenHit = true;
+        }
+    }
+
+    private void WrapAroundScreen()
+    {
+        if (AsteroidSize == Size.Large)
+        {
+            ScreenManager.WrapAroundScreen(transform, 19.5f, 15.25f);
+        }
+        else if (AsteroidSize == Size.Medium)
+        {
+            ScreenManager.WrapAroundScreen(transform, 18.5f, 14.25f);
+        }
+        else if (AsteroidSize == Size.Small)
+        {
+            ScreenManager.WrapAroundScreen(transform, 18.1f, 13.75f);
         }
     }
 }
