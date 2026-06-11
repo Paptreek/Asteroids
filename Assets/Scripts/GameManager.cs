@@ -7,17 +7,20 @@ public class GameManager : MonoBehaviour
     [SerializeField] private AsteroidSpawner _asteroidSpawner;
 
     private int _round = 1;
+    private int _score;
     private bool _playerHasWon;
 
     private void Start()
     {
-        _asteroidSpawner.SpawnNewRound(4, Asteroid.Size.Large, _asteroidManager.Asteroids);
+        _asteroidSpawner.SpawnNewRound(1, Asteroid.Size.Small, _asteroidManager.Asteroids);
     }
 
     private void Update()
     {
         CheckToStartNewRound();
         CheckForGameOver();
+
+        Debug.Log($"Score: {GetCurrentScore()}");
     }
 
     private void CheckToStartNewRound()
@@ -30,7 +33,12 @@ public class GameManager : MonoBehaviour
             {
                 _round++;
                 Debug.Log($"Round complete. Starting round {_round}!");
-                _asteroidSpawner.SpawnNewRound(3 + _round, Asteroid.Size.Large, _asteroidManager.Asteroids);
+                _player.ResetPosition();
+
+                if (_player != null)
+                {
+                    _asteroidSpawner.SpawnNewRound(3 + _round, Asteroid.Size.Large, _asteroidManager.Asteroids);
+                }
             }
             else
             {
@@ -50,5 +58,14 @@ public class GameManager : MonoBehaviour
         {
             Debug.Log($"All rounds completed. You win!");
         }
+    }
+
+    private int GetCurrentScore()
+    {
+        int pointsForLarge = _asteroidManager.LargeAsteroidsDestroyed * 50;
+        int pointsForMedium = _asteroidManager.MediumAsteroidsDestroyed * 100;
+        int pointsForSmall = _asteroidManager.SmallAsteroidsDestroyed * 250;
+
+        return _score = pointsForLarge + pointsForMedium + pointsForSmall;
     }
 }

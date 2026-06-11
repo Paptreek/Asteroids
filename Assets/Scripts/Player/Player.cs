@@ -4,6 +4,13 @@ public class Player : MonoBehaviour
 {
     [SerializeField] private ParticleSystem _explosionEffect;
 
+    private Rigidbody2D _rb;
+
+    private void Awake()
+    {
+        _rb = GetComponent<Rigidbody2D>();
+    }
+
     private void Update()
     {
         ScreenManager.WrapAroundScreen(transform, 17.5f, 13.0f);
@@ -16,5 +23,12 @@ public class Player : MonoBehaviour
             Instantiate(_explosionEffect, transform.position, Quaternion.identity);
             Destroy(gameObject);
         }
+    }
+
+    public void ResetPosition()
+    {
+        transform.position = Vector3.zero;
+        transform.eulerAngles = Vector3.zero;
+        _rb.linearVelocity = Vector2.zero;
     }
 }
