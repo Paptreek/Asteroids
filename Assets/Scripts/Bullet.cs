@@ -29,15 +29,14 @@ public class Bullet : MonoBehaviour
     {
         if (_firingShip == FiringShip.Player)
         {
-            if (collision.CompareTag("Asteroid") || collision.CompareTag("EnemyShip")) // for some reason "EnemyShip" breaks the enemy firing
+            if (collision.CompareTag("Asteroid") || collision.CompareTag("EnemyShip"))
             {
                 Destroy(gameObject);
             }
         }
-        
-        if (_firingShip == FiringShip.Enemy)
+        else
         {
-            if (collision.CompareTag("Asteroid") || collision.CompareTag("Player")) // but "Player" does not break player firing...
+            if (collision.CompareTag("Asteroid") || collision.CompareTag("Player"))
             {
                 Destroy(gameObject);
             }
@@ -58,10 +57,12 @@ public class Bullet : MonoBehaviour
     {
         if (firingShip == FiringShip.Player)
         {
+            _firingShip = FiringShip.Player;
             tag = "PlayerBullet";
         }
         else if (firingShip == FiringShip.Enemy)
         {
+            _firingShip = FiringShip.Enemy;
             tag = "EnemyBullet";
         }
     }

@@ -27,8 +27,11 @@ public class Player : MonoBehaviour
 
     public void ResetPosition()
     {
-        transform.position = Vector3.zero;
-        transform.eulerAngles = Vector3.zero;
-        _rb.linearVelocity = Vector2.zero;
+        if (this != null)
+        {
+            transform.position = Vector3.zero;
+            transform.eulerAngles = Vector3.zero;
+            _rb.linearVelocity = Vector2.zero;
+        }
     }
 }
