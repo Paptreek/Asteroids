@@ -13,6 +13,7 @@ public class Asteroid : MonoBehaviour
     private CircleCollider2D _collider;
 
     public bool HasBeenHit { get; private set; }
+    public bool DestroyedByPlayer { get; private set; }
     public Size AsteroidSize { get; private set; }
     public enum Size { Large, Medium, Small }
 
@@ -93,10 +94,17 @@ public class Asteroid : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Bullet") || collision.CompareTag("Player"))
+        if (collision.CompareTag("EnemyBullet") || collision.CompareTag("EnemyShip"))
         {
             Instantiate(_explosionEffect, transform.position, Quaternion.identity);
             HasBeenHit = true;
+        }
+
+        if (collision.CompareTag("PlayerBullet") || collision.CompareTag("Player"))
+        {
+            Instantiate(_explosionEffect, transform.position, Quaternion.identity);
+            HasBeenHit = true;
+            DestroyedByPlayer = true;
         }
     }
 

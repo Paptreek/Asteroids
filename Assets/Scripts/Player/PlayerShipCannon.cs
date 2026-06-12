@@ -3,7 +3,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerShipCannon : MonoBehaviour
 {
-    [SerializeField] private Bullet _bulletPrefab;
+    [SerializeField] private Bullet _bullet;
     [SerializeField] private Transform _cannonTransform;
 
     private InputAction _attackAction;
@@ -29,8 +29,9 @@ public class PlayerShipCannon : MonoBehaviour
         {
             _cannonPosition = _cannonTransform.position;
 
-            Bullet bullet = Instantiate(_bulletPrefab, _cannonPosition, transform.rotation);
+            Bullet bullet = Instantiate(_bullet, _cannonPosition, transform.rotation);
             bullet.SetFiringShipSpeed(this);
+            bullet.SetFiringShip(FiringShip.Player);
 
             _cooldownTimer = _secondsBetweenShots;
         }

@@ -18,7 +18,7 @@ public class Player : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Enemy"))
+        if (collision.CompareTag("Asteroid") || collision.CompareTag("EnemyShip") || collision.CompareTag("EnemyBullet"))
         {
             Instantiate(_explosionEffect, transform.position, Quaternion.identity);
             Destroy(gameObject);
