@@ -6,6 +6,9 @@ public class Player : MonoBehaviour
 
     private Rigidbody2D _rb;
 
+    public int SmallShipsDestroyed { get; set; }
+    public int LargeShipsDestroyed { get; set; }
+
     private void Awake()
     {
         _rb = GetComponent<Rigidbody2D>();
@@ -18,7 +21,7 @@ public class Player : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Enemy"))
+        if (collision.CompareTag("Asteroid") || collision.CompareTag("EnemyShip") || collision.CompareTag("EnemyBullet"))
         {
             Instantiate(_explosionEffect, transform.position, Quaternion.identity);
             Destroy(gameObject);
@@ -27,8 +30,11 @@ public class Player : MonoBehaviour
 
     public void ResetPosition()
     {
-        transform.position = Vector3.zero;
-        transform.eulerAngles = Vector3.zero;
-        _rb.linearVelocity = Vector2.zero;
+        if (this != null)
+        {
+            transform.position = Vector3.zero;
+            transform.eulerAngles = Vector3.zero;
+            _rb.linearVelocity = Vector2.zero;
+        }
     }
 }

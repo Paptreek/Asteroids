@@ -545,7 +545,7 @@ PolygonCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
@@ -553,7 +553,7 @@ PolygonCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1.4}
+    oldSize: {x: 0.9, y: 1.4}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -561,9 +561,20 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 0, y: 0.5773587}
-      - {x: -0.5, y: -0.28866667}
-      - {x: 0.5, y: -0.28866667}
+    - - {x: 0.45542622, y: -0.18319054}
+      - {x: 0.2606336, y: 0.4095547}
+      - {x: 0.15272269, y: 0.6133925}
+      - {x: -0.0025170743, y: 0.72083175}
+      - {x: -0.15720916, y: 0.6108592}
+      - {x: -0.2642935, y: 0.40377167}
+      - {x: -0.36583516, y: 0.10789953}
+      - {x: -0.45469272, y: -0.18294966}
+      - {x: -0.44999474, y: -0.70542604}
+      - {x: -0.33401266, y: -0.707611}
+      - {x: -0.32953408, y: -0.5245791}
+      - {x: 0.32637832, y: -0.52441317}
+      - {x: 0.32780534, y: -0.7041252}
+      - {x: 0.45217565, y: -0.7115346}
   m_UseDelaunayMesh: 1
 --- !u!114 &719431920
 MonoBehaviour:
@@ -590,7 +601,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e965c12227c5ed4f9f3202758548b28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerShipCannon
-  _bulletPrefab: {fileID: 7550064382406723819, guid: ae7cc9eec0f188b46b05659b90ba5077, type: 3}
+  _bullet: {fileID: 7550064382406723819, guid: ae7cc9eec0f188b46b05659b90ba5077, type: 3}
   _cannonTransform: {fileID: 1152038391}
 --- !u!1 &867290859
 GameObject:
@@ -639,6 +650,7 @@ MonoBehaviour:
   _player: {fileID: 719431920}
   _asteroidManager: {fileID: 379349209}
   _asteroidSpawner: {fileID: 89053074}
+  _enemyShipSpawner: {fileID: 1487697755}
 --- !u!1 &1152038390
 GameObject:
   m_ObjectHideFlags: 0
@@ -670,6 +682,52 @@ Transform:
   m_Children: []
   m_Father: {fileID: 719431914}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1487697754
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1487697756}
+  - component: {fileID: 1487697755}
+  m_Layer: 0
+  m_Name: EnemyShipSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1487697755
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1487697754}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6c7ef404b4bbeb45a629e32f2ac3fa7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyShipSpawner
+  _enemyShip: {fileID: 9156966904686701065, guid: 0f919ced6c58e64478abf296f1e9606a, type: 3}
+  _player: {fileID: 719431920}
+--- !u!4 &1487697756
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1487697754}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -678,3 +736,4 @@ SceneRoots:
   - {fileID: 867290860}
   - {fileID: 719431914}
   - {fileID: 379349210}
+  - {fileID: 1487697756}

@@ -24,22 +24,33 @@ public class AsteroidManager : MonoBehaviour
             {
                 if (asteroid.AsteroidSize == Asteroid.Size.Large)
                 {
-                    LargeAsteroidsDestroyed++;
+                    if (asteroid.DestroyedByPlayer)
+                    {
+                        LargeAsteroidsDestroyed++;
+                    }
+
                     _asteroidSpawner.SpawnFromDestroyed(Asteroid.Size.Medium, asteroid.transform.position, Asteroids);
                 }
 
                 if (asteroid.AsteroidSize == Asteroid.Size.Medium)
                 {
-                    MediumAsteroidsDestroyed++;
+                    if (asteroid.DestroyedByPlayer)
+                    {
+                        MediumAsteroidsDestroyed++;
+                    }
+
                     _asteroidSpawner.SpawnFromDestroyed(Asteroid.Size.Small, asteroid.transform.position, Asteroids);
                 }
 
                 if (asteroid.AsteroidSize == Asteroid.Size.Small)
                 {
-                    SmallAsteroidsDestroyed++;
+                    if (asteroid.DestroyedByPlayer)
+                    {
+                        SmallAsteroidsDestroyed++;
+                    }
                 }
 
-                Debug.Log($"Asteroids Destroyed: LG: {LargeAsteroidsDestroyed}, MD: {MediumAsteroidsDestroyed}, SM: {SmallAsteroidsDestroyed}");
+                //Debug.Log($"Asteroids Destroyed by Player: LG: {LargeAsteroidsDestroyed}, MD: {MediumAsteroidsDestroyed}, SM: {SmallAsteroidsDestroyed}");
 
                 Asteroids.Remove(asteroid);
                 Destroy(asteroid.gameObject);
