@@ -50,7 +50,7 @@ public class AsteroidManager : MonoBehaviour
                     }
                 }
 
-                Debug.Log($"Asteroids Destroyed by Player: LG: {LargeAsteroidsDestroyed}, MD: {MediumAsteroidsDestroyed}, SM: {SmallAsteroidsDestroyed}");
+                //Debug.Log($"Asteroids Destroyed by Player: LG: {LargeAsteroidsDestroyed}, MD: {MediumAsteroidsDestroyed}, SM: {SmallAsteroidsDestroyed}");
 
                 Asteroids.Remove(asteroid);
                 Destroy(asteroid.gameObject);

@@ -12,10 +12,13 @@ public class GameManager : MonoBehaviour
     private int _score;
     private int _bonusScore;
     private float _roundTimer = 120.0f;
+    private float _spawnTimerSmall = 45.0f;
+    private float _spawnTimerLarge = 30.0f;
 
     private void Start()
     {
         _asteroidSpawner.SpawnNewRound(4, Asteroid.Size.Large, _asteroidManager.Asteroids);
+        _enemyShipSpawner.SetSpawnTimers(_spawnTimerSmall, _spawnTimerLarge);
     }
 
     private void Update()
@@ -25,7 +28,7 @@ public class GameManager : MonoBehaviour
         CheckToStartNewRound();
         CheckForGameOver();
 
-        Debug.Log($"Score: {GetScore()}");
+        //Debug.Log($"Score: {GetScore()}");
     }
 
     private void CheckToStartNewRound()
@@ -40,6 +43,7 @@ public class GameManager : MonoBehaviour
 
                 if (_player != null)
                 {
+                    _enemyShipSpawner.EnemyShips.Clear();
                     _asteroidSpawner.SpawnNewRound(3 + _round, Asteroid.Size.Large, _asteroidManager.Asteroids);
                 }
             }
@@ -55,12 +59,17 @@ public class GameManager : MonoBehaviour
         if (_player == null)
         {
             Debug.Log($"You died. Game over!");
+            _enemyShipSpawner.enabled = false;
+            _asteroidSpawner.enabled = false;
         }
 
         if (_playerHasWon)
         {
             Debug.Log($"All rounds completed. You win!");
+            _enemyShipSpawner.enabled = false;
+            _asteroidSpawner.enabled = false;
         }
+
     }
 
     private int GetScore()
@@ -82,11 +91,16 @@ public class GameManager : MonoBehaviour
         AddBonusScore();
 
         _round++;
-        Debug.Log($"Round complete. Starting round {_round}!");
+        _spawnTimerSmall -= 2.5f;
+        _spawnTimerLarge -= 2.5f;
+
+        Debug.Log($"Round complete. Starting round {_round}! Spawn Timers: SM {_spawnTimerSmall}, LG {_spawnTimerLarge}");
+
+        DestroyAllEnemyShips();
 
         _roundTimer = 120.0f;
         _player.ResetPosition();
-        _enemyShipSpawner.ResetSpawnTimers();
+        _enemyShipSpawner.SetSpawnTimers(_spawnTimerSmall, _spawnTimerLarge);
     }
 
     private void AddBonusScore()
@@ -96,5 +110,20 @@ public class GameManager : MonoBehaviour
         Debug.Log($"Time Left: {_roundTimer}, Points Added: {pointsToAdd}");
 
         _bonusScore += pointsToAdd;
+    }
+
+    private void DestroyAllEnemyShips()
+    {
+        foreach (EnemyShip enemyShip in _enemyShipSpawner.EnemyShips)
+        {
+            if (enemyShip != null)
+            {
+                Destroy(enemyShip.gameObject);
+            }
+        }
+        
+        _enemyShipSpawner.EnemyShips.Clear();
+
+        Debug.Log($"Ships cleared. # of ships: {_enemyShipSpawner.EnemyShips.Count}");
     }
 }
