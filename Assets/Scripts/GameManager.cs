@@ -65,12 +65,16 @@ public class GameManager : MonoBehaviour
 
     private int GetScore()
     {
-        int pointsForLarge = _asteroidManager.LargeAsteroidsDestroyed * 50;
-        int pointsForMedium = _asteroidManager.MediumAsteroidsDestroyed * 100;
-        int pointsForSmall = _asteroidManager.SmallAsteroidsDestroyed * 250;
-        int baseScore = pointsForLarge + pointsForMedium + pointsForSmall;
+        int pointsForLargeShips = _player.LargeShipsDestroyed * 25;
+        int pointsForSmallShips = _player.SmallShipsDestroyed * 50;
+        int pointsForShips = pointsForLargeShips + pointsForSmallShips;
+        
+        int pointsForLargeAsteroids = _asteroidManager.LargeAsteroidsDestroyed * 5;
+        int pointsForMediumAsteroids = _asteroidManager.MediumAsteroidsDestroyed * 10;
+        int pointsForSmallAsteroids = _asteroidManager.SmallAsteroidsDestroyed * 25;
+        int pointsForAsteroids = pointsForLargeAsteroids + pointsForMediumAsteroids + pointsForSmallAsteroids;
 
-        return _score = _bonusScore + baseScore;
+        return _score = _bonusScore + pointsForShips + pointsForAsteroids;
     }
 
     private void ResetRound()
@@ -87,7 +91,7 @@ public class GameManager : MonoBehaviour
 
     private void AddBonusScore()
     {
-        int pointsToAdd = Mathf.RoundToInt(_roundTimer) * 25;
+        int pointsToAdd = Mathf.RoundToInt(_roundTimer) * 5;
 
         Debug.Log($"Time Left: {_roundTimer}, Points Added: {pointsToAdd}");
 

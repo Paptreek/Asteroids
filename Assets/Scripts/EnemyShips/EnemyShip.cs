@@ -7,8 +7,8 @@ public class EnemyShip : MonoBehaviour
     [SerializeField] private Player _player;
     [SerializeField] private Sprite _spriteLarge;
     [SerializeField] private Sprite _spriteSmall;
-    [SerializeField] private GameObject _colliderSmall;
-    [SerializeField] private GameObject _colliderLarge;
+    [SerializeField] private PolygonCollider2D _colliderSmall;
+    [SerializeField] private PolygonCollider2D _colliderLarge;
 
     private float _cannonTimer = 1.0f; // value is for first bullet, then it turns to _secondsBetweenShots for the rest
     private float _secondsBetweenShots;
@@ -18,6 +18,7 @@ public class EnemyShip : MonoBehaviour
     private float _directionChangeTimer = 1.0f;
     private Vector3 _spawnLocation;
     private SpriteRenderer _spriteRenderer;
+    private PolygonCollider2D _collider;
 
     public ShipSize EnemyShipSize { get; private set; }
     public enum ShipSize { Large, Small }
@@ -25,6 +26,7 @@ public class EnemyShip : MonoBehaviour
     private void Awake()
     {
         _spriteRenderer = GetComponent<SpriteRenderer>();
+        _collider = GetComponent<PolygonCollider2D>();
     }
 
     private void Start()
@@ -57,14 +59,16 @@ public class EnemyShip : MonoBehaviour
             _moveSpeed = 2.5f;
             _secondsBetweenShots = 2.0f;
             _spriteRenderer.sprite = _spriteLarge;
-            _colliderLarge.SetActive(true);
+            //_colliderLarge.SetActive(true);
+            _collider.points = _colliderLarge.points;
         }
         else
         {
             _moveSpeed = 5.0f;
             _secondsBetweenShots = 1.0f;
             _spriteRenderer.sprite = _spriteSmall;
-            _colliderSmall.SetActive(true);
+            //_colliderSmall.SetActive(true);
+            _collider.points = _colliderSmall.points;
             transform.localScale = Vector3.one;
         }
     }
@@ -127,6 +131,37 @@ public class EnemyShip : MonoBehaviour
             //Debug.Log($"Enemy firing bullet! Enemy Pos: {position}, Player Pos: {playerPosition}");
             
             _cannonTimer = _secondsBetweenShots;
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Asteroid"))
+        {
+            Debug.Log($"Enemy ship collided with an asteroid!");
+
+            Instantiate(_explosionEffect, transform.position, Quaternion.identity);
+            Destroy(gameObject);
+        }
+        else if (collision.CompareTag("Player") || collision.CompareTag("PlayerBullet"))
+        {
+            Debug.Log($"Enemy ship destroyed by player!");
+
+            if (EnemyShipSize == ShipSize.Large)
+            {
+                // add 1 to something
+                _player.LargeShipsDestroyed++;
+                Debug.Log($"Large enemy ship destroyed by player! Total: {_player.LargeShipsDestroyed}");
+            }
+            else
+            {
+                // add 1 to something else
+                _player.SmallShipsDestroyed++;
+                Debug.Log($"Small enemy ship destroyed by player! Total: {_player.SmallShipsDestroyed}");
+            }
+
+            Instantiate(_explosionEffect, transform.position, Quaternion.identity);
+            Destroy(gameObject);
         }
     }
 

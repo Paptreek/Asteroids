@@ -6,6 +6,9 @@ public class Player : MonoBehaviour
 
     private Rigidbody2D _rb;
 
+    public int SmallShipsDestroyed { get; set; }
+    public int LargeShipsDestroyed { get; set; }
+
     private void Awake()
     {
         _rb = GetComponent<Rigidbody2D>();
