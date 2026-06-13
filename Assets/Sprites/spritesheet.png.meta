@@ -209,6 +209,50 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: enemy_ship_large
+      rect:
+        serializedVersion: 2
+        x: 130
+        y: 2100
+        width: 160
+        height: 110
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7813b8ab781530d44b51bed354aafb43
+      internalID: -1727860995
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: enemy_ship_small
+      rect:
+        serializedVersion: 2
+        x: 330
+        y: 2120
+        width: 140
+        height: 90
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2dca710552632ec4d9266c1c14bc6c6d
+      internalID: 1084659847
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []
@@ -227,6 +271,8 @@ TextureImporter:
       Asteroid_Medium: -1259408508766424310
       Asteroid_Small: -5962389079421231736
       Player_Ship: 8020143640844766479
+      enemy_ship_large: -1727860995
+      enemy_ship_small: 1084659847
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

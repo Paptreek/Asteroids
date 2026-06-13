@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4693077119822603026}
   - component: {fileID: 551763842716265613}
-  - component: {fileID: 7867375077789776887}
   - component: {fileID: 9156966904686701065}
   m_Layer: 0
   m_Name: EnemyShip
@@ -28,10 +27,12 @@ Transform:
   m_GameObject: {fileID: 3275676978172333319}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -16.25, y: 7, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1.25, y: 1.25, z: 1.25}
   m_ConstrainProportionsScale: 1
-  m_Children: []
+  m_Children:
+  - {fileID: 7002512038543226293}
+  - {fileID: 288082293942381935}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &551763842716265613
@@ -83,7 +84,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
+  m_Sprite: {fileID: 1084659847, guid: 5363b9103a6a44f4fab1c500877479e1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -93,13 +94,65 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
---- !u!58 &7867375077789776887
-CircleCollider2D:
+--- !u!114 &9156966904686701065
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3275676978172333319}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0d9f42943f84824a9b2d41576c1108f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyShip
+  _bullet: {fileID: 7550064382406723819, guid: ae7cc9eec0f188b46b05659b90ba5077, type: 3}
+  _explosionEffect: {fileID: 4475403969655251890, guid: 210b1c104a2a4b1458186703fd24a933, type: 3}
+  _player: {fileID: 0}
+  _spriteLarge: {fileID: -1727860995, guid: 5363b9103a6a44f4fab1c500877479e1, type: 3}
+  _spriteSmall: {fileID: 1084659847, guid: 5363b9103a6a44f4fab1c500877479e1, type: 3}
+  _colliderSmall: {fileID: 7900020791085130507}
+  _colliderLarge: {fileID: 5144048300750835243}
+--- !u!1 &5144048300750835243
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 288082293942381935}
+  - component: {fileID: 7430109212319761238}
+  - component: {fileID: 2000972149493314766}
+  m_Layer: 0
+  m_Name: Large Collider
+  m_TagString: EnemyShip
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &288082293942381935
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5144048300750835243}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4693077119822603026}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!60 &7430109212319761238
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5144048300750835243}
   m_Enabled: 1
   serializedVersion: 3
   m_Density: 1
@@ -128,19 +181,152 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Radius: 0.5
---- !u!114 &9156966904686701065
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: 0.6006346, y: 0.24898814}
+      - {x: 0.19346142, y: 0.54465234}
+      - {x: -0.0044845585, y: 0.55826527}
+      - {x: -0.19870931, y: 0.5486609}
+      - {x: -0.31629354, y: 0.45388126}
+      - {x: -0.59818596, y: 0.24971485}
+      - {x: -0.8008231, y: 0.051151812}
+      - {x: -0.7979342, y: -0.2504351}
+      - {x: -0.6012404, y: -0.45697507}
+      - {x: -0.40593892, y: -0.5520929}
+      - {x: 0.3965704, y: -0.544549}
+      - {x: 0.59790933, y: -0.44910833}
+      - {x: 0.8008042, y: -0.25516748}
+      - {x: 0.80082226, y: 0.05115199}
+  m_UseDelaunayMesh: 1
+--- !u!114 &2000972149493314766
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3275676978172333319}
+  m_GameObject: {fileID: 5144048300750835243}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0d9f42943f84824a9b2d41576c1108f, type: 3}
+  m_Script: {fileID: 11500000, guid: 5ba4b757dff7fd048bf474294ba64cb4, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EnemyShip
-  _bullet: {fileID: 7550064382406723819, guid: ae7cc9eec0f188b46b05659b90ba5077, type: 3}
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyShipCollision
+  _ship: {fileID: 3275676978172333319}
   _explosionEffect: {fileID: 4475403969655251890, guid: 210b1c104a2a4b1458186703fd24a933, type: 3}
-  _secondsBetweenShots: 2
+--- !u!1 &7900020791085130507
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7002512038543226293}
+  - component: {fileID: 4113091838384975186}
+  - component: {fileID: 1011255173150374593}
+  m_Layer: 0
+  m_Name: Small Collider
+  m_TagString: EnemyShip
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &7002512038543226293
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7900020791085130507}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4693077119822603026}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!60 &4113091838384975186
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7900020791085130507}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: 0.30573714, y: 0.2530752}
+      - {x: 0.10474853, y: 0.4517368}
+      - {x: -0.09961414, y: 0.4510378}
+      - {x: -0.30473083, y: 0.2577566}
+      - {x: -0.49537066, y: 0.15502681}
+      - {x: -0.70166194, y: -0.044050425}
+      - {x: -0.70309615, y: -0.15040609}
+      - {x: -0.5030943, y: -0.35213113}
+      - {x: -0.3049349, y: -0.44782624}
+      - {x: 0.30919647, y: -0.4457368}
+      - {x: 0.5483595, y: -0.32306844}
+      - {x: 0.70225734, y: -0.14844991}
+      - {x: 0.70235735, y: -0.09538939}
+      - {x: 0.69837856, y: -0.049809854}
+      - {x: 0.50085664, y: 0.15969348}
+  m_UseDelaunayMesh: 1
+--- !u!114 &1011255173150374593
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7900020791085130507}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ba4b757dff7fd048bf474294ba64cb4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyShipCollision
+  _ship: {fileID: 3275676978172333319}
+  _explosionEffect: {fileID: 4475403969655251890, guid: 210b1c104a2a4b1458186703fd24a933, type: 3}

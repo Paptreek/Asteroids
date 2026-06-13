@@ -5,6 +5,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Player _player;
     [SerializeField] private AsteroidManager _asteroidManager;
     [SerializeField] private AsteroidSpawner _asteroidSpawner;
+    [SerializeField] private EnemyShipSpawner _enemyShipSpawner;
 
     private bool _playerHasWon;
     private int _round = 1;
@@ -81,6 +82,7 @@ public class GameManager : MonoBehaviour
 
         _roundTimer = 120.0f;
         _player.ResetPosition();
+        _enemyShipSpawner.ResetSpawnTimers();
     }
 
     private void AddBonusScore()

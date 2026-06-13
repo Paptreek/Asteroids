@@ -2,9 +2,13 @@ using UnityEngine;
 
 public class EnemyShip : MonoBehaviour
 {
-    [SerializeField] Bullet _bullet;
-    [SerializeField] ParticleSystem _explosionEffect;
-    [SerializeField] Player _player;
+    [SerializeField] private Bullet _bullet;
+    [SerializeField] private ParticleSystem _explosionEffect;
+    [SerializeField] private Player _player;
+    [SerializeField] private Sprite _spriteLarge;
+    [SerializeField] private Sprite _spriteSmall;
+    [SerializeField] private GameObject _colliderSmall;
+    [SerializeField] private GameObject _colliderLarge;
 
     private float _cannonTimer = 1.0f; // value is for first bullet, then it turns to _secondsBetweenShots for the rest
     private float _secondsBetweenShots;
@@ -13,9 +17,15 @@ public class EnemyShip : MonoBehaviour
     private float _moveSpeed;
     private float _directionChangeTimer = 1.0f;
     private Vector3 _spawnLocation;
-    private ShipSize _shipSize;
+    private SpriteRenderer _spriteRenderer;
 
+    public ShipSize EnemyShipSize { get; private set; }
     public enum ShipSize { Large, Small }
+
+    private void Awake()
+    {
+        _spriteRenderer = GetComponent<SpriteRenderer>();
+    }
 
     private void Start()
     {
@@ -40,17 +50,21 @@ public class EnemyShip : MonoBehaviour
 
     public void SetShipSize(ShipSize shipSize)
     {
-        _shipSize = shipSize;
+        EnemyShipSize = shipSize;
 
         if (shipSize == ShipSize.Large)
         {
             _moveSpeed = 2.5f;
             _secondsBetweenShots = 2.0f;
+            _spriteRenderer.sprite = _spriteLarge;
+            _colliderLarge.SetActive(true);
         }
         else
         {
             _moveSpeed = 5.0f;
             _secondsBetweenShots = 1.0f;
+            _spriteRenderer.sprite = _spriteSmall;
+            _colliderSmall.SetActive(true);
             transform.localScale = Vector3.one;
         }
     }
@@ -96,10 +110,8 @@ public class EnemyShip : MonoBehaviour
         if (_cannonTimer <= 0)
         {
             float firingDirection;
-            //Vector3 position = transform.position;
-            //Vector3 playerPosition = Vector3.zero;
 
-            if (_shipSize == ShipSize.Small)
+            if (EnemyShipSize == ShipSize.Small)
             {
                 firingDirection = AimTowardPlayer();
             }
@@ -108,7 +120,6 @@ public class EnemyShip : MonoBehaviour
                 firingDirection = Random.Range(0, 360f);
             }
 
-
             Bullet bullet = Instantiate(_bullet, transform.position, transform.rotation);
             bullet.SetFiringShip(FiringShip.Enemy);
             bullet.SetFiringDirection(firingDirection);
@@ -116,15 +127,6 @@ public class EnemyShip : MonoBehaviour
             //Debug.Log($"Enemy firing bullet! Enemy Pos: {position}, Player Pos: {playerPosition}");
             
             _cannonTimer = _secondsBetweenShots;
-        }
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.CompareTag("Player") || collision.CompareTag("PlayerBullet") || collision.CompareTag("Asteroid"))
-        {
-            Instantiate(_explosionEffect, transform.position, Quaternion.identity);
-            Destroy(gameObject);
         }
     }
 
