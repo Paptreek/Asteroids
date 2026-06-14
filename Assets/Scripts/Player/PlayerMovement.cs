@@ -8,12 +8,14 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody2D _rb;
     private InputAction _moveAction;
     private InputAction _turnAction;
+    private Animator _animator;
 
     private void Awake()
     {
         _rb = GetComponent<Rigidbody2D>();
         _moveAction = InputSystem.actions.FindAction("Move");
         _turnAction = InputSystem.actions.FindAction("Turn");
+        _animator = GetComponent<Animator>();
     }
 
     private void FixedUpdate()
@@ -28,6 +30,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (_moveAction.IsPressed())
         {
+            _animator.SetTrigger("Moving");
             _rb.AddRelativeForceY(moveSpeed);
         }
     }
