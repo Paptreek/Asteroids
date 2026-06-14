@@ -6,25 +6,37 @@ public class Player : MonoBehaviour
     [SerializeField] private GameObject _respawnArea;
 
     private Rigidbody2D _rb;
+    private PolygonCollider2D _collider;
+    private SpriteRenderer _spriteRenderer;
     private float _respawnCheckTimer;
+    private float _enableCollisionTimer = 1.5f;
 
     public bool IsDead { get; set; }
-    public int RemainingLives { get; private set; } = 100;
+    public int RemainingLives { get; private set; } = 3;
     public int SmallShipsDestroyed { get; set; }
     public int LargeShipsDestroyed { get; set; }
 
     private void Awake()
     {
         _rb = GetComponent<Rigidbody2D>();
+        _collider = GetComponent<PolygonCollider2D>();
+        _spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     private void Update()
     {
+        if (!_collider.enabled)
+        {
+            Debug.Log($"COLLIDER DISABLED!");
+            _enableCollisionTimer -= Time.deltaTime;
+        }
+
         _respawnCheckTimer -= Time.deltaTime;
 
         ScreenManager.WrapAroundScreen(transform, 17.5f, 13.0f);
 
-        CheckForRespawn();
+        CheckForRespawnIfDead();
+        EnableColliderAfterWait();
     }
 
     public void ResetPosition()
@@ -53,8 +65,9 @@ public class Player : MonoBehaviour
             _respawnCheckTimer = 0.25f;
             RemainingLives--;
             IsDead = true;
-            GetComponent<SpriteRenderer>().enabled = false;
-            GetComponent<PolygonCollider2D>().enabled = false;
+
+            _spriteRenderer.enabled = false;
+            _collider.enabled = false;
         }
         else
         {
@@ -64,7 +77,7 @@ public class Player : MonoBehaviour
         Debug.Log($"You died! Remaining Lives: {RemainingLives}");
     }
 
-    private void CheckForRespawn()
+    private void CheckForRespawnIfDead()
     {
         Debug.Log($"Respawn Area Clear? {_respawnArea.GetComponent<RespawnArea>().IsClearOfDanger}");
 
@@ -73,10 +86,21 @@ public class Player : MonoBehaviour
             if (_respawnArea.GetComponent<RespawnArea>().IsClearOfDanger)
             {
                 ResetPosition();
-                GetComponent<SpriteRenderer>().enabled = true;
-                GetComponent<PolygonCollider2D>().enabled = true;
+
                 IsDead = false;
+
+                _spriteRenderer.enabled = true;
+
             }
+        }
+    }
+
+    private void EnableColliderAfterWait()
+    {
+        if (!_collider.enabled && _enableCollisionTimer <= 0)
+        {
+            _collider.enabled = true;
+            _enableCollisionTimer = 1.5f;
         }
     }
 }
