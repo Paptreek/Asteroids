@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8347945247168006583}
   - component: {fileID: 3636689269239401867}
   - component: {fileID: 7946128815227568064}
+  - component: {fileID: 4408120050457669942}
   m_Layer: 0
   m_Name: WarpEffect
   m_TagString: Untagged
@@ -4894,3 +4895,15 @@ ParticleSystemRenderer:
   m_MeshWeighting1: 1
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
+--- !u!114 &4408120050457669942
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6786684422985050873}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94c991a216790664687e0373312e90e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DestroyEffect

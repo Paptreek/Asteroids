@@ -4,7 +4,8 @@ using UnityEngine.InputSystem;
 public class Ability : MonoBehaviour
 {
     [SerializeField] private ParticleSystem _warpEffect;
-    
+
+    private int _warpUses = 1;
     private InputAction _warp;
 
     private void Awake()
@@ -22,11 +23,19 @@ public class Ability : MonoBehaviour
 
     private void Warp()
     {
-        Instantiate(_warpEffect, transform.position, Quaternion.identity);
+        if (_warpUses > 0)
+        {
+            Instantiate(_warpEffect, transform.position, Quaternion.identity);
 
-        float newPositionX = Random.Range(-18.0f, 18.0f);
-        float newPositionY = Random.Range(-14.0f, 14.0f);
+            float newPositionX = Random.Range(-18.0f, 18.0f);
+            float newPositionY = Random.Range(-14.0f, 14.0f);
 
-        transform.position = new Vector3(newPositionX, newPositionY);
+            transform.position = new Vector3(newPositionX, newPositionY);
+
+            Instantiate(_warpEffect, transform.position, Quaternion.identity);
+
+            _warpUses--;
+        }
+
     }
 }

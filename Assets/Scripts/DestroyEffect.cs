@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class ExplosionEffect : MonoBehaviour
+public class DestroyEffect : MonoBehaviour
 {
     private void Start()
     {

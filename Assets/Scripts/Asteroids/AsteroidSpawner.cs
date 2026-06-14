@@ -41,6 +41,6 @@ public class AsteroidSpawner : MonoBehaviour
             asteroidList.Add(asteroid);
         }
 
-        Debug.Log($"Number of asteroids spawned: {numberToSpawn}");
+        //Debug.Log($"Number of asteroids spawned: {numberToSpawn}");
     }
 }
