@@ -6,7 +6,10 @@ public class Ability : MonoBehaviour
     [SerializeField] private ParticleSystem _warpEffect;
 
     private int _warpUses = 1;
+    private float _abilityTimer;
     private InputAction _warp;
+
+    public bool HasMultiShot { get; private set; }
 
     private void Awake()
     {
@@ -15,9 +18,22 @@ public class Ability : MonoBehaviour
 
     private void Update()
     {
+        _abilityTimer -= Time.deltaTime;
+        
         if (_warp.WasPressedThisFrame())
         {
             Warp();
+        }
+
+        if (Keyboard.current.eKey.wasPressedThisFrame)
+        {
+            HasMultiShot = true;
+            _abilityTimer = 5.0f;
+        }
+
+        if (_abilityTimer <= 0)
+        {
+            HasMultiShot = false;
         }
     }
 
@@ -36,6 +52,5 @@ public class Ability : MonoBehaviour
 
             _warpUses--;
         }
-
     }
 }
