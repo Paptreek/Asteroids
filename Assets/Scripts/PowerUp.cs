@@ -6,6 +6,8 @@ public class PowerUp : MonoBehaviour
     [SerializeField] private Sprite _shieldSprite;
     [SerializeField] private Sprite _pierceSprite;
 
+    private float _enableFlashTimer = 5.0f;
+    private float _spriteRendererFlashTimer = 0.5f;
     private SpriteRenderer _spriteRenderer;
     private AbilityManager _abilityManager;
     private Type _type;
@@ -24,6 +26,14 @@ public class PowerUp : MonoBehaviour
 
     private void Update()
     {
+        _enableFlashTimer -= Time.deltaTime;
+        _spriteRendererFlashTimer -= Time.deltaTime;
+
+        if (_enableFlashTimer <= 2.5f)
+        {
+            FlashSpriteRenderer();
+        }
+
         Destroy(gameObject, 5.0f);
     }
 
@@ -84,6 +94,20 @@ public class PowerUp : MonoBehaviour
         else if (_type == Type.PiercingAmmo)
         {
             _abilityManager.HasPiercingAmmo = true;
+        }
+    }
+
+    private void FlashSpriteRenderer()
+    {
+        if (_spriteRenderer.enabled && _spriteRendererFlashTimer <= 0)
+        {
+            _spriteRenderer.enabled = false;
+            _spriteRendererFlashTimer = 0.25f;
+        }
+        else if (!_spriteRenderer.enabled && _spriteRendererFlashTimer <= 0)
+        {
+            _spriteRenderer.enabled = true;
+            _spriteRendererFlashTimer = 0.25f;
         }
     }
 }

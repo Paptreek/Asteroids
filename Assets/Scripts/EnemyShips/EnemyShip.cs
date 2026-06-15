@@ -125,8 +125,6 @@ public class EnemyShip : MonoBehaviour
             Bullet bullet = Instantiate(_bullet, transform.position, transform.rotation);
             bullet.SetFiringShip(FiringShip.Enemy);
             bullet.SetFiringDirection(firingDirection);
-
-            //Debug.Log($"Enemy firing bullet! Enemy Pos: {position}, Player Pos: {playerPosition}");
             
             _cannonTimer = _secondsBetweenShots;
         }

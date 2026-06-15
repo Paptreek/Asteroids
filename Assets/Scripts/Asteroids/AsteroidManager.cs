@@ -62,11 +62,11 @@ public class AsteroidManager : MonoBehaviour
 
     private void MaybeDropPowerUp(Asteroid asteroid)
     {
-        int randomNumber = Random.Range(0, 16);
-        //int randomNumber = Random.Range(0, 2);
+        //int randomNumber = Random.Range(0, 16);
+        int randomNumber = Random.Range(0, 2);
 
-        if (randomNumber == 15)
-        //if (randomNumber == 1)
+        //if (randomNumber == 15)
+        if (randomNumber == 1)
         {
             PowerUp powerUp = Instantiate(_powerUp, asteroid.transform.position, Quaternion.identity);
             powerUp.SetAbilityManager(_abilityManager);
