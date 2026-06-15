@@ -42,7 +42,7 @@ public class AbilityManager : MonoBehaviour
 
     private void Warp()
     {
-        if (_warpUses > 0)
+        if (_warpUses > 0 && !_player.IsDead)
         {
             Instantiate(_warpEffect, transform.position, Quaternion.identity);
 

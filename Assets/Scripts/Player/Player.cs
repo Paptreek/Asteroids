@@ -12,7 +12,7 @@ public class Player : MonoBehaviour
     private float _enableCollisionTimer = 1.5f;
 
     public bool IsDead { get; set; }
-    public int RemainingLives { get; private set; } = 3;
+    public int RemainingLives { get; private set; } = 100;
     public int SmallShipsDestroyed { get; set; }
     public int LargeShipsDestroyed { get; set; }
 
@@ -25,9 +25,9 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-        if (!_collider.enabled)
+        if (!_collider.enabled && !IsDead)
         {
-            Debug.Log($"COLLIDER DISABLED!");
+            //Debug.Log($"COLLIDER DISABLED!");
             _enableCollisionTimer -= Time.deltaTime;
         }
 
