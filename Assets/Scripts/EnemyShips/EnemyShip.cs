@@ -59,7 +59,6 @@ public class EnemyShip : MonoBehaviour
             _moveSpeed = 2.5f;
             _secondsBetweenShots = 2.0f;
             _spriteRenderer.sprite = _spriteLarge;
-            //_colliderLarge.SetActive(true);
             _collider.points = _colliderLarge.points;
         }
         else
@@ -67,7 +66,6 @@ public class EnemyShip : MonoBehaviour
             _moveSpeed = 5.0f;
             _secondsBetweenShots = 1.0f;
             _spriteRenderer.sprite = _spriteSmall;
-            //_colliderSmall.SetActive(true);
             _collider.points = _colliderSmall.points;
             transform.localScale = Vector3.one;
         }
@@ -143,19 +141,18 @@ public class EnemyShip : MonoBehaviour
             Instantiate(_explosionEffect, transform.position, Quaternion.identity);
             Destroy(gameObject);
         }
-        else if (collision.CompareTag("Player") || collision.CompareTag("PlayerBullet"))
+
+        if (collision.CompareTag("Player") || collision.CompareTag("PlayerBullet"))
         {
             Debug.Log($"Enemy ship destroyed by player!");
 
             if (EnemyShipSize == ShipSize.Large)
             {
-                // add 1 to something
                 _player.LargeShipsDestroyed++;
                 Debug.Log($"Large enemy ship destroyed by player! Total: {_player.LargeShipsDestroyed}");
             }
             else
             {
-                // add 1 to something else
                 _player.SmallShipsDestroyed++;
                 Debug.Log($"Small enemy ship destroyed by player! Total: {_player.SmallShipsDestroyed}");
             }

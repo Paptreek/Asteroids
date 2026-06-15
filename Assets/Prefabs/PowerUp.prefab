@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1496479890775437855}
   - component: {fileID: 6428265570889775504}
   - component: {fileID: 4806087989649840723}
+  - component: {fileID: 2492883118615308369}
   - component: {fileID: 7048414872530146536}
   m_Layer: 0
   m_Name: PowerUp
@@ -123,7 +124,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
@@ -139,6 +140,33 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1.4, y: 1.4}
   m_EdgeRadius: 0
+--- !u!50 &2492883118615308369
+Rigidbody2D:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 323769143979638763}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!114 &7048414872530146536
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -151,3 +179,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5af5e51f3af303b46b1e22d6976de593, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PowerUp
+  _multiShotSprite: {fileID: 2093745627, guid: 5363b9103a6a44f4fab1c500877479e1, type: 3}
+  _shieldSprite: {fileID: -414406506, guid: 5363b9103a6a44f4fab1c500877479e1, type: 3}
+  _pierceSprite: {fileID: -1852216048, guid: 5363b9103a6a44f4fab1c500877479e1, type: 3}
