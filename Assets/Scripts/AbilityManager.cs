@@ -6,6 +6,7 @@ public class AbilityManager : MonoBehaviour
     [SerializeField] private ParticleSystem _warpEffect;
     [SerializeField] private Player _player;
     [SerializeField] private GameObject _playerShield;
+    [SerializeField] private GameObject _multishotCannonSpriteObj;
 
     private float _multiShotTimer;
     private float _shieldTimer;
@@ -73,12 +74,24 @@ public class AbilityManager : MonoBehaviour
         {
             MultiShotActivated = true;
             HasMultiShot = false;
+
             _multiShotTimer = 5.0f;
+            
+            _multishotCannonSpriteObj.SetActive(true);
         }
 
         if (_multiShotTimer <= 0)
         {
             MultiShotActivated = false;
+        }
+
+        if (MultiShotActivated && _player.GetComponent<SpriteRenderer>().enabled)
+        {
+            _multishotCannonSpriteObj.SetActive(true);
+        }
+        else
+        {
+            _multishotCannonSpriteObj.SetActive(false);
         }
     }
 
@@ -90,7 +103,7 @@ public class AbilityManager : MonoBehaviour
             _player.GetComponent<PolygonCollider2D>().enabled = false;
             ShieldActivated = true;
             HasShield = false;
-            _shieldTimer = 1.5f;
+            _shieldTimer = 2.5f;
         }
 
         if (ShieldActivated)
