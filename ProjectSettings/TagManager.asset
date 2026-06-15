@@ -8,6 +8,7 @@ TagManager:
   - PlayerBullet
   - Asteroid
   - EnemyShip
+  - GameOver
   layers:
   - Default
   - TransparentFX

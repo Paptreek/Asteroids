@@ -132,7 +132,7 @@ public class EnemyShip : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Asteroid"))
+        if (collision.CompareTag("Asteroid") || collision.CompareTag("GameOver"))
         {
             Debug.Log($"Enemy ship collided with an asteroid!");
 

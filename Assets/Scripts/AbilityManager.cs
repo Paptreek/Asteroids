@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Rendering;
 
 public class AbilityManager : MonoBehaviour
 {
@@ -7,6 +8,7 @@ public class AbilityManager : MonoBehaviour
     [SerializeField] private Player _player;
     [SerializeField] private GameObject _playerShield;
     [SerializeField] private GameObject _multishotCannonSpriteObj;
+    [SerializeField] private PowerUp _powerUp;
 
     private float _multiShotTimer;
     private float _shieldTimer;
@@ -42,6 +44,19 @@ public class AbilityManager : MonoBehaviour
         ManageMultiShotPowerUp();
         ManageShieldPowerUp();
         ManagePiercingPowerUp();
+    }
+
+    public void MaybeDropPowerUp(Asteroid asteroid)
+    {
+        int randomNumber = Random.Range(0, 16);
+        //int randomNumber = Random.Range(0, 2);
+
+        if (randomNumber == 15)
+        //if (randomNumber == 1)
+        {
+            PowerUp powerUp = Instantiate(_powerUp, asteroid.transform.position, Quaternion.identity);
+            powerUp.SetAbilityManager(this);
+        }
     }
 
     public void ClearPowerUps()
@@ -85,13 +100,16 @@ public class AbilityManager : MonoBehaviour
             MultiShotActivated = false;
         }
 
-        if (MultiShotActivated && _player.GetComponent<SpriteRenderer>().enabled)
+        if (_player != null)
         {
-            _multishotCannonSpriteObj.SetActive(true);
-        }
-        else
-        {
-            _multishotCannonSpriteObj.SetActive(false);
+            if (MultiShotActivated && _player.GetComponent<SpriteRenderer>().enabled)
+            {
+                _multishotCannonSpriteObj.SetActive(true);
+            }
+            else
+            {
+                _multishotCannonSpriteObj.SetActive(false);
+            }
         }
     }
 

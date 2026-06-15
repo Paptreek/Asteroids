@@ -94,7 +94,7 @@ public class Asteroid : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("EnemyBullet") || collision.CompareTag("EnemyShip"))
+        if (collision.CompareTag("EnemyBullet") || collision.CompareTag("EnemyShip") || collision.CompareTag("GameOver"))
         {
             Instantiate(_explosionEffect, transform.position, Quaternion.identity);
             HasBeenHit = true;
