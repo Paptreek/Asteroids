@@ -4,17 +4,18 @@ public class Player : MonoBehaviour
 {
     [SerializeField] private ParticleSystem _explosionEffect;
     [SerializeField] private GameObject _respawnArea;
+    [SerializeField] private AbilityManager _abilityManager;
 
     private Rigidbody2D _rb;
     private PolygonCollider2D _collider;
     private SpriteRenderer _spriteRenderer;
     private float _respawnCheckTimer;
-    private float _enableCollisionTimer = 1.5f;
 
     public bool IsDead { get; set; }
-    public int RemainingLives { get; private set; } = 100;
+    public int RemainingLives { get; private set; } = 3;
     public int SmallShipsDestroyed { get; set; }
     public int LargeShipsDestroyed { get; set; }
+    public float EnableCollisionTimer { get; private set; } = 1.5f;
 
     private void Awake()
     {
@@ -25,10 +26,10 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-        if (!_collider.enabled && !IsDead)
+        if (!_collider.enabled && !IsDead && !_abilityManager.ShieldActivated)
         {
             //Debug.Log($"COLLIDER DISABLED!");
-            _enableCollisionTimer -= Time.deltaTime;
+            EnableCollisionTimer -= Time.deltaTime;
         }
 
         _respawnCheckTimer -= Time.deltaTime;
@@ -90,17 +91,17 @@ public class Player : MonoBehaviour
                 IsDead = false;
 
                 _spriteRenderer.enabled = true;
-                _enableCollisionTimer = 1.5f;
+                EnableCollisionTimer = 1.5f;
             }
         }
     }
 
     private void EnableColliderAfterWait()
     {
-        if (!_collider.enabled && _enableCollisionTimer <= 0)
+        if (!_collider.enabled && EnableCollisionTimer <= 0)
         {
             _collider.enabled = true;
-            _enableCollisionTimer = 1.5f;
+            EnableCollisionTimer = 1.5f;
         }
     }
 }

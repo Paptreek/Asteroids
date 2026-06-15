@@ -10,8 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4693077119822603026}
   - component: {fileID: 551763842716265613}
-  - component: {fileID: 9156966904686701065}
+  - component: {fileID: 2094667899070013599}
   - component: {fileID: 5073660980889503655}
+  - component: {fileID: 9156966904686701065}
   m_Layer: 0
   m_Name: EnemyShip
   m_TagString: EnemyShip
@@ -95,25 +96,33 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
---- !u!114 &9156966904686701065
-MonoBehaviour:
+--- !u!50 &2094667899070013599
+Rigidbody2D:
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3275676978172333319}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0d9f42943f84824a9b2d41576c1108f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EnemyShip
-  _bullet: {fileID: 7550064382406723819, guid: ae7cc9eec0f188b46b05659b90ba5077, type: 3}
-  _explosionEffect: {fileID: 4475403969655251890, guid: 210b1c104a2a4b1458186703fd24a933, type: 3}
-  _player: {fileID: 0}
-  _spriteLarge: {fileID: -1727860995, guid: 5363b9103a6a44f4fab1c500877479e1, type: 3}
-  _spriteSmall: {fileID: 1084659847, guid: 5363b9103a6a44f4fab1c500877479e1, type: 3}
-  _colliderSmall: {fileID: 4113091838384975186}
-  _colliderLarge: {fileID: 7430109212319761238}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!60 &5073660980889503655
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -161,6 +170,25 @@ PolygonCollider2D:
   m_Points:
     m_Paths: []
   m_UseDelaunayMesh: 1
+--- !u!114 &9156966904686701065
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3275676978172333319}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0d9f42943f84824a9b2d41576c1108f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyShip
+  _bullet: {fileID: 7550064382406723819, guid: ae7cc9eec0f188b46b05659b90ba5077, type: 3}
+  _explosionEffect: {fileID: 4475403969655251890, guid: 210b1c104a2a4b1458186703fd24a933, type: 3}
+  _player: {fileID: 0}
+  _spriteLarge: {fileID: -1727860995, guid: 5363b9103a6a44f4fab1c500877479e1, type: 3}
+  _spriteSmall: {fileID: 1084659847, guid: 5363b9103a6a44f4fab1c500877479e1, type: 3}
+  _colliderSmall: {fileID: 4113091838384975186}
+  _colliderLarge: {fileID: 7430109212319761238}
 --- !u!1 &5144048300750835243
 GameObject:
   m_ObjectHideFlags: 0

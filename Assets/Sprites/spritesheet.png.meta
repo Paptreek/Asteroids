@@ -341,6 +341,28 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: shield
+      rect:
+        serializedVersion: 2
+        x: 750
+        y: 2120
+        width: 260
+        height: 260
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d7ca4fb4db034aa43a5210a5a7e56757
+      internalID: 749999793
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []
@@ -367,6 +389,8 @@ TextureImporter:
       powerup_multishot: 2093745627
       powerup_piercing: -1852216048
       powerup_shield: -414406506
+      shield: 749999793
+      shield_large: 1680362057
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

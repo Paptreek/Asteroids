@@ -28,8 +28,8 @@ public class EnemyShipSpawner : MonoBehaviour
 
     private void SpawnEnemyShip()
     {
-        if (_spawnTimerSmall <= 0)
-        //if (Keyboard.current.mKey.wasPressedThisFrame)
+        //if (_spawnTimerSmall <= 0)
+        if (Keyboard.current.mKey.wasPressedThisFrame)
         {
             EnemyShip enemyShip = Instantiate(_enemyShip);
             enemyShip.SetShipSize(EnemyShip.ShipSize.Small);
@@ -41,8 +41,8 @@ public class EnemyShipSpawner : MonoBehaviour
             _spawnTimerSmall = 15.0f; // these should be getting set from GameManager on a per-round basis
         }
 
-        if (_spawnTimerLarge <= 0)
-        //if (Keyboard.current.lKey.wasPressedThisFrame)
+        //if (_spawnTimerLarge <= 0)
+        if (Keyboard.current.lKey.wasPressedThisFrame)
         {
             EnemyShip enemyShip = Instantiate(_enemyShip);
             enemyShip.SetShipSize(EnemyShip.ShipSize.Large);
