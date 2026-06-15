@@ -881,6 +881,7 @@ MonoBehaviour:
   _asteroidManager: {fileID: 379349209}
   _asteroidSpawner: {fileID: 89053074}
   _enemyShipSpawner: {fileID: 1487697755}
+  _abilityManager: {fileID: 1922214655}
 --- !u!1 &1149453676
 GameObject:
   m_ObjectHideFlags: 0

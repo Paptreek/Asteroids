@@ -7,16 +7,19 @@ public class AbilityManager : MonoBehaviour
     [SerializeField] private Player _player;
     [SerializeField] private GameObject _playerShield;
 
-    private int _warpUses = 1;
     private float _multiShotTimer;
     private float _shieldTimer;
+    private float _piercingAmmoTimer;
     private InputAction _warp;
     private InputAction _useAbility;
 
+    public int WarpUses { get; set; } = 1;
     public bool HasMultiShot { get; set; }
     public bool MultiShotActivated { get; set; }
     public bool HasShield { get; set; }
     public bool ShieldActivated { get; set; }
+    public bool HasPiercingAmmo { get; set; }
+    public bool PiercingAmmoActivated { get; set; }
 
     private void Awake()
     {
@@ -28,6 +31,7 @@ public class AbilityManager : MonoBehaviour
     {
         _multiShotTimer -= Time.deltaTime;
         _shieldTimer -= Time.deltaTime;
+        _piercingAmmoTimer -= Time.deltaTime;
         
         if (_warp.WasPressedThisFrame())
         {
@@ -35,13 +39,20 @@ public class AbilityManager : MonoBehaviour
         }
 
         ManageMultiShotPowerUp();
-
         ManageShieldPowerUp();
+        ManagePiercingPowerUp();
     }
 
+    public void ClearPowerUps()
+    {
+        HasMultiShot = false;
+        HasShield = false;
+        HasPiercingAmmo = false;
+    }
+    
     private void Warp()
     {
-        if (_warpUses > 0 && !_player.IsDead)
+        if (WarpUses > 0 && !_player.IsDead)
         {
             Instantiate(_warpEffect, transform.position, Quaternion.identity);
 
@@ -52,7 +63,7 @@ public class AbilityManager : MonoBehaviour
 
             Instantiate(_warpEffect, _player.transform.position, Quaternion.identity);
 
-            _warpUses--;
+            WarpUses--;
         }
     }
 
@@ -79,7 +90,7 @@ public class AbilityManager : MonoBehaviour
             _player.GetComponent<PolygonCollider2D>().enabled = false;
             ShieldActivated = true;
             HasShield = false;
-            _shieldTimer = 2.5f;
+            _shieldTimer = 1.5f;
         }
 
         if (ShieldActivated)
@@ -96,6 +107,21 @@ public class AbilityManager : MonoBehaviour
             {
                 _player.GetComponent<PolygonCollider2D>().enabled = true;
             }
+        }
+    }
+
+    private void ManagePiercingPowerUp()
+    {
+        if (HasPiercingAmmo && _useAbility.WasPressedThisFrame())
+        {
+            PiercingAmmoActivated = true;
+            HasPiercingAmmo = false;
+            _piercingAmmoTimer = 5.0f;
+        }
+
+        if (_piercingAmmoTimer <= 0)
+        {
+            PiercingAmmoActivated = false;
         }
     }
 }

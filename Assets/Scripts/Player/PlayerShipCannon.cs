@@ -42,6 +42,11 @@ public class PlayerShipCannon : MonoBehaviour
             bulletCenter.SetFiringShipSpeed(this);
             bulletCenter.SetFiringShip(FiringShip.Player);
 
+            if (_abilityManager.PiercingAmmoActivated)
+            {
+                bulletCenter.PiercingAmmoActivated = true;
+            }
+
             if (_abilityManager.MultiShotActivated)
             {
                 Bullet bulletLeft = Instantiate(_bullet, _cannonPositionLeft, _cannonTransformLeft.rotation);
@@ -51,6 +56,12 @@ public class PlayerShipCannon : MonoBehaviour
                 Bullet bulletRight = Instantiate(_bullet, _cannonPositionRight, _cannonTransformRight.rotation);
                 bulletRight.SetFiringShipSpeed(this);
                 bulletRight.SetFiringShip(FiringShip.Player);
+
+                if (_abilityManager.PiercingAmmoActivated)
+                {
+                    bulletLeft.PiercingAmmoActivated = true;
+                    bulletRight.PiercingAmmoActivated = true;
+                }
             }
             
             _cooldownTimer = _secondsBetweenShots;
