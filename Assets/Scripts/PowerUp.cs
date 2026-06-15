@@ -43,12 +43,13 @@ public class PowerUp : MonoBehaviour
 
     private void Initialize()
     {
-        int random = Random.Range(1, 3);
+        int random = Random.Range(1, 4);
 
         Type powerUpType = random switch
         {
             1 => Type.MultiShot,
             2 => Type.Shield,
+            3 => Type.PiercingAmmo,
             _ => Type.MultiShot
         };
 
@@ -62,19 +63,27 @@ public class PowerUp : MonoBehaviour
         {
             _spriteRenderer.sprite = _shieldSprite;
         }
+        else if (_type == Type.PiercingAmmo)
+        {
+            _spriteRenderer.sprite = _pierceSprite;
+        }
     }
 
     private void AddPowerUpToPlayer()
     {
+        _abilityManager.ClearPowerUps();
+
         if (_type == Type.MultiShot)
         {
             _abilityManager.HasMultiShot = true;
-            _abilityManager.HasShield = false;
         }
         else if (_type == Type.Shield)
         {
             _abilityManager.HasShield = true;
-            _abilityManager.HasMultiShot = false;
+        }
+        else if (_type == Type.PiercingAmmo)
+        {
+            _abilityManager.HasPiercingAmmo = true;
         }
     }
 }

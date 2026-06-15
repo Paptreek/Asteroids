@@ -7,6 +7,8 @@ public class Bullet : MonoBehaviour
     private float _baseSpeed = 25;
     private float _firingShipSpeed;
 
+    public bool PiercingAmmoActivated { get; set; }
+
     private void Update()
     {
         _destroyTimer -= Time.deltaTime;
@@ -29,7 +31,7 @@ public class Bullet : MonoBehaviour
     {
         if (_firingShip == FiringShip.Player)
         {
-            if (collision.CompareTag("Asteroid") || collision.CompareTag("EnemyShip"))
+            if (!PiercingAmmoActivated && collision.CompareTag("Asteroid") || collision.CompareTag("EnemyShip"))
             {
                 Destroy(gameObject);
             }
