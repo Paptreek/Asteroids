@@ -15,7 +15,7 @@ public class Player : MonoBehaviour
     public int RemainingLives { get; private set; } = 3;
     public int SmallShipsDestroyed { get; set; }
     public int LargeShipsDestroyed { get; set; }
-    public float EnableCollisionTimer { get; private set; } = 1.5f;
+    public float EnableCollisionTimer { get; private set; } = 0.5f;
 
     private void Awake()
     {
@@ -91,7 +91,6 @@ public class Player : MonoBehaviour
                 IsDead = false;
 
                 _spriteRenderer.enabled = true;
-                EnableCollisionTimer = 1.5f;
             }
         }
     }
@@ -100,8 +99,10 @@ public class Player : MonoBehaviour
     {
         if (!_collider.enabled && EnableCollisionTimer <= 0)
         {
+            IsDead = false;
+
             _collider.enabled = true;
-            EnableCollisionTimer = 1.5f;
+            EnableCollisionTimer = 0.5f;
         }
     }
 }
