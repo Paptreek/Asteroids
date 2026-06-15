@@ -7,8 +7,8 @@ public class PlayerShipCannon : MonoBehaviour
     [SerializeField] private Transform _cannonTransformCenter;
     [SerializeField] private Transform _cannonTransformLeft;
     [SerializeField] private Transform _cannonTransformRight;
+    [SerializeField] private AbilityManager _abilityManager;
 
-    private Ability _ability;
     private InputAction _attackAction;
     private Vector3 _cannonPositionCenter;
     private Vector3 _cannonPositionLeft;
@@ -19,7 +19,6 @@ public class PlayerShipCannon : MonoBehaviour
     private void Awake()
     {
         _attackAction = InputSystem.actions.FindAction("Attack");
-        _ability = GetComponent<Ability>();
     }
 
     private void Update()
@@ -41,7 +40,7 @@ public class PlayerShipCannon : MonoBehaviour
             bulletCenter.SetFiringShipSpeed(this);
             bulletCenter.SetFiringShip(FiringShip.Player);
 
-            if (_ability.HasMultiShot)
+            if (_abilityManager.MultiShotActivated)
             {
                 Bullet bulletLeft = Instantiate(_bullet, _cannonPositionLeft, _cannonTransformLeft.rotation);
                 bulletLeft.SetFiringShipSpeed(this);

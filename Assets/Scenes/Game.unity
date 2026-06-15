@@ -346,6 +346,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AsteroidManager
   _asteroidSpawner: {fileID: 89053074}
   _asteroid: {fileID: 6066458957078257546, guid: 607e97e8ec6cefa43a85736fb29325e4, type: 3}
+  _abilityManager: {fileID: 1922214655}
+  _powerUp: {fileID: 7048414872530146536, guid: 1f33758cba79bef43a55eab04ff89382, type: 3}
 --- !u!4 &379349210
 Transform:
   m_ObjectHideFlags: 0
@@ -792,6 +794,7 @@ MonoBehaviour:
   _cannonTransformCenter: {fileID: 1152038391}
   _cannonTransformLeft: {fileID: 593906633}
   _cannonTransformRight: {fileID: 1703397495}
+  _abilityManager: {fileID: 1922214655}
 --- !u!114 &719431922
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -799,12 +802,13 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 719431912}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b1ea7438a1ec21d4fa4aab250f7801df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Ability
   _warpEffect: {fileID: 3636689269239401867, guid: f7b6b37c907b0494c8975f3d2a346ebf, type: 3}
+  _player: {fileID: 0}
 --- !u!95 &719431923
 Animator:
   serializedVersion: 7
@@ -983,6 +987,83 @@ Transform:
   m_Children: []
   m_Father: {fileID: 719431914}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -5}
+--- !u!1 &1829005518
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1829005519}
+  m_Layer: 0
+  m_Name: PowerUpSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1829005519
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1829005518}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.1227, y: -0.12636, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1922214654
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1922214656}
+  - component: {fileID: 1922214655}
+  m_Layer: 0
+  m_Name: AbilityManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1922214655
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1922214654}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1ea7438a1ec21d4fa4aab250f7801df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AbilityManager
+  _warpEffect: {fileID: 3636689269239401867, guid: f7b6b37c907b0494c8975f3d2a346ebf, type: 3}
+  _player: {fileID: 719431920}
+--- !u!4 &1922214656
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1922214654}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.1227, y: -0.12636, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -993,3 +1074,5 @@ SceneRoots:
   - {fileID: 379349210}
   - {fileID: 1487697756}
   - {fileID: 55871871}
+  - {fileID: 1829005519}
+  - {fileID: 1922214656}

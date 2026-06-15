@@ -1,15 +1,17 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class Ability : MonoBehaviour
+public class AbilityManager : MonoBehaviour
 {
     [SerializeField] private ParticleSystem _warpEffect;
+    [SerializeField] private Player _player;
 
     private int _warpUses = 1;
     private float _abilityTimer;
     private InputAction _warp;
 
-    public bool HasMultiShot { get; private set; }
+    public bool HasMultiShot { get; set; }
+    public bool MultiShotActivated { get; set; }
 
     private void Awake()
     {
@@ -25,15 +27,16 @@ public class Ability : MonoBehaviour
             Warp();
         }
 
-        if (Keyboard.current.eKey.wasPressedThisFrame)
+        if (HasMultiShot && Keyboard.current.eKey.wasPressedThisFrame)
         {
-            HasMultiShot = true;
+            MultiShotActivated = true;
+            HasMultiShot = false;
             _abilityTimer = 5.0f;
         }
 
         if (_abilityTimer <= 0)
         {
-            HasMultiShot = false;
+            MultiShotActivated = false;
         }
     }
 
@@ -46,9 +49,9 @@ public class Ability : MonoBehaviour
             float newPositionX = Random.Range(-18.0f, 18.0f);
             float newPositionY = Random.Range(-14.0f, 14.0f);
 
-            transform.position = new Vector3(newPositionX, newPositionY);
+            _player.transform.position = new Vector3(newPositionX, newPositionY);
 
-            Instantiate(_warpEffect, transform.position, Quaternion.identity);
+            Instantiate(_warpEffect, _player.transform.position, Quaternion.identity);
 
             _warpUses--;
         }

@@ -79,7 +79,7 @@ public class Player : MonoBehaviour
 
     private void CheckForRespawnIfDead()
     {
-        Debug.Log($"Respawn Area Clear? {_respawnArea.GetComponent<RespawnArea>().IsClearOfDanger}");
+        //Debug.Log($"Respawn Area Clear? {_respawnArea.GetComponent<RespawnArea>().IsClearOfDanger}");
 
         if (IsDead && _respawnCheckTimer <= 0)
         {
@@ -90,7 +90,7 @@ public class Player : MonoBehaviour
                 IsDead = false;
 
                 _spriteRenderer.enabled = true;
-
+                _enableCollisionTimer = 1.5f;
             }
         }
     }

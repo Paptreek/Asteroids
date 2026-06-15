@@ -5,6 +5,8 @@ public class AsteroidManager : MonoBehaviour
 {
     [SerializeField] private AsteroidSpawner _asteroidSpawner;
     [SerializeField] private Asteroid _asteroid;
+    [SerializeField] private AbilityManager _abilityManager;
+    [SerializeField] private PowerUp _powerUp;
 
     public int LargeAsteroidsDestroyed { get; private set; }
     public int MediumAsteroidsDestroyed { get; private set; }
@@ -22,7 +24,7 @@ public class AsteroidManager : MonoBehaviour
         {
             if (asteroid.HasBeenHit)
             {
-                if (asteroid.AsteroidSize == Asteroid.Size.Large)
+                if (asteroid.AsteroidSize == Asteroid.Size.Large && asteroid.DestroyedByPlayer)
                 {
                     if (asteroid.DestroyedByPlayer)
                     {
@@ -50,11 +52,22 @@ public class AsteroidManager : MonoBehaviour
                     }
                 }
 
-                //Debug.Log($"Asteroids Destroyed by Player: LG: {LargeAsteroidsDestroyed}, MD: {MediumAsteroidsDestroyed}, SM: {SmallAsteroidsDestroyed}");
+                MaybeDropPowerUp(asteroid);
 
                 Asteroids.Remove(asteroid);
                 Destroy(asteroid.gameObject);
             }
+        }
+    }
+
+    private void MaybeDropPowerUp(Asteroid asteroid)
+    {
+        int randomNumber = Random.Range(0, 16);
+
+        if (randomNumber == 15)
+        {
+            PowerUp powerUp = Instantiate(_powerUp, asteroid.transform.position, Quaternion.identity);
+            powerUp.SetAbilityManager(_abilityManager);
         }
     }
 }
