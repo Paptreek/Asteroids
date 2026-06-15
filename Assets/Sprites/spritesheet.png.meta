@@ -275,6 +275,72 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: powerup_multishot
+      rect:
+        serializedVersion: 2
+        x: 810
+        y: 2410
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b7e56dc56e12f8546b166fb3c429d98a
+      internalID: 2093745627
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: powerup_shield
+      rect:
+        serializedVersion: 2
+        x: 970
+        y: 2410
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c33ab709046445949938258f79fc4b3e
+      internalID: -414406506
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: powerup_piercing
+      rect:
+        serializedVersion: 2
+        x: 1130
+        y: 2410
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b3fc6fe1d91fa0e4680dbe86cde84a94
+      internalID: -1852216048
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []
@@ -287,7 +353,9 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries: []
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":2,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":0,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
       Asteroid_Large: -6251682230944352461
       Asteroid_Medium: -1259408508766424310
@@ -296,6 +364,9 @@ TextureImporter:
       Player_Ship_Moving: 138958977
       enemy_ship_large: -1727860995
       enemy_ship_small: 1084659847
+      powerup_multishot: 2093745627
+      powerup_piercing: -1852216048
+      powerup_shield: -414406506
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
