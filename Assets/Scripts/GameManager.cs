@@ -22,6 +22,7 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         _asteroidSpawner.SpawnNewRound(4, Asteroid.Size.Large, _asteroidManager.Asteroids);
+        //_asteroidSpawner.SpawnNewRound(1, Asteroid.Size.Small, _asteroidManager.Asteroids); // quick & easy rounds for testing
         _enemyShipSpawner.SetSpawnTimers(_spawnTimerSmall, _spawnTimerLarge);
     }
 
@@ -43,12 +44,7 @@ public class GameManager : MonoBehaviour
         {
             if (_round < maxRounds)
             {
-                ResetRound();
-            }
-            if (_player != null)
-            {
-                _enemyShipSpawner.EnemyShips.Clear();
-                _asteroidSpawner.SpawnNewRound(3 + _round, Asteroid.Size.Large, _asteroidManager.Asteroids);
+                StartNextRound();
             }
             else
             {
@@ -96,7 +92,7 @@ public class GameManager : MonoBehaviour
         return _score = _bonusScore + pointsForShips + pointsForAsteroids;
     }
 
-    private void ResetRound()
+    private void StartNextRound()
     {
         AddBonusScore();
 
@@ -112,6 +108,13 @@ public class GameManager : MonoBehaviour
         _player.ResetPosition();
         _abilityManager.WarpUses = 1;
         _enemyShipSpawner.SetSpawnTimers(_spawnTimerSmall, _spawnTimerLarge);
+
+        if (_player != null)
+        {
+            _enemyShipSpawner.EnemyShips.Clear();
+            _asteroidSpawner.SpawnNewRound(3 + _round, Asteroid.Size.Large, _asteroidManager.Asteroids);
+            //_asteroidSpawner.SpawnNewRound(1 + _round, Asteroid.Size.Small, _asteroidManager.Asteroids); // quick && easy rounds for testing
+        }
     }
 
     private void AddBonusScore()
