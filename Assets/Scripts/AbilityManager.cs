@@ -16,6 +16,7 @@ public class AbilityManager : MonoBehaviour
     private InputAction _warp;
     private InputAction _useAbility;
 
+    public int MaxWarpUses { get; private set; } = 1;
     public int WarpUses { get; set; } = 1;
     public bool HasMultiShot { get; set; }
     public bool MultiShotActivated { get; set; }
@@ -44,6 +45,12 @@ public class AbilityManager : MonoBehaviour
         ManageMultiShotPowerUp();
         ManageShieldPowerUp();
         ManagePiercingPowerUp();
+    }
+
+    public void IncreaseMaxWarpUses()
+    {
+        MaxWarpUses++;
+        WarpUses = MaxWarpUses;
     }
 
     public void MaybeDropPowerUp(Asteroid asteroid)

@@ -9,7 +9,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private AbilityManager _abilityManager;
     [SerializeField] private GameObject _gameOverPrefab;
     [SerializeField] private GameObject _upgradePanel;
-
+    [SerializeField] private UpgradeManager _upgradeManager;
+    
     private bool _playerHasWon;
     private bool _playerHasLost;
     private bool _gameOverCreated;
@@ -19,14 +20,14 @@ public class GameManager : MonoBehaviour
     private float _roundTimer = 120.0f;
     private float _spawnTimerSmall = 45.0f;
     private float _spawnTimerLarge = 30.0f;
-
+    
     private void Start()
     {
-        _asteroidSpawner.SpawnNewRound(4, Asteroid.Size.Large, _asteroidManager.Asteroids);
-        //_asteroidSpawner.SpawnNewRound(1, Asteroid.Size.Small, _asteroidManager.Asteroids); // quick & easy rounds for testing
+        //_asteroidSpawner.SpawnNewRound(4, Asteroid.Size.Large, _asteroidManager.Asteroids);
+        _asteroidSpawner.SpawnNewRound(1, Asteroid.Size.Small, _asteroidManager.Asteroids); // quick & easy rounds for testing
         _enemyShipSpawner.SetSpawnTimers(_spawnTimerSmall, _spawnTimerLarge);
 
-        GetPlayerUpgradeChoice(); // testing
+        //GetPlayerUpgradeChoice(); // testing
     }
 
     private void Update()
@@ -110,14 +111,14 @@ public class GameManager : MonoBehaviour
 
         _roundTimer = 120.0f;
         _player.ResetPosition();
-        _abilityManager.WarpUses = 1;
+        _abilityManager.WarpUses = _abilityManager.MaxWarpUses;
         _enemyShipSpawner.SetSpawnTimers(_spawnTimerSmall, _spawnTimerLarge);
 
         if (_player != null)
         {
             _enemyShipSpawner.EnemyShips.Clear();
-            _asteroidSpawner.SpawnNewRound(3 + _round, Asteroid.Size.Large, _asteroidManager.Asteroids);
-            //_asteroidSpawner.SpawnNewRound(1 + _round, Asteroid.Size.Small, _asteroidManager.Asteroids); // quick && easy rounds for testing
+            //_asteroidSpawner.SpawnNewRound(3 + _round, Asteroid.Size.Large, _asteroidManager.Asteroids);
+            _asteroidSpawner.SpawnNewRound(1 + _round, Asteroid.Size.Small, _asteroidManager.Asteroids); // quick && easy rounds for testing
         }
     }
 
@@ -149,5 +150,6 @@ public class GameManager : MonoBehaviour
     {
         Time.timeScale = 0;
         _upgradePanel.SetActive(true);
+        _upgradeManager.DisplayUpgrades();
     }
 }

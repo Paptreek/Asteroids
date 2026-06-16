@@ -136,7 +136,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &992903
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2004,6 +2004,7 @@ MonoBehaviour:
   _abilityManager: {fileID: 1922214655}
   _gameOverPrefab: {fileID: 2193495052521464174, guid: a87cd0f28961bcb449e4fd3a0a75e338, type: 3}
   _upgradePanel: {fileID: 992902}
+  _upgradeManager: {fileID: 971746366}
 --- !u!1 &878458879
 GameObject:
   m_ObjectHideFlags: 0
@@ -2660,15 +2661,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UpgradeManager
   _playerMovement: {fileID: 719431915}
+  _abilityManager: {fileID: 1922214655}
   _upgradePanel: {fileID: 992902}
   _attackSpeedPanel: {fileID: 541968372}
   _bulletSpeedPanel: {fileID: 11740752}
   _thrustersPanel: {fileID: 989059580}
   _turnSpeedPanel: {fileID: 2127273369}
   _warpUsesPanel: {fileID: 953514959}
+  _selectAttackSpeedButton: {fileID: 1885605061}
+  _selectBulletSpeedButton: {fileID: 393662772}
   _selectThrustersButton: {fileID: 1557679869}
   _selectTurnSpeedButton: {fileID: 740117867}
-  _selectBulletSpeedButton: {fileID: 393662772}
+  _selectWarpUsesButton: {fileID: 1848453805}
 --- !u!4 &971746367
 Transform:
   m_ObjectHideFlags: 0
