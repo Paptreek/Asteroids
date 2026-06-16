@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private EnemyShipSpawner _enemyShipSpawner;
     [SerializeField] private AbilityManager _abilityManager;
     [SerializeField] private GameObject _gameOverPrefab;
+    [SerializeField] private GameObject _upgradePanel;
 
     private bool _playerHasWon;
     private bool _playerHasLost;
@@ -24,6 +25,8 @@ public class GameManager : MonoBehaviour
         _asteroidSpawner.SpawnNewRound(4, Asteroid.Size.Large, _asteroidManager.Asteroids);
         //_asteroidSpawner.SpawnNewRound(1, Asteroid.Size.Small, _asteroidManager.Asteroids); // quick & easy rounds for testing
         _enemyShipSpawner.SetSpawnTimers(_spawnTimerSmall, _spawnTimerLarge);
+
+        GetPlayerUpgradeChoice(); // testing
     }
 
     private void Update()
@@ -44,6 +47,7 @@ public class GameManager : MonoBehaviour
         {
             if (_round < maxRounds)
             {
+                GetPlayerUpgradeChoice();
                 StartNextRound();
             }
             else
@@ -139,5 +143,11 @@ public class GameManager : MonoBehaviour
         _enemyShipSpawner.EnemyShips.Clear();
 
         Debug.Log($"Ships cleared. # of ships: {_enemyShipSpawner.EnemyShips.Count}");
+    }
+
+    private void GetPlayerUpgradeChoice()
+    {
+        Time.timeScale = 0;
+        _upgradePanel.SetActive(true);
     }
 }

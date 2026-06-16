@@ -24,6 +24,16 @@ public class PlayerMovement : MonoBehaviour
         Turn();
     }
 
+    public void IncreaseMoveSpeed(float amountToIncrease)
+    {
+        _moveSpeed += amountToIncrease;
+    }
+
+    public void IncreaseTurnSpeed(float amountToIncrease)
+    {
+        _turnSpeed += amountToIncrease;
+    }
+
     private void Accelerate()
     {
         float moveSpeed = _moveSpeed * Time.fixedDeltaTime;
