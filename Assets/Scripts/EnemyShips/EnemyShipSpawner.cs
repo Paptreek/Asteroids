@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
+using UnityEngine.InputSystem; // used for testing
 
 public class EnemyShipSpawner : MonoBehaviour
 {
@@ -38,7 +38,7 @@ public class EnemyShipSpawner : MonoBehaviour
 
             Debug.Log($"Enemy Ship #: {EnemyShips.Count}");
 
-            _spawnTimerSmall = 15.0f; // these should be getting set from GameManager on a per-round basis
+            _spawnTimerSmall = 15.0f;
         }
 
         if (_spawnTimerLarge <= 0)
@@ -51,7 +51,7 @@ public class EnemyShipSpawner : MonoBehaviour
 
             Debug.Log($"Enemy Ship #: {EnemyShips.Count}");
 
-            _spawnTimerLarge = 10.0f; // these should be getting set from GameManager on a per-round basis
+            _spawnTimerLarge = 10.0f;
         }
     }
 }

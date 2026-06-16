@@ -7,8 +7,11 @@ public class GameManager : MonoBehaviour
     [SerializeField] private AsteroidSpawner _asteroidSpawner;
     [SerializeField] private EnemyShipSpawner _enemyShipSpawner;
     [SerializeField] private AbilityManager _abilityManager;
+    [SerializeField] private GameObject _gameOverPrefab;
 
     private bool _playerHasWon;
+    private bool _playerHasLost;
+    private bool _gameOverCreated;
     private int _round = 1;
     private int _score;
     private int _bonusScore;
@@ -36,17 +39,16 @@ public class GameManager : MonoBehaviour
     {
         int maxRounds = 5;
 
-        if (_asteroidManager.Asteroids.Count <= 0)
+        if (_asteroidManager.Asteroids.Count <= 0 && !_playerHasLost)
         {
             if (_round < maxRounds)
             {
                 ResetRound();
-
-                if (_player != null)
-                {
-                    _enemyShipSpawner.EnemyShips.Clear();
-                    _asteroidSpawner.SpawnNewRound(3 + _round, Asteroid.Size.Large, _asteroidManager.Asteroids);
-                }
+            }
+            if (_player != null)
+            {
+                _enemyShipSpawner.EnemyShips.Clear();
+                _asteroidSpawner.SpawnNewRound(3 + _round, Asteroid.Size.Large, _asteroidManager.Asteroids);
             }
             else
             {
@@ -60,8 +62,15 @@ public class GameManager : MonoBehaviour
         if (_player == null)
         {
             Debug.Log($"You died. Game over!");
+            _playerHasLost = true;
             _enemyShipSpawner.enabled = false;
             _asteroidSpawner.enabled = false;
+
+            if (!_gameOverCreated)
+            {
+                Instantiate(_gameOverPrefab);
+                _gameOverCreated = true;
+            }
         }
 
         if (_playerHasWon)

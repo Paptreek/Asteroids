@@ -128,7 +128,7 @@ TextureImporter:
         x: 30
         y: 2410
         width: 90
-        height: 140
+        height: 150
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -260,7 +260,7 @@ TextureImporter:
         x: 30
         y: 2210
         width: 90
-        height: 170
+        height: 180
       alignment: 9
       pivot: {x: 0.5, y: 0.588}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -363,6 +363,182 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: multishot_cannons
+      rect:
+        serializedVersion: 2
+        x: 1050
+        y: 2320
+        width: 90
+        height: 40
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 473e67ee86d34a54a92390282e93bb0f
+      internalID: 1191715884
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: game_over_G
+      rect:
+        serializedVersion: 2
+        x: 49
+        y: 39
+        width: 242
+        height: 302
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d2726a7e340ade943bcde3244db9b0be
+      internalID: -1093603415
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: game_over_A
+      rect:
+        serializedVersion: 2
+        x: 348
+        y: 38
+        width: 244
+        height: 304
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5182c14f737dc4a4d9884ba991be74f1
+      internalID: -1443254322
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: game_over_M
+      rect:
+        serializedVersion: 2
+        x: 648
+        y: 38
+        width: 304
+        height: 304
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 571d469140c0543478295aa906eb7bbc
+      internalID: -1900024802
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: game_over_E
+      rect:
+        serializedVersion: 2
+        x: 1008
+        y: 38
+        width: 244
+        height: 304
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a1677d667e4e4b44aada26d7a4ad0a51
+      internalID: -2029476203
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: game_over_O
+      rect:
+        serializedVersion: 2
+        x: 1428
+        y: 38
+        width: 244
+        height: 304
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: df519a1544ead3b47a396dad1a4a6ff0
+      internalID: -2128871065
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: game_over_V
+      rect:
+        serializedVersion: 2
+        x: 1728
+        y: 38
+        width: 184
+        height: 304
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f78261e389734634b837e9b8710167b6
+      internalID: 1076352515
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: game_over_R
+      rect:
+        serializedVersion: 2
+        x: 2268
+        y: 38
+        width: 244
+        height: 304
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 595b57dcfd677c442a593efe629e5d11
+      internalID: -506011166
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []
@@ -386,11 +562,20 @@ TextureImporter:
       Player_Ship_Moving: 138958977
       enemy_ship_large: -1727860995
       enemy_ship_small: 1084659847
+      game_over_A: -1443254322
+      game_over_E: -2029476203
+      game_over_G: -1093603415
+      game_over_M: -1900024802
+      game_over_O: -2128871065
+      game_over_R: -506011166
+      game_over_V: 1076352515
+      multishot_cannons: 1191715884
       powerup_multishot: 2093745627
       powerup_piercing: -1852216048
       powerup_shield: -414406506
       shield: 749999793
       shield_large: 1680362057
+      spritesheet_5: 844463404
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
