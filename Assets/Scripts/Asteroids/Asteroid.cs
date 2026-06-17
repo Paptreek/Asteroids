@@ -11,6 +11,7 @@ public class Asteroid : MonoBehaviour
     private Vector3 _spawnLocation;
     private SpriteRenderer _spriteRenderer;
     private CircleCollider2D _collider;
+    private AsteroidManager _asteroidManager;
 
     public bool HasBeenHit { get; private set; }
     public bool DestroyedByPlayer { get; private set; }
@@ -38,12 +39,15 @@ public class Asteroid : MonoBehaviour
         WrapAroundScreen();
     }
 
+    public void SetAsteroidManager(AsteroidManager asteroidManager)
+    {
+        _asteroidManager = asteroidManager;
+    }
+
     public void SetInitialSpawnData(Vector3 direction, Vector3 location)
     {
         _moveDirection = direction;
         _spawnLocation = location;
-
-        //Debug.Log($"X Direction: {direction.x}, Y Direction: {direction.y}");
     }
 
     public void SetSize(Size size)
@@ -96,13 +100,21 @@ public class Asteroid : MonoBehaviour
     {
         if (collision.CompareTag("EnemyBullet") || collision.CompareTag("EnemyShip") || collision.CompareTag("GameOver"))
         {
-            Instantiate(_explosionEffect, transform.position, Quaternion.identity);
+            if (_asteroidManager.Asteroids.Count > 1)
+            {
+                Instantiate(_explosionEffect, transform.position, Quaternion.identity);
+            }
+
             HasBeenHit = true;
         }
 
         if (collision.CompareTag("PlayerBullet") || collision.CompareTag("Player"))
         {
-            Instantiate(_explosionEffect, transform.position, Quaternion.identity);
+            if (_asteroidManager.Asteroids.Count > 1)
+            {
+                Instantiate(_explosionEffect, transform.position, Quaternion.identity);
+            }
+
             HasBeenHit = true;
             DestroyedByPlayer = true;
         }

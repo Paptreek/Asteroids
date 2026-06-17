@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class GameManager : MonoBehaviour
 {
@@ -8,7 +9,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] private EnemyShipSpawner _enemyShipSpawner;
     [SerializeField] private AbilityManager _abilityManager;
     [SerializeField] private GameObject _gameOverPrefab;
-
+    [SerializeField] private GameObject _upgradePanel;
+    [SerializeField] private GameObject _upgradePanelBackground;
+    [SerializeField] private UpgradeManager _upgradeManager;
+    
     private bool _playerHasWon;
     private bool _playerHasLost;
     private bool _gameOverCreated;
@@ -19,9 +23,20 @@ public class GameManager : MonoBehaviour
     private float _spawnTimerSmall = 45.0f;
     private float _spawnTimerLarge = 30.0f;
 
+    // these are for dev mode
+    private InputAction _enterDevMode;
+    private int _asteroidsToSpawnStart = 4;
+    private int _asteroidsToSpawnRound = 3;
+    private Asteroid.Size _asteroidSize = Asteroid.Size.Large;
+    
+    private void Awake()
+    {
+        _enterDevMode = InputSystem.actions.FindAction("EnterDevMode");
+    }
+
     private void Start()
     {
-        _asteroidSpawner.SpawnNewRound(4, Asteroid.Size.Large, _asteroidManager.Asteroids);
+        _asteroidSpawner.SpawnNewRound(_asteroidsToSpawnStart, _asteroidSize, _asteroidManager.Asteroids);
         _enemyShipSpawner.SetSpawnTimers(_spawnTimerSmall, _spawnTimerLarge);
     }
 
@@ -32,7 +47,7 @@ public class GameManager : MonoBehaviour
         CheckToStartNewRound();
         CheckForGameOver();
 
-        //Debug.Log($"Score: {GetScore()}");
+        CheckForDevMode();
     }
 
     private void CheckToStartNewRound()
@@ -43,12 +58,8 @@ public class GameManager : MonoBehaviour
         {
             if (_round < maxRounds)
             {
-                ResetRound();
-            }
-            if (_player != null)
-            {
-                _enemyShipSpawner.EnemyShips.Clear();
-                _asteroidSpawner.SpawnNewRound(3 + _round, Asteroid.Size.Large, _asteroidManager.Asteroids);
+                GetPlayerUpgradeChoice();
+                StartNextRound();
             }
             else
             {
@@ -61,7 +72,7 @@ public class GameManager : MonoBehaviour
     {
         if (_player == null)
         {
-            Debug.Log($"You died. Game over!");
+            //Debug.Log($"You died. Game over!");
             _playerHasLost = true;
             _enemyShipSpawner.enabled = false;
             _asteroidSpawner.enabled = false;
@@ -75,7 +86,7 @@ public class GameManager : MonoBehaviour
 
         if (_playerHasWon)
         {
-            Debug.Log($"All rounds completed. You win!");
+            //Debug.Log($"All rounds completed. You win!");
             _enemyShipSpawner.enabled = false;
             _asteroidSpawner.enabled = false;
         }
@@ -96,7 +107,7 @@ public class GameManager : MonoBehaviour
         return _score = _bonusScore + pointsForShips + pointsForAsteroids;
     }
 
-    private void ResetRound()
+    private void StartNextRound()
     {
         AddBonusScore();
 
@@ -110,8 +121,14 @@ public class GameManager : MonoBehaviour
 
         _roundTimer = 120.0f;
         _player.ResetPosition();
-        _abilityManager.WarpUses = 1;
+        _abilityManager.WarpUses = _abilityManager.MaxWarpUses;
         _enemyShipSpawner.SetSpawnTimers(_spawnTimerSmall, _spawnTimerLarge);
+
+        if (_player != null)
+        {
+            _enemyShipSpawner.EnemyShips.Clear();
+            _asteroidSpawner.SpawnNewRound(_asteroidsToSpawnRound + _round, _asteroidSize, _asteroidManager.Asteroids);
+        }
     }
 
     private void AddBonusScore()
@@ -136,5 +153,29 @@ public class GameManager : MonoBehaviour
         _enemyShipSpawner.EnemyShips.Clear();
 
         Debug.Log($"Ships cleared. # of ships: {_enemyShipSpawner.EnemyShips.Count}");
+    }
+
+    private void GetPlayerUpgradeChoice()
+    {
+        Time.timeScale = 0;
+
+        _upgradePanelBackground.SetActive(true);
+        _upgradePanel.SetActive(true);
+
+        _upgradeManager.ShuffleUpgrades(_upgradeManager.UpgradeOptions);
+        _upgradeManager.AssignRandomUpgrades();
+        _upgradeManager.DisplayUpgrades();
+    }
+    
+    // this is for dev mode
+    private void CheckForDevMode()
+    {
+        if (_enterDevMode.WasPerformedThisFrame())
+        {
+            _asteroidsToSpawnStart = 1;
+            _asteroidsToSpawnRound = 1;
+            _asteroidSize = Asteroid.Size.Small;
+            Debug.Log("DevMode Enabled");
+        }
     }
 }

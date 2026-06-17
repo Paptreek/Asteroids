@@ -28,7 +28,6 @@ public class Player : MonoBehaviour
     {
         if (!_collider.enabled && !IsDead && !_abilityManager.ShieldActivated)
         {
-            //Debug.Log($"COLLIDER DISABLED!");
             EnableCollisionTimer -= Time.deltaTime;
         }
 
@@ -80,8 +79,6 @@ public class Player : MonoBehaviour
 
     private void CheckForRespawnIfDead()
     {
-        //Debug.Log($"Respawn Area Clear? {_respawnArea.GetComponent<RespawnArea>().IsClearOfDanger}");
-
         if (IsDead && _respawnCheckTimer <= 0)
         {
             if (_respawnArea.GetComponent<RespawnArea>().IsClearOfDanger)

@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.Rendering;
 
 public class AbilityManager : MonoBehaviour
 {
@@ -16,6 +15,7 @@ public class AbilityManager : MonoBehaviour
     private InputAction _warp;
     private InputAction _useAbility;
 
+    public int MaxWarpUses { get; private set; } = 1;
     public int WarpUses { get; set; } = 1;
     public bool HasMultiShot { get; set; }
     public bool MultiShotActivated { get; set; }
@@ -46,17 +46,25 @@ public class AbilityManager : MonoBehaviour
         ManagePiercingPowerUp();
     }
 
+    public void IncreaseMaxWarpUses()
+    {
+        MaxWarpUses++;
+        WarpUses = MaxWarpUses;
+    }
+
     public void MaybeDropPowerUp(Asteroid asteroid)
     {
-        int randomNumber = Random.Range(0, 16);
+        int randomNumber = Random.Range(0, 13);
         //int randomNumber = Random.Range(0, 2);
 
-        if (randomNumber == 15)
+        if (randomNumber == 12)
         //if (randomNumber == 1)
         {
             PowerUp powerUp = Instantiate(_powerUp, asteroid.transform.position, Quaternion.identity);
             powerUp.SetAbilityManager(this);
         }
+
+        Debug.Log($"PowerUp Drop Roll: {randomNumber} / 12");
     }
 
     public void ClearPowerUps()
