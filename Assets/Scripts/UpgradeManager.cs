@@ -8,6 +8,7 @@ public class UpgradeManager : MonoBehaviour
     [SerializeField] private AbilityManager _abilityManager;
 
     [SerializeField] private GameObject _upgradePanel;
+    [SerializeField] private GameObject _upgradePanelBackground;
 
     [SerializeField] private GameObject _attackSpeedPanel;
     [SerializeField] private GameObject _bulletSpeedPanel;
@@ -86,38 +87,40 @@ public class UpgradeManager : MonoBehaviour
     {
         Debug.Log($"Attack Speed Upgraded!");
         // do the upgrade
-        _upgradePanel.SetActive(false);
-        Time.timeScale = 1;
+        HidePanelsAndResume();
     }
 
     private void UpgradeBulletSpeed()
     {
         Debug.Log($"Bullet Speed Upgraded!");
         // do the upgrade
-        _upgradePanel.SetActive(false);
-        Time.timeScale = 1;
+        HidePanelsAndResume();
     }
 
     private void UpgradeThrusters()
     {
         Debug.Log($"Thrusters Upgraded!");
         _playerMovement.IncreaseMoveSpeed(250f); // testing
-        _upgradePanel.SetActive(false);
-        Time.timeScale = 1;
+        HidePanelsAndResume();
     }
 
     private void UpgradeTurnSpeed()
     {
         Debug.Log($"Turn Speed Upgraded!");
         _playerMovement.IncreaseTurnSpeed(50f); // testing
-        _upgradePanel.SetActive(false);
-        Time.timeScale = 1;
+        HidePanelsAndResume();
     }
 
     private void UpgradeWarpUses()
     {
         Debug.Log($"Warp Uses Upgraded!");
         _abilityManager.IncreaseMaxWarpUses();
+        HidePanelsAndResume();
+    }
+
+    private void HidePanelsAndResume()
+    {
+        _upgradePanelBackground.SetActive(false);
         _upgradePanel.SetActive(false);
         Time.timeScale = 1;
     }

@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private AbilityManager _abilityManager;
     [SerializeField] private GameObject _gameOverPrefab;
     [SerializeField] private GameObject _upgradePanel;
+    [SerializeField] private GameObject _upgradePanelBackground;
     [SerializeField] private UpgradeManager _upgradeManager;
     
     private bool _playerHasWon;
@@ -109,6 +110,7 @@ public class GameManager : MonoBehaviour
 
         DestroyAllEnemyShips();
 
+        //_upgradePanelBackground.SetActive(false);
         _roundTimer = 120.0f;
         _player.ResetPosition();
         _abilityManager.WarpUses = _abilityManager.MaxWarpUses;
@@ -149,6 +151,7 @@ public class GameManager : MonoBehaviour
     private void GetPlayerUpgradeChoice()
     {
         Time.timeScale = 0;
+        _upgradePanelBackground.SetActive(true);
         _upgradePanel.SetActive(true);
         _upgradeManager.DisplayUpgrades();
     }
