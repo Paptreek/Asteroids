@@ -72,7 +72,7 @@ public class GameManager : MonoBehaviour
     {
         if (_player == null)
         {
-            Debug.Log($"You died. Game over!");
+            //Debug.Log($"You died. Game over!");
             _playerHasLost = true;
             _enemyShipSpawner.enabled = false;
             _asteroidSpawner.enabled = false;
@@ -86,7 +86,7 @@ public class GameManager : MonoBehaviour
 
         if (_playerHasWon)
         {
-            Debug.Log($"All rounds completed. You win!");
+            //Debug.Log($"All rounds completed. You win!");
             _enemyShipSpawner.enabled = false;
             _asteroidSpawner.enabled = false;
         }

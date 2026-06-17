@@ -6,7 +6,6 @@ public class AsteroidManager : MonoBehaviour
     [SerializeField] private AsteroidSpawner _asteroidSpawner;
     [SerializeField] private Asteroid _asteroid;
     [SerializeField] private AbilityManager _abilityManager;
-    [SerializeField] private PowerUp _powerUp;
 
     public int LargeAsteroidsDestroyed { get; private set; }
     public int MediumAsteroidsDestroyed { get; private set; }

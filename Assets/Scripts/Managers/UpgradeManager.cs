@@ -7,7 +7,6 @@ public class UpgradeManager : MonoBehaviour
     [SerializeField] private PlayerMovement _playerMovement;
     [SerializeField] private AbilityManager _abilityManager;
     [SerializeField] private PlayerShipCannon _playerShipCannon;
-    [SerializeField] private Bullet _bullet;
 
     [SerializeField] private GameObject _upgradePanel;
     [SerializeField] private GameObject _upgradePanelBackground;

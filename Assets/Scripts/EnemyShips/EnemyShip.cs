@@ -47,7 +47,7 @@ public class EnemyShip : MonoBehaviour
             Destroy(gameObject);
         }
 
-        ScreenManager.WrapAroundScreen(transform, 20.0f, 13.75f); // need to adjust this for each ship size later
+        ScreenManager.WrapAroundScreen(transform, 20.0f, 13.75f); // x doesn't need to wrap, only y
     }
 
     public void SetShipSize(ShipSize shipSize)

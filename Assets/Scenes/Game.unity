@@ -422,7 +422,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 7.5, y: 7.5, z: 7.5}
+  m_LocalScale: {x: 6, y: 6, z: 6}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
@@ -1482,7 +1482,6 @@ GameObject:
   - component: {fileID: 719431920}
   - component: {fileID: 719431915}
   - component: {fileID: 719431921}
-  - component: {fileID: 719431922}
   - component: {fileID: 719431923}
   m_Layer: 0
   m_Name: Player
@@ -1731,23 +1730,6 @@ MonoBehaviour:
   _cannonTransformLeft: {fileID: 593906633}
   _cannonTransformRight: {fileID: 1703397495}
   _abilityManager: {fileID: 1922214655}
---- !u!114 &719431922
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 719431912}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b1ea7438a1ec21d4fa4aab250f7801df, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Ability
-  _warpEffect: {fileID: 3636689269239401867, guid: f7b6b37c907b0494c8975f3d2a346ebf, type: 3}
-  _player: {fileID: 0}
-  _playerShield: {fileID: 0}
-  _multishotCannonSpriteObj: {fileID: 0}
-  _powerUp: {fileID: 0}
 --- !u!95 &719431923
 Animator:
   serializedVersion: 7
@@ -4055,37 +4037,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1756360635}
   m_CullTransparentMesh: 1
---- !u!1 &1829005518
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1829005519}
-  m_Layer: 0
-  m_Name: PowerUpSpawner
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1829005519
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1829005518}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.1227, y: -0.12636, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1830809370
 GameObject:
   m_ObjectHideFlags: 0
@@ -5022,7 +4973,6 @@ SceneRoots:
   - {fileID: 823136205}
   - {fileID: 89053075}
   - {fileID: 1487697756}
-  - {fileID: 1829005519}
   - {fileID: 837096221}
   - {fileID: 719431914}
   - {fileID: 1149453677}

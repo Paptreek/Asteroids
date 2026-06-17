@@ -48,8 +48,6 @@ public class Asteroid : MonoBehaviour
     {
         _moveDirection = direction;
         _spawnLocation = location;
-
-        //Debug.Log($"X Direction: {direction.x}, Y Direction: {direction.y}");
     }
 
     public void SetSize(Size size)
