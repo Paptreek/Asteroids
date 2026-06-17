@@ -4,7 +4,8 @@ public class Bullet : MonoBehaviour
 {
     private FiringShip _firingShip;
     private float _destroyTimer = 0.75f;
-    private float _baseSpeed = 25;
+    private float _baseSpeedEnemy = 25;
+    private float _baseSpeedPlayer = 25;
     private float _firingShipSpeed;
 
     public bool PiercingAmmoActivated { get; set; }
@@ -13,10 +14,22 @@ public class Bullet : MonoBehaviour
     {
         _destroyTimer -= Time.deltaTime;
 
-        transform.Translate(new Vector2(0, (_firingShipSpeed + _baseSpeed) * Time.deltaTime));
+        if (_firingShip == FiringShip.Enemy)
+        {
+            transform.Translate(new Vector2(0, (2.5f + _baseSpeedEnemy) * Time.deltaTime));
+        }
+        else
+        {
+            transform.Translate(new Vector2(0, (_firingShipSpeed + _baseSpeedPlayer) * Time.deltaTime));
+        }
 
         ScreenManager.WrapAroundScreen(transform, 18.0f, 14.0f);
         DestroyAfterCountdown();
+    }
+
+    public void SetBulletSpeed(float amountToIncreaseBy)
+    {
+        _baseSpeedPlayer += amountToIncreaseBy;
     }
 
     private void DestroyAfterCountdown()

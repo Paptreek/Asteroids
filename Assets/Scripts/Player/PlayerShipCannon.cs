@@ -16,6 +16,8 @@ public class PlayerShipCannon : MonoBehaviour
     private Vector3 _cannonPositionRight;
     private float _secondsBetweenShots = 0.50f;
     private float _cooldownTimer;
+    
+    public float BulletSpeedUpgradeAmount { get; set; }
 
     private void Awake()
     {
@@ -46,6 +48,7 @@ public class PlayerShipCannon : MonoBehaviour
             Bullet bulletCenter = Instantiate(_bullet, _cannonPositionCenter, transform.rotation);
             bulletCenter.SetFiringShipSpeed(this);
             bulletCenter.SetFiringShip(FiringShip.Player);
+            bulletCenter.SetBulletSpeed(BulletSpeedUpgradeAmount);
 
             if (_abilityManager.PiercingAmmoActivated)
             {
@@ -57,10 +60,12 @@ public class PlayerShipCannon : MonoBehaviour
                 Bullet bulletLeft = Instantiate(_bullet, _cannonPositionLeft, _cannonTransformLeft.rotation);
                 bulletLeft.SetFiringShipSpeed(this);
                 bulletLeft.SetFiringShip(FiringShip.Player);
+                bulletLeft.SetBulletSpeed(BulletSpeedUpgradeAmount);
 
                 Bullet bulletRight = Instantiate(_bullet, _cannonPositionRight, _cannonTransformRight.rotation);
                 bulletRight.SetFiringShipSpeed(this);
                 bulletRight.SetFiringShip(FiringShip.Player);
+                bulletRight.SetBulletSpeed(BulletSpeedUpgradeAmount);
 
                 if (_abilityManager.PiercingAmmoActivated)
                 {

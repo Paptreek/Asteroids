@@ -7,6 +7,7 @@ public class UpgradeManager : MonoBehaviour
     [SerializeField] private PlayerMovement _playerMovement;
     [SerializeField] private AbilityManager _abilityManager;
     [SerializeField] private PlayerShipCannon _playerShipCannon;
+    [SerializeField] private Bullet _bullet;
 
     [SerializeField] private GameObject _upgradePanel;
     [SerializeField] private GameObject _upgradePanelBackground;
@@ -23,28 +24,23 @@ public class UpgradeManager : MonoBehaviour
     [SerializeField] private Button _selectTurnSpeedButton;
     [SerializeField] private Button _selectWarpUsesButton;
 
-    private List<GameObject> _upgradeOptions = new List<GameObject>();
-
     private GameObject _leftPanel;
     private GameObject _centerPanel;
     private GameObject _rightPanel;
 
+    public List<GameObject> UpgradeOptions { get; private set; } = new List<GameObject>();
+
     private void Awake()
     {
-        _upgradeOptions.Add(_attackSpeedPanel);
-        _upgradeOptions.Add(_bulletSpeedPanel);
-        _upgradeOptions.Add(_thrustersPanel);
-        _upgradeOptions.Add(_turnSpeedPanel);
-        _upgradeOptions.Add(_warpUsesPanel);
-
-        ShuffleUpgrades(_upgradeOptions);
-        AssignRandomUpgrades();
+        UpgradeOptions.Add(_attackSpeedPanel);
+        UpgradeOptions.Add(_bulletSpeedPanel);
+        UpgradeOptions.Add(_thrustersPanel);
+        UpgradeOptions.Add(_turnSpeedPanel);
+        UpgradeOptions.Add(_warpUsesPanel);
     }
 
     private void Start()
     {
-        _leftPanel.GetComponentInChildren<Button>().Select();
-
         _selectAttackSpeedButton.onClick.AddListener(UpgradeAttackSpeed);
         _selectBulletSpeedButton.onClick.AddListener(UpgradeBulletSpeed);
         _selectThrustersButton.onClick.AddListener(UpgradeThrusters);
@@ -54,7 +50,7 @@ public class UpgradeManager : MonoBehaviour
 
     public void ShuffleUpgrades<T>(List<T> array)
     {
-        for (int i = _upgradeOptions.Count - 1; i > 1; i--)
+        for (int i = UpgradeOptions.Count - 1; i > 1; i--)
         {
             int random = Random.Range(0, i);
             T temp = array[i];
@@ -65,9 +61,11 @@ public class UpgradeManager : MonoBehaviour
 
     public void AssignRandomUpgrades()
     {
-        _leftPanel = _upgradeOptions[0];
-        _centerPanel = _upgradeOptions[1];
-        _rightPanel = _upgradeOptions[2];
+        _leftPanel = UpgradeOptions[0];
+        _centerPanel = UpgradeOptions[1];
+        _rightPanel = UpgradeOptions[2];
+
+        _leftPanel.GetComponentInChildren<Button>().Select();
     }
 
     public void DisplayUpgrades()
@@ -96,21 +94,21 @@ public class UpgradeManager : MonoBehaviour
     private void UpgradeBulletSpeed()
     {
         Debug.Log($"Bullet Speed Upgraded!");
-        // do the upgrade
+        _playerShipCannon.BulletSpeedUpgradeAmount += 5;
         HidePanelsAndResume();
     }
 
     private void UpgradeThrusters()
     {
         Debug.Log($"Thrusters Upgraded!");
-        _playerMovement.IncreaseMoveSpeed(250f); // testing
+        _playerMovement.IncreaseMoveSpeed(100f);
         HidePanelsAndResume();
     }
 
     private void UpgradeTurnSpeed()
     {
         Debug.Log($"Turn Speed Upgraded!");
-        _playerMovement.IncreaseTurnSpeed(50f); // testing
+        _playerMovement.IncreaseTurnSpeed(25f);
         HidePanelsAndResume();
     }
 
@@ -125,6 +123,11 @@ public class UpgradeManager : MonoBehaviour
     {
         _upgradePanelBackground.SetActive(false);
         _upgradePanel.SetActive(false);
+
+        _leftPanel.SetActive(false);
+        _centerPanel.SetActive(false);
+        _rightPanel.SetActive(false);
+
         Time.timeScale = 1;
 
         _leftPanel.GetComponentInChildren<Button>().Select();

@@ -2664,6 +2664,7 @@ MonoBehaviour:
   _playerMovement: {fileID: 719431915}
   _abilityManager: {fileID: 1922214655}
   _playerShipCannon: {fileID: 719431921}
+  _bullet: {fileID: 7550064382406723819, guid: ae7cc9eec0f188b46b05659b90ba5077, type: 3}
   _upgradePanel: {fileID: 992902}
   _upgradePanelBackground: {fileID: 1348446308}
   _attackSpeedPanel: {fileID: 541968372}

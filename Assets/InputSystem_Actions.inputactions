@@ -50,6 +50,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "EnterDevMode",
+                    "type": "Button",
+                    "id": "eb5c51b4-767a-4755-aff9-23c84c8410aa",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "MultiTap(tapCount=6)",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -314,6 +323,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "UseAbility",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5ef3e1be-6efe-4b66-875e-813383aa215a",
+                    "path": "<Keyboard>/backslash",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "EnterDevMode",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
