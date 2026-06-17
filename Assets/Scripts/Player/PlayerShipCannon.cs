@@ -30,6 +30,11 @@ public class PlayerShipCannon : MonoBehaviour
         FireWeapon();
     }
 
+    public void DecreaseTimeBetweenAttacks(float amountToDecrease)
+    {
+        _secondsBetweenShots -= amountToDecrease;
+    }
+
     private void FireWeapon()
     {
         _cannonPositionCenter = _cannonTransformCenter.position;

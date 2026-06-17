@@ -6,6 +6,7 @@ public class UpgradeManager : MonoBehaviour
 {
     [SerializeField] private PlayerMovement _playerMovement;
     [SerializeField] private AbilityManager _abilityManager;
+    [SerializeField] private PlayerShipCannon _playerShipCannon;
 
     [SerializeField] private GameObject _upgradePanel;
     [SerializeField] private GameObject _upgradePanelBackground;
@@ -42,6 +43,8 @@ public class UpgradeManager : MonoBehaviour
 
     private void Start()
     {
+        _leftPanel.GetComponentInChildren<Button>().Select();
+
         _selectAttackSpeedButton.onClick.AddListener(UpgradeAttackSpeed);
         _selectBulletSpeedButton.onClick.AddListener(UpgradeBulletSpeed);
         _selectThrustersButton.onClick.AddListener(UpgradeThrusters);
@@ -77,7 +80,7 @@ public class UpgradeManager : MonoBehaviour
         _leftPanel.transform.localPosition = new Vector3(leftPositionX, postionY);
         _centerPanel.transform.localPosition = new Vector3(centerPositionX, postionY);
         _rightPanel.transform.localPosition = new Vector3(rightPositionX, postionY);
-
+        
         _leftPanel.SetActive(true);
         _centerPanel.SetActive(true);
         _rightPanel.SetActive(true);
@@ -86,7 +89,7 @@ public class UpgradeManager : MonoBehaviour
     private void UpgradeAttackSpeed()
     {
         Debug.Log($"Attack Speed Upgraded!");
-        // do the upgrade
+        _playerShipCannon.DecreaseTimeBetweenAttacks(0.075f);
         HidePanelsAndResume();
     }
 
@@ -123,5 +126,7 @@ public class UpgradeManager : MonoBehaviour
         _upgradePanelBackground.SetActive(false);
         _upgradePanel.SetActive(false);
         Time.timeScale = 1;
+
+        _leftPanel.GetComponentInChildren<Button>().Select();
     }
 }

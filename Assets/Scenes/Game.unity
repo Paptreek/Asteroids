@@ -2663,6 +2663,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::UpgradeManager
   _playerMovement: {fileID: 719431915}
   _abilityManager: {fileID: 1922214655}
+  _playerShipCannon: {fileID: 719431921}
   _upgradePanel: {fileID: 992902}
   _upgradePanelBackground: {fileID: 1348446308}
   _attackSpeedPanel: {fileID: 541968372}
