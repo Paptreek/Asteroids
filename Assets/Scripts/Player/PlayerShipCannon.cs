@@ -7,7 +7,7 @@ public class PlayerShipCannon : MonoBehaviour
     [SerializeField] private Transform _cannonTransformCenter;
     [SerializeField] private Transform _cannonTransformLeft;
     [SerializeField] private Transform _cannonTransformRight;
-    [SerializeField] private AbilityManager _abilityManager;
+    [SerializeField] private PowerUpManager _abilityManager;
 
     private InputAction _attackAction;
     private Player _player;

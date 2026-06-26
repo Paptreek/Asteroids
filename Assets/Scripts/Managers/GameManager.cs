@@ -7,7 +7,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private AsteroidManager _asteroidManager;
     [SerializeField] private AsteroidSpawner _asteroidSpawner;
     [SerializeField] private EnemyShipSpawner _enemyShipSpawner;
-    [SerializeField] private AbilityManager _abilityManager;
+    [SerializeField] private PowerUpManager _abilityManager;
     [SerializeField] private GameObject _gameOverPrefab;
     [SerializeField] private GameObject _upgradePanel;
     [SerializeField] private GameObject _upgradePanelBackground;

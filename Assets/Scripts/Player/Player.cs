@@ -4,18 +4,21 @@ public class Player : MonoBehaviour
 {
     [SerializeField] private ParticleSystem _explosionEffect;
     [SerializeField] private GameObject _respawnArea;
-    [SerializeField] private AbilityManager _abilityManager;
+    [SerializeField] private PowerUpManager _powerUpManager;
 
     private Rigidbody2D _rb;
     private PolygonCollider2D _collider;
     private SpriteRenderer _spriteRenderer;
+    private bool _spriteBlinkingActive;
     private float _respawnCheckTimer;
+    private float _colliderDisabledTimer;
+    private float _spriteOnTimer;
+    private float _spriteOffTimer = 0.25f;
 
     public bool IsDead { get; set; }
     public int RemainingLives { get; private set; } = 3;
     public int SmallShipsDestroyed { get; set; }
     public int LargeShipsDestroyed { get; set; }
-    public float EnableCollisionTimer { get; private set; } = 0.5f;
 
     private void Awake()
     {
@@ -26,17 +29,21 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-        if (!_collider.enabled && !IsDead && !_abilityManager.ShieldActivated)
-        {
-            EnableCollisionTimer -= Time.deltaTime;
-        }
-
+        _colliderDisabledTimer -= Time.deltaTime;
         _respawnCheckTimer -= Time.deltaTime;
+
+        _spriteOffTimer -= Time.deltaTime;
+        _spriteOnTimer -= Time.deltaTime;
+
+        if (_spriteBlinkingActive)
+        {
+            ActivateSpriteBlinking();
+        }
 
         ScreenManager.WrapAroundScreen(transform, 17.5f, 13.0f);
 
-        CheckForRespawnIfDead();
-        EnableColliderAfterWait();
+        RespawnIfSafe();
+        ManageCollider();
     }
 
     public void ResetPosition()
@@ -62,12 +69,14 @@ public class Player : MonoBehaviour
     {
         if (RemainingLives > 0)
         {
+            _spriteRenderer.enabled = false;
+            _collider.enabled = false;
+
+            _colliderDisabledTimer = 100.0f; // this is a janky solution for keeping the player safe until respawn happens
+
             _respawnCheckTimer = 0.25f;
             RemainingLives--;
             IsDead = true;
-
-            _spriteRenderer.enabled = false;
-            _collider.enabled = false;
         }
         else
         {
@@ -77,7 +86,7 @@ public class Player : MonoBehaviour
         Debug.Log($"You died! Remaining Lives: {RemainingLives}");
     }
 
-    private void CheckForRespawnIfDead()
+    private void RespawnIfSafe()
     {
         if (IsDead && _respawnCheckTimer <= 0)
         {
@@ -88,18 +97,48 @@ public class Player : MonoBehaviour
                 IsDead = false;
 
                 _spriteRenderer.enabled = true;
+
+                _colliderDisabledTimer = 2.0f;
+
+                _spriteBlinkingActive = true;
             }
         }
     }
 
-    private void EnableColliderAfterWait()
+    private void ManageCollider()
     {
-        if (!_collider.enabled && EnableCollisionTimer <= 0)
+        if (_powerUpManager.ShieldActivated || _colliderDisabledTimer > 0)
         {
-            IsDead = false;
-
+            _collider.enabled = false;
+        }
+        else
+        {
             _collider.enabled = true;
-            EnableCollisionTimer = 0.5f;
+            _spriteBlinkingActive = false;
+        }
+    }
+
+    private void ActivateSpriteBlinking()
+    {
+        if (_spriteRenderer.enabled)
+        {
+            _spriteOnTimer -= Time.deltaTime;
+
+            if (_spriteOnTimer <= 0)
+            {
+                _spriteRenderer.enabled = false;
+                _spriteOffTimer = 0.25f;
+            }
+        }
+        else
+        {
+            _spriteOffTimer -= Time.deltaTime;
+
+            if (_spriteOffTimer <= 0)
+            {
+                _spriteRenderer.enabled = true;
+                _spriteOnTimer = 0.25f;
+            }
         }
     }
 }

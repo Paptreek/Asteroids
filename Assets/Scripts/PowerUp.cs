@@ -9,7 +9,7 @@ public class PowerUp : MonoBehaviour
     private float _enableFlashTimer = 5.0f;
     private float _spriteRendererFlashTimer = 0.5f;
     private SpriteRenderer _spriteRenderer;
-    private AbilityManager _abilityManager;
+    private PowerUpManager _abilityManager;
     private Type _type;
 
     public enum Type { MultiShot, Shield, PiercingAmmo }
@@ -37,7 +37,7 @@ public class PowerUp : MonoBehaviour
         Destroy(gameObject, 5.0f);
     }
 
-    public void SetAbilityManager(AbilityManager abilityManager)
+    public void SetAbilityManager(PowerUpManager abilityManager)
     {
         _abilityManager = abilityManager;
     }

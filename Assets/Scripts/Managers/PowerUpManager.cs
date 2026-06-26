@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class AbilityManager : MonoBehaviour
+public class PowerUpManager : MonoBehaviour
 {
     [SerializeField] private ParticleSystem _warpEffect;
     [SerializeField] private Player _player;
@@ -36,14 +36,17 @@ public class AbilityManager : MonoBehaviour
         _shieldTimer -= Time.deltaTime;
         _piercingAmmoTimer -= Time.deltaTime;
         
-        if (_warp.WasPressedThisFrame())
+        if (_player != null)
         {
-            Warp();
-        }
+            if (_warp.WasPressedThisFrame())
+            {
+                Warp();
+            }
 
-        ManageMultiShotPowerUp();
-        ManageShieldPowerUp();
-        ManagePiercingPowerUp();
+            ManageMultiShotPowerUp();
+            ManageShieldPowerUp();
+            ManagePiercingPowerUp();
+        }
     }
 
     public void IncreaseMaxWarpUses()
@@ -54,11 +57,11 @@ public class AbilityManager : MonoBehaviour
 
     public void MaybeDropPowerUp(Asteroid asteroid)
     {
-        int randomNumber = Random.Range(0, 13);
-        //int randomNumber = Random.Range(0, 2);
+        //int randomNumber = Random.Range(0, 13);
+        int randomNumber = Random.Range(0, 2);
 
-        if (randomNumber == 12)
-        //if (randomNumber == 1)
+        //if (randomNumber == 12)
+        if (randomNumber == 1)
         {
             PowerUp powerUp = Instantiate(_powerUp, asteroid.transform.position, Quaternion.identity);
             powerUp.SetAbilityManager(this);
@@ -126,7 +129,7 @@ public class AbilityManager : MonoBehaviour
         if (HasShield && _useAbility.WasPressedThisFrame())
         {
             _playerShield.SetActive(true);
-            _player.GetComponent<PolygonCollider2D>().enabled = false;
+
             ShieldActivated = true;
             HasShield = false;
             _shieldTimer = 2.5f;
@@ -141,11 +144,6 @@ public class AbilityManager : MonoBehaviour
         {
             ShieldActivated = false;
             _playerShield.SetActive(false);
-
-            if (_player.EnableCollisionTimer <= 0)
-            {
-                _player.GetComponent<PolygonCollider2D>().enabled = true;
-            }
         }
     }
 
