@@ -23,7 +23,7 @@ public class AsteroidManager : MonoBehaviour
         {
             if (asteroid.HasBeenHit)
             {
-                if (asteroid.AsteroidSize == Asteroid.Size.Large && asteroid.DestroyedByPlayer)
+                if (asteroid.AsteroidSize == Asteroid.Size.Large)
                 {
                     if (asteroid.DestroyedByPlayer)
                     {

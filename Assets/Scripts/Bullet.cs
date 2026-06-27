@@ -49,7 +49,7 @@ public class Bullet : MonoBehaviour
     {
         if (_firingShip == FiringShip.Player)
         {
-            if (!PiercingAmmoActivated && collision.CompareTag("Asteroid") || collision.CompareTag("EnemyShip"))
+            if (!PiercingAmmoActivated && collision.CompareTag("Asteroid") || collision.CompareTag("EnemyShip") || collision.CompareTag("EnemyCannon"))
             {
                 Destroy(gameObject);
             }

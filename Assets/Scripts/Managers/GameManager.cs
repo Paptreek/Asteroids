@@ -28,6 +28,7 @@ public class GameManager : MonoBehaviour
     private int _asteroidsToSpawnStart = 4;
     private int _asteroidsToSpawnRound = 3;
     private Asteroid.Size _asteroidSize = Asteroid.Size.Large;
+    private bool _bossTestModeEnabled = true;
     
     private void Awake()
     {
@@ -36,8 +37,15 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        _asteroidSpawner.SpawnNewRound(_asteroidsToSpawnStart, _asteroidSize, _asteroidManager.Asteroids);
-        _enemyShipSpawner.SetSpawnTimers(_spawnTimerSmall, _spawnTimerLarge);
+        if (!_bossTestModeEnabled) // remove after testing is done
+        {
+            _asteroidSpawner.SpawnNewRound(_asteroidsToSpawnStart, _asteroidSize, _asteroidManager.Asteroids);
+            _enemyShipSpawner.SetSpawnTimers(_spawnTimerSmall, _spawnTimerLarge);
+        }
+        else
+        {
+            EnableBossTestingMode();
+        }
     }
 
     private void Update()
@@ -54,16 +62,19 @@ public class GameManager : MonoBehaviour
     {
         int maxRounds = 5;
 
-        if (_asteroidManager.Asteroids.Count <= 0 && !_playerHasLost)
+        if (!_bossTestModeEnabled) // remove after done testing
         {
-            if (_round < maxRounds)
+            if (_asteroidManager.Asteroids.Count <= 0 && !_playerHasLost)
             {
-                GetPlayerUpgradeChoice();
-                StartNextRound();
-            }
-            else
-            {
-                _playerHasWon = true;
+                if (_round < maxRounds)
+                {
+                    GetPlayerUpgradeChoice();
+                    StartNextRound();
+                }
+                else
+                {
+                    _playerHasWon = true;
+                }
             }
         }
     }
@@ -177,5 +188,13 @@ public class GameManager : MonoBehaviour
             _asteroidSize = Asteroid.Size.Small;
             Debug.Log("DevMode Enabled");
         }
+    }
+
+    private void EnableBossTestingMode()
+    {
+        _asteroidSpawner.enabled = false;
+        _enemyShipSpawner.enabled = false;
+
+        _player.transform.position = new Vector3(0, -6.5f, 0f);
     }
 }

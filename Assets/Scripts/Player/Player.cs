@@ -16,7 +16,8 @@ public class Player : MonoBehaviour
     private float _spriteOffTimer = 0.25f;
 
     public bool IsDead { get; set; }
-    public int RemainingLives { get; private set; } = 3;
+    //public int RemainingLives { get; private set; } = 3;
+    public int RemainingLives { get; private set; } = 100; // testing
     public int SmallShipsDestroyed { get; set; }
     public int LargeShipsDestroyed { get; set; }
 
@@ -60,8 +61,8 @@ public class Player : MonoBehaviour
     {
         if (collision.CompareTag("Asteroid") || collision.CompareTag("EnemyShip") || collision.CompareTag("EnemyBullet"))
         {
-            Instantiate(_explosionEffect, transform.position, Quaternion.identity);
             Die();
+            Instantiate(_explosionEffect, transform.position, Quaternion.identity);
         }
     }
 
