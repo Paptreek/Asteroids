@@ -59,7 +59,7 @@ public class Player : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Asteroid") || collision.CompareTag("EnemyShip") || collision.CompareTag("EnemyBullet"))
+        if (collision.CompareTag("Asteroid") || collision.CompareTag("EnemyShip") || collision.CompareTag("EnemyBullet") || collision.CompareTag("EnemyCannon"))
         {
             Die();
             Instantiate(_explosionEffect, transform.position, Quaternion.identity);

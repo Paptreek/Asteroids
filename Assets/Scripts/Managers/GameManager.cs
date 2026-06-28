@@ -28,7 +28,7 @@ public class GameManager : MonoBehaviour
     private int _asteroidsToSpawnStart = 4;
     private int _asteroidsToSpawnRound = 3;
     private Asteroid.Size _asteroidSize = Asteroid.Size.Large;
-    private bool _bossTestModeEnabled = false;
+    private bool _bossTestModeEnabled = true;
     
     private void Awake()
     {

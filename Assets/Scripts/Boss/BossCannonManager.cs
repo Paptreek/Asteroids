@@ -8,6 +8,8 @@ public class BossCannonManager : MonoBehaviour
 
     private float _cornerBulletTimer = 1.0f;
     private float _centerBulletTimer = 2.0f;
+    private int[] _cornerCannonFireAngles = { 45, 135, 225, 315 };
+    private int[] _centerCannonFireAngles = { 0, 90, 180, 270 };
 
     private void Update()
     {
@@ -25,6 +27,11 @@ public class BossCannonManager : MonoBehaviour
         }
     }
 
+    private void SetCannonFiringAngles()
+    {
+        _cornerCannonFireAngles[0] = 45;
+    }
+
     private void FireCornerCannons()
     {
         for (int i = 0; i < _cornerCannons.Length; i++)
@@ -33,7 +40,7 @@ public class BossCannonManager : MonoBehaviour
             {
                 Bullet bullet = Instantiate(_bullet, _cornerCannons[i].position, Quaternion.identity);
                 bullet.SetFiringShip(FiringShip.Enemy);
-                bullet.SetFiringDirection(_cornerCannons[i].eulerAngles.z);
+                bullet.SetFiringDirection(_cornerCannonFireAngles[i]);
                 bullet.SetScreenWrappable(false);
             }
         }
@@ -49,7 +56,7 @@ public class BossCannonManager : MonoBehaviour
             {
                 Bullet bullet = Instantiate(_bullet, _centerCannons[i].position, Quaternion.identity);
                 bullet.SetFiringShip(FiringShip.Enemy);
-                bullet.SetFiringDirection(_centerCannons[i].eulerAngles.z);
+                bullet.SetFiringDirection(_centerCannonFireAngles[i]);
                 bullet.SetScreenWrappable(false);
             }
         }
