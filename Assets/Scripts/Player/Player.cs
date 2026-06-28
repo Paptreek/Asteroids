@@ -141,5 +141,10 @@ public class Player : MonoBehaviour
                 _spriteOnTimer = 0.25f;
             }
         }
+
+        if (_spriteOnTimer < 0 && _spriteOffTimer < 0)
+        {
+            _spriteRenderer.enabled = true;
+        }
     }
 }

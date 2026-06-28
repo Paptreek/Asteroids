@@ -2,11 +2,14 @@ using UnityEngine;
 
 public class BossWeakPoint : MonoBehaviour
 {
-    private int _numberOfTimesHit;
+    [SerializeField] private GameObject _explosionEffectPrefab;
+
     private Vector2 _topSide = new Vector2(0, 0.5f);
     private Vector2 _rightSide = new Vector2(0.5f, 0);
     private Vector2 _bottomSide = new Vector2(0, -0.5f);
     private Vector2 _leftSide = new Vector2(-0.5f, 0);
+    
+    public int NumberOfTimesHit { get; private set; }
 
     private void Start()
     {
@@ -15,8 +18,9 @@ public class BossWeakPoint : MonoBehaviour
 
     private void Update()
     {
-        if (_numberOfTimesHit >= 5)
+        if (NumberOfTimesHit >= 4)
         {
+            Instantiate(_explosionEffectPrefab, transform.position, Quaternion.identity);
             Destroy(gameObject);
         }
     }
@@ -25,8 +29,8 @@ public class BossWeakPoint : MonoBehaviour
     {
         if (collision.CompareTag($"Player") || collision.CompareTag($"PlayerBullet"))
         {
-            _numberOfTimesHit++;
-            Debug.Log($"WeakPoint Hit {_numberOfTimesHit} times.");
+            NumberOfTimesHit++;
+            Debug.Log($"WeakPoint Hit {NumberOfTimesHit} times.");
 
             SwitchPosition();
         }

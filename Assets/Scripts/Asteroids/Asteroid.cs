@@ -57,7 +57,7 @@ public class Asteroid : MonoBehaviour
             AsteroidSize = Size.Large;
             _moveSpeed = 3;
             _spriteRenderer.sprite = _sprites[0];
-            _collider.radius = 1.55f;
+            _collider.radius = 1.0f;
         }
 
         if (size == Size.Medium)
@@ -65,7 +65,7 @@ public class Asteroid : MonoBehaviour
             AsteroidSize = Size.Medium;
             _moveSpeed = 4;
             _spriteRenderer.sprite = _sprites[1];
-            _collider.radius = 1.05f;
+            _collider.radius = 0.65f;
         }
 
         if (size == Size.Small)
@@ -73,7 +73,7 @@ public class Asteroid : MonoBehaviour
             AsteroidSize = Size.Small;
             _moveSpeed = 5;
             _spriteRenderer.sprite = _sprites[2];
-            _collider.radius = 0.6f;
+            _collider.radius = 0.375f;
         }
     }
 

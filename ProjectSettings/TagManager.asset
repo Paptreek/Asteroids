@@ -9,6 +9,7 @@ TagManager:
   - Asteroid
   - EnemyShip
   - GameOver
+  - EnemyCannon
   layers:
   - Default
   - TransparentFX

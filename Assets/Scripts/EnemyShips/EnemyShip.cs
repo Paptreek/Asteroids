@@ -4,7 +4,6 @@ public class EnemyShip : MonoBehaviour
 {
     [SerializeField] private Bullet _bullet;
     [SerializeField] private ParticleSystem _explosionEffect;
-    [SerializeField] private Player _player;
     [SerializeField] private Sprite _spriteLarge;
     [SerializeField] private Sprite _spriteSmall;
     [SerializeField] private PolygonCollider2D _colliderSmall;
@@ -17,6 +16,7 @@ public class EnemyShip : MonoBehaviour
     private float _moveSpeed;
     private float _directionChangeTimer = 1.0f;
     private Vector3 _spawnLocation;
+    private Player _player;
     private SpriteRenderer _spriteRenderer;
     private PolygonCollider2D _collider;
 
@@ -67,7 +67,6 @@ public class EnemyShip : MonoBehaviour
             _secondsBetweenShots = 1.0f;
             _spriteRenderer.sprite = _spriteSmall;
             _collider.points = _colliderSmall.points;
-            transform.localScale = Vector3.one;
         }
     }
 
