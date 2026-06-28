@@ -6,6 +6,7 @@ public class BossCannon : MonoBehaviour
     [SerializeField] private GameObject _explosionEffectPrefab;
 
     private int _numberOfHitsTaken;
+    private int _maxHealth = 1;
     private SpriteRenderer _spriteRenderer;
 
     public bool WasJustHit { get; set; }
@@ -18,12 +19,15 @@ public class BossCannon : MonoBehaviour
 
     private void Update()
     {
-        if (_numberOfHitsTaken >= 3 && _spriteRenderer.sprite != _damagedCannonSprite)
+        if (_numberOfHitsTaken >= _maxHealth && _spriteRenderer.sprite != _damagedCannonSprite)
         {
+            GetComponent<PolygonCollider2D>().enabled = false;
+            IsDamaged = true;
+            
             if (_damagedCannonSprite != null)
             {
                 _spriteRenderer.sprite = _damagedCannonSprite;
-                IsDamaged = true;
+                // add explosion sound
             }
             else
             {
