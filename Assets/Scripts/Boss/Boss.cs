@@ -12,11 +12,13 @@ public class Boss : MonoBehaviour
     private float _coreRotationTimer;
     private float _coreRotationSpeed;
     private float _expressionChangeTimer;
+    private BossMovement _movement;
     private SpriteRenderer _spriteRenderer;
     private List<BossCannon> _cannonTracker = new List<BossCannon>();
 
     private void Awake()
     {
+        _movement = GetComponent<BossMovement>();
         _spriteRenderer = GetComponent<SpriteRenderer>();
 
         SetRandomRotationSpeed();
@@ -95,6 +97,7 @@ public class Boss : MonoBehaviour
 
         if (_cannonTracker.Count <= 0)
         {
+            _movement.IncreaseSpeed();
             DestroyCore();
         }
     }
