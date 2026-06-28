@@ -3,13 +3,22 @@ using UnityEngine;
 public class BossCannonManager : MonoBehaviour
 {
     [SerializeField] private Bullet _bullet;
-    [SerializeField] private Transform[] _cornerCannons = new Transform[4];
-    [SerializeField] private Transform[] _centerCannons = new Transform[4];
+    [SerializeField] private Transform[] _cornerCannonTransforms = new Transform[4];
+    [SerializeField] private Transform[] _centerCannonTransforms = new Transform[4];
 
     private float _cornerBulletTimer = 1.0f;
     private float _centerBulletTimer = 2.0f;
     private int[] _cornerCannonFireAngles = { 45, 135, 225, 315 };
     private int[] _centerCannonFireAngles = { 0, 90, 180, 270 };
+    private BossCannon[] _centerCannons = new BossCannon[4];
+
+    private void Start()
+    {
+        for (int i = 0; i < _centerCannons.Length; i++)
+        {
+            _centerCannons[i] = _centerCannonTransforms[i].GetComponent<BossCannon>();
+        }
+    }
 
     private void Update()
     {
@@ -27,18 +36,13 @@ public class BossCannonManager : MonoBehaviour
         }
     }
 
-    private void SetCannonFiringAngles()
-    {
-        _cornerCannonFireAngles[0] = 45;
-    }
-
     private void FireCornerCannons()
     {
-        for (int i = 0; i < _cornerCannons.Length; i++)
+        for (int i = 0; i < _cornerCannonTransforms.Length; i++)
         {
-            if (_cornerCannons[i] != null)
+            if (_cornerCannonTransforms[i] != null)
             {
-                Bullet bullet = Instantiate(_bullet, _cornerCannons[i].position, Quaternion.identity);
+                Bullet bullet = Instantiate(_bullet, _cornerCannonTransforms[i].position, Quaternion.identity);
                 bullet.SetFiringShip(FiringShip.Enemy);
                 bullet.SetFiringDirection(_cornerCannonFireAngles[i]);
                 bullet.SetScreenWrappable(false);
@@ -50,11 +54,11 @@ public class BossCannonManager : MonoBehaviour
 
     private void FireCenterCannons()
     {
-        for (int i = 0; i < _centerCannons.Length; i++)
+        for (int i = 0; i < _centerCannonTransforms.Length; i++)
         {
-            if (_centerCannons[i] != null)
+            if (_centerCannonTransforms[i] != null && !_centerCannons[i].IsDamaged)
             {
-                Bullet bullet = Instantiate(_bullet, _centerCannons[i].position, Quaternion.identity);
+                Bullet bullet = Instantiate(_bullet, _centerCannonTransforms[i].position, Quaternion.identity);
                 bullet.SetFiringShip(FiringShip.Enemy);
                 bullet.SetFiringDirection(_centerCannonFireAngles[i]);
                 bullet.SetScreenWrappable(false);

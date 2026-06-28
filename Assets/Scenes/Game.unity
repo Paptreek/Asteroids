@@ -858,6 +858,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ea6fe339512bcc46a2844f703a5b2b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BossCannon
+  _damagedCannonSprite: {fileID: 412161792, guid: a76dc2c97a8f17e439ee4ac410b9dd13, type: 3}
+  _explosionEffectPrefab: {fileID: 0}
 --- !u!1 &341561559
 GameObject:
   m_ObjectHideFlags: 0
@@ -1294,6 +1296,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ea6fe339512bcc46a2844f703a5b2b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BossCannon
+  _damagedCannonSprite: {fileID: 0}
+  _explosionEffectPrefab: {fileID: 4229611710592519415, guid: 210b1c104a2a4b1458186703fd24a933, type: 3}
 --- !u!1 &379349208
 GameObject:
   m_ObjectHideFlags: 0
@@ -2133,6 +2137,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ea6fe339512bcc46a2844f703a5b2b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BossCannon
+  _damagedCannonSprite: {fileID: 299614376, guid: a76dc2c97a8f17e439ee4ac410b9dd13, type: 3}
+  _explosionEffectPrefab: {fileID: 0}
 --- !u!1 &690849368
 GameObject:
   m_ObjectHideFlags: 0
@@ -2295,6 +2301,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ea6fe339512bcc46a2844f703a5b2b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BossCannon
+  _damagedCannonSprite: {fileID: 0}
+  _explosionEffectPrefab: {fileID: 4229611710592519415, guid: 210b1c104a2a4b1458186703fd24a933, type: 3}
 --- !u!1 &719431912
 GameObject:
   m_ObjectHideFlags: 0
@@ -2864,6 +2872,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ea6fe339512bcc46a2844f703a5b2b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BossCannon
+  _damagedCannonSprite: {fileID: 0}
+  _explosionEffectPrefab: {fileID: 4229611710592519415, guid: 210b1c104a2a4b1458186703fd24a933, type: 3}
 --- !u!1 &823136204
 GameObject:
   m_ObjectHideFlags: 0
@@ -3694,6 +3704,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ea6fe339512bcc46a2844f703a5b2b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BossCannon
+  _damagedCannonSprite: {fileID: 0}
+  _explosionEffectPrefab: {fileID: 4229611710592519415, guid: 210b1c104a2a4b1458186703fd24a933, type: 3}
 --- !u!1 &953514959
 GameObject:
   m_ObjectHideFlags: 0
@@ -4803,6 +4815,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ea6fe339512bcc46a2844f703a5b2b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BossCannon
+  _damagedCannonSprite: {fileID: 899368640, guid: a76dc2c97a8f17e439ee4ac410b9dd13, type: 3}
+  _explosionEffectPrefab: {fileID: 0}
 --- !u!1 &1332637073
 GameObject:
   m_ObjectHideFlags: 0
@@ -5175,6 +5189,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ea6fe339512bcc46a2844f703a5b2b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BossCannon
+  _damagedCannonSprite: {fileID: -272588079, guid: a76dc2c97a8f17e439ee4ac410b9dd13, type: 3}
+  _explosionEffectPrefab: {fileID: 0}
 --- !u!1 &1384727425
 GameObject:
   m_ObjectHideFlags: 0
@@ -5469,12 +5485,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Boss
   _bullet: {fileID: 7550064382406723819, guid: ae7cc9eec0f188b46b05659b90ba5077, type: 3}
-  _cornerCannons:
+  _cornerCannonTransforms:
   - {fileID: 690849369}
   - {fileID: 358305511}
   - {fileID: 762033178}
   - {fileID: 927233636}
-  _centerCannons:
+  _centerCannonTransforms:
   - {fileID: 309678006}
   - {fileID: 1241147876}
   - {fileID: 1350632788}
@@ -5504,6 +5520,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Boss
   _weakPoint: {fileID: 894235145}
+  _expressionSprites:
+  - {fileID: 1242318498830291188, guid: a76dc2c97a8f17e439ee4ac410b9dd13, type: 3}
+  - {fileID: 2814311070118945490, guid: a76dc2c97a8f17e439ee4ac410b9dd13, type: 3}
+  - {fileID: -5657288695991387124, guid: a76dc2c97a8f17e439ee4ac410b9dd13, type: 3}
+  _cannons:
+  - {fileID: 309678009}
+  - {fileID: 690849372}
+  - {fileID: 1241147879}
+  - {fileID: 358305514}
+  - {fileID: 1350632791}
+  - {fileID: 762033181}
+  - {fileID: 627536400}
+  - {fileID: 927233639}
 --- !u!58 &1510678826
 CircleCollider2D:
   m_ObjectHideFlags: 0

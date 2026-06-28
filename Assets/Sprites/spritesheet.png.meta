@@ -897,7 +897,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: boss_cannon_left_dest
+      name: boss_cannon_left_dmg
       rect:
         serializedVersion: 2
         x: 171
@@ -919,7 +919,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: boss_cannon_top_dest
+      name: boss_cannon_top_dmg
       rect:
         serializedVersion: 2
         x: 207
@@ -941,7 +941,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: boss_cannon_right_dest
+      name: boss_cannon_right_dmg
       rect:
         serializedVersion: 2
         x: 224
@@ -963,7 +963,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: boss_cannon_bottom_dest
+      name: boss_cannon_bottom_dmg
       rect:
         serializedVersion: 2
         x: 185
@@ -1004,13 +1004,13 @@ TextureImporter:
       asteroid_medium: 2101468434680752606
       asteroid_small: 168991802197035126
       boss_cannon_bottom: -8077322786639102128
-      boss_cannon_bottom_dest: -272588079
+      boss_cannon_bottom_dmg: -272588079
       boss_cannon_left: -5585859213009349950
-      boss_cannon_left_dest: 899368640
+      boss_cannon_left_dmg: 899368640
       boss_cannon_right: 7553637952222818972
-      boss_cannon_right_dest: 299614376
+      boss_cannon_right_dmg: 299614376
       boss_cannon_top: 6631497456602388572
-      boss_cannon_top_dest: 412161792
+      boss_cannon_top_dmg: 412161792
       boss_core: -2387789130733199701
       boss_corner_bottom_left: 2726269027909494591
       boss_corner_bottom_right: -7810360755295374722
