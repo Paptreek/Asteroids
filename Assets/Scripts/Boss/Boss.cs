@@ -12,6 +12,8 @@ public class Boss : MonoBehaviour
     private float _coreRotationTimer;
     private float _coreRotationSpeed;
     private float _expressionChangeTimer;
+    private int _hitsTaken;
+    private int _maxHP = 3;
     private BossMovement _movement;
     private SpriteRenderer _spriteRenderer;
     private List<BossCannon> _cannonTracker = new List<BossCannon>();
@@ -41,11 +43,28 @@ public class Boss : MonoBehaviour
         }
 
         ChangeExpressionOnHit();
+
+        if (_hitsTaken >= _maxHP)
+        {
+            Instantiate(_explosionEffectPrefab, transform.position, Quaternion.identity);
+            Destroy(gameObject);
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag($"Player") || collision.CompareTag($"PlayerBullet"))
+        {
+            _hitsTaken++;
+        }
     }
 
     private void SetRandomRotationSpeed()
     {
-        _coreRotationSpeed = Random.value < 0.5f ? Random.Range(-25.0f, -10.0f) : Random.Range(10.0f, 25.0f);
+        float min = 25.0f;
+        float max = 50.0f;
+
+        _coreRotationSpeed = Random.value < 0.5f ? Random.Range(-max, -min) : Random.Range(min, max);
     }
 
     private void RotateCore()

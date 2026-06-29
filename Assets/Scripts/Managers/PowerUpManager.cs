@@ -57,17 +57,17 @@ public class PowerUpManager : MonoBehaviour
 
     public void MaybeDropPowerUp(Asteroid asteroid)
     {
-        //int randomNumber = Random.Range(0, 13);
-        int randomNumber = Random.Range(0, 2);
+        int randomNumber = Random.Range(1, 11);
+        //int randomNumber = Random.Range(0, 2);
 
-        //if (randomNumber == 12)
-        if (randomNumber == 1)
+        if (randomNumber == 10)
+        //if (randomNumber == 1)
         {
             PowerUp powerUp = Instantiate(_powerUp, asteroid.transform.position, Quaternion.identity);
             powerUp.SetAbilityManager(this);
         }
 
-        Debug.Log($"PowerUp Drop Roll: {randomNumber} / 12");
+        Debug.Log($"PowerUp Drop Roll: {randomNumber} / 10");
     }
 
     public void ClearPowerUps()

@@ -5,8 +5,8 @@ public class BossCannon : MonoBehaviour
     [SerializeField] private Sprite _damagedCannonSprite;
     [SerializeField] private GameObject _explosionEffectPrefab;
 
-    private int _numberOfHitsTaken;
-    private int _maxHealth = 1;
+    private int _hitsTaken;
+    private int _maxHP = 3;
     private SpriteRenderer _spriteRenderer;
 
     public bool WasJustHit { get; set; }
@@ -19,7 +19,7 @@ public class BossCannon : MonoBehaviour
 
     private void Update()
     {
-        if (_numberOfHitsTaken >= _maxHealth && _spriteRenderer.sprite != _damagedCannonSprite)
+        if (_hitsTaken >= _maxHP && _spriteRenderer.sprite != _damagedCannonSprite)
         {
             GetComponent<PolygonCollider2D>().enabled = false;
             IsDamaged = true;
@@ -42,8 +42,8 @@ public class BossCannon : MonoBehaviour
         if (collision.CompareTag($"PlayerBullet") || collision.CompareTag($"Player"))
         {
             WasJustHit = true;
-            _numberOfHitsTaken++;
-            Debug.Log($"Cannon hits taken: {_numberOfHitsTaken}");
+            _hitsTaken++;
+            Debug.Log($"Cannon hits taken: {_hitsTaken}");
         }
     }
 }
