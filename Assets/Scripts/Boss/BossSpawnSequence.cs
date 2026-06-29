@@ -10,37 +10,41 @@ public class BossSpawnSequence : MonoBehaviour
     private float _endSpawnSequenceTimer = 3.0f;
 
     // ending local positions for the cannon peices
-    private float _moveSpeed = 2.5f;
+    
+    private float _attachSpeedCorners = 4.0f;
+    private float _attachSpeedCenters = 4.0f;
+    
+    private Vector3[] _endPositionsCorners;
     private Vector3 _endTopLeft = new Vector3(-0.9062f, 0.9062f, 0);
     private Vector3 _endBottomLeft = new Vector3(-0.9062f, -0.9062f, 0);
     private Vector3 _endBottomRight = new Vector3(0.9062f, -0.9062f, 0);
     private Vector3 _endTopRight = new Vector3(0.9062f, 0.9062f, 0);
+
+    private Vector3[] _endPositionsCenters;
     private Vector3 _endTop = new Vector3(0, 1.5315f, 0);
     private Vector3 _endLeft = new Vector3(-1.5315f, 0, 0);
     private Vector3 _endBottom = new Vector3(0, -1.5315f, 0);
     private Vector3 _endRight = new Vector3(1.5315f, 0, 0);
 
-    public bool SpawnSequenceComplete { get; private set; } 
-    
+    public bool SpawnSequenceComplete { get; private set; }
+
     private void Awake()
     {
         _movement = GetComponent<BossMovement>();
         _canonManager = GetComponent<BossCannonManager>();
-        
-        SetInitialPositions();
+
+        _endPositionsCorners = new Vector3[] { _endTopLeft, _endBottomLeft, _endBottomRight, _endTopRight };
+        _endPositionsCenters = new Vector3[] { _endTop, _endLeft, _endBottom, _endRight };
     }
 
     private void Update()
     {
-        if (!SpawnSequenceComplete)
+        AttachCannons();
+
+        if (_cornerCannonTransforms[0].localPosition == _endTopLeft && _centerCannonTransforms[0].localPosition == _endTop)
         {
             transform.position = Vector3.MoveTowards(transform.position, new Vector3(0, 6.5f, 0), 5.0f * Time.deltaTime);
-
-            if (transform.position.y == 6.5f)
-            {
-                AttachCannons();
-                _endSpawnSequenceTimer -= Time.deltaTime;
-            }
+            _endSpawnSequenceTimer -= Time.deltaTime;
         }
 
         if (_endSpawnSequenceTimer <= 0)
@@ -53,18 +57,22 @@ public class BossSpawnSequence : MonoBehaviour
 
     private void AttachCannons()
     {
-        Vector3[] endPositions = { _endTopLeft, _endBottomLeft, _endBottomRight, _endTopRight };
-
         for (int i = 0; i < 4; i++)
         {
-            _cornerCannonTransforms[i].localPosition = Vector3.MoveTowards(_cornerCannonTransforms[i].localPosition, endPositions[i], _moveSpeed * Time.deltaTime);
+            Vector3 localPosition = _cornerCannonTransforms[i].localPosition;
+
+            _cornerCannonTransforms[i].gameObject.SetActive(true);
+            _cornerCannonTransforms[i].localPosition = Vector3.MoveTowards(localPosition, _endPositionsCorners[i], _attachSpeedCorners * Time.deltaTime);
         }
 
         Vector3[] centerEndPositions = { _endTop, _endLeft, _endBottom, _endRight };
 
         for (int i = 0; i < 4; i++)
         {
-            _centerCannonTransforms[i].localPosition = Vector3.MoveTowards(_centerCannonTransforms[i].localPosition, centerEndPositions[i], _moveSpeed * Time.deltaTime);
+            Vector3 localPosition = _centerCannonTransforms[i].localPosition;
+
+            _centerCannonTransforms[i].gameObject.SetActive(true);
+            _centerCannonTransforms[i].localPosition = Vector3.MoveTowards(localPosition, _endPositionsCenters[i], _attachSpeedCenters * Time.deltaTime);
         }
     }
 
@@ -72,29 +80,5 @@ public class BossSpawnSequence : MonoBehaviour
     {
         _movement.enabled = true;
         _canonManager.enabled = true;
-    }
-
-    private void SetInitialPositions()
-    {
-        transform.position = new Vector3(0, -6.5f, 0);
-
-        float min = 1.0f;
-        float max = 3.0f;
-
-        foreach (Transform transform in _cornerCannonTransforms)
-        {
-            float randomX = Random.value < 0.5f ? Random.Range(-max, -min) : Random.Range(min, max);
-            float randomY = Random.value < 0.5f ? Random.Range(-max, -min) : Random.Range(min, max);
-
-            transform.localPosition = new Vector3(randomX, randomY);
-        }
-
-        foreach (Transform transform in _centerCannonTransforms)
-        {
-            float randomX = Random.value < 0.5f ? Random.Range(-max, -min) : Random.Range(min, max);
-            float randomY = Random.value < 0.5f ? Random.Range(-max, -min) : Random.Range(min, max);
-
-            transform.localPosition = new Vector3(randomX, randomY);
-        }
     }
 }
