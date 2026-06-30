@@ -66,13 +66,16 @@ public class GameManager : MonoBehaviour
             _player.gameObject.SetActive(false);
         }
         
-        if (!_player.gameObject.activeInHierarchy && _bossActivated && _bossSpawnSequence.SpawnSequenceComplete)
+        if (_player != null)
         {
-            _player.gameObject.SetActive(true);
-            _player.ActivateIFrames(2);
+            if (!_player.gameObject.activeInHierarchy && _bossActivated && _bossSpawnSequence.SpawnSequenceComplete)
+            {
+                _player.gameObject.SetActive(true);
+                _player.ActivateIFrames(2);
+            }
         }
 
-        //Debug.Log($"Current Score: {GetScore()}");
+        Debug.Log($"Current Score: {GetScore()}");
     }
 
     private void CheckToStartNewRound()
@@ -137,7 +140,18 @@ public class GameManager : MonoBehaviour
         int pointsForSmallAsteroids = _asteroidManager.SmallAsteroidsDestroyed * 25;
         int pointsForAsteroids = pointsForLargeAsteroids + pointsForMediumAsteroids + pointsForSmallAsteroids;
 
-        return _score = _bonusScore + pointsForShips + pointsForAsteroids + _boss.PointsToAdd();
+        int negativePointsFromDeaths = _player.DeathCount * 250;
+
+        return _score = Mathf.Clamp((_bonusScore + pointsForShips + pointsForAsteroids + _boss.PointsToAdd() - negativePointsFromDeaths), 0, 99999);
+    }
+
+    private void AddBonusScore()
+    {
+        int pointsToAddFromTimer = Mathf.RoundToInt(_roundTimer) * 5;
+
+        Debug.Log($"Time Left: {_roundTimer}, Points Added: {pointsToAddFromTimer}");
+
+        _bonusScore += pointsToAddFromTimer;
     }
 
     private void StartNextRound()
@@ -185,15 +199,6 @@ public class GameManager : MonoBehaviour
             _boss.gameObject.SetActive(true);
             _bossActivated = true;
         }
-    }
-
-    private void AddBonusScore()
-    {
-        int pointsToAddFromTimer = Mathf.RoundToInt(_roundTimer) * 5;
-
-        Debug.Log($"Time Left: {_roundTimer}, Points Added: {pointsToAddFromTimer}");
-
-        _bonusScore += pointsToAddFromTimer;
     }
 
     private void DestroyAllEnemyShips()

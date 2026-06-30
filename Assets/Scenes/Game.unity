@@ -2403,6 +2403,7 @@ Transform:
   - {fileID: 1152038391}
   - {fileID: 1703397495}
   - {fileID: 244978080}
+  - {fileID: 771811324}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &719431915
@@ -2874,6 +2875,37 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BossCannon
   _damagedCannonSprite: {fileID: 0}
   _explosionEffectPrefab: {fileID: 4229611710592519415, guid: 210b1c104a2a4b1458186703fd24a933, type: 3}
+--- !u!1 &771811323
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 771811324}
+  m_Layer: 0
+  m_Name: WarpLocation
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &771811324
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 771811323}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 719431914}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &823136204
 GameObject:
   m_ObjectHideFlags: 0
@@ -6467,6 +6499,7 @@ MonoBehaviour:
   _playerShield: {fileID: 1149453676}
   _multishotCannonSpriteObj: {fileID: 244978079}
   _powerUp: {fileID: 7048414872530146536, guid: 1f33758cba79bef43a55eab04ff89382, type: 3}
+  _playerWarpLocation: {fileID: 771811324}
 --- !u!4 &1922214656
 Transform:
   m_ObjectHideFlags: 0

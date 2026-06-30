@@ -8,6 +8,7 @@ public class PowerUpManager : MonoBehaviour
     [SerializeField] private GameObject _playerShield;
     [SerializeField] private GameObject _multishotCannonSpriteObj;
     [SerializeField] private PowerUp _powerUp;
+    [SerializeField] private Transform _playerWarpLocation;
 
     private float _multiShotTimer;
     private float _shieldTimer;
@@ -16,8 +17,8 @@ public class PowerUpManager : MonoBehaviour
     private InputAction _warp;
     private InputAction _useAbility;
 
-    public int MaxWarpUses { get; private set; } = 1;
-    public int WarpUses { get; set; } = 1;
+    public int MaxWarpUses { get; private set; } = 3;
+    public int WarpUses { get; set; } = 3;
     public bool HasMultiShot { get; set; }
     public bool MultiShotActivated { get; set; }
     public bool HasShield { get; set; }
@@ -81,17 +82,11 @@ public class PowerUpManager : MonoBehaviour
     
     private void Warp()
     {
-        if (WarpUses > 0 && !_player.IsAliveAndReady())
+        if (WarpUses > 0 && _player.IsAliveAndReady())
         {
-            Instantiate(_warpEffect, transform.position, Quaternion.identity);
-
-            float newPositionX = Random.Range(-18.0f, 18.0f);
-            float newPositionY = Random.Range(-14.0f, 14.0f);
-
-            _player.transform.position = new Vector3(newPositionX, newPositionY);
-
             Instantiate(_warpEffect, _player.transform.position, Quaternion.identity);
-
+            _player.transform.position = _playerWarpLocation.position;
+            Instantiate(_warpEffect, _player.transform.position, Quaternion.identity);
             WarpUses--;
         }
     }
@@ -128,8 +123,7 @@ public class PowerUpManager : MonoBehaviour
 
     private void ManageShieldPowerUp()
     {
-        //if (HasShield && _useAbility.WasPressedThisFrame() && _player.IsAliveAndReady())
-        if (Keyboard.current.pKey.wasPressedThisFrame)
+        if (HasShield && _useAbility.WasPressedThisFrame() && _player.IsAliveAndReady())
         {
             _playerShield.SetActive(true);
 

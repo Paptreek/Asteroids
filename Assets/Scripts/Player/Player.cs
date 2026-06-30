@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
@@ -16,11 +17,10 @@ public class Player : MonoBehaviour
     private string[] _enemyColliderTags = { "Asteroid", "EnemyShip", "EnemyBullet", "EnemyCannon", "BossCore" };
 
     public bool IsDead { get; set; }
-    //public int RemainingLives { get; private set; } = 3;
-    public int RemainingLives { get; private set; } = 100; // testing
+    public bool SpriteBlinkingActive { get; private set; }
+    public int DeathCount { get; private set; }
     public int SmallShipsDestroyed { get; set; }
     public int LargeShipsDestroyed { get; set; }
-    public bool SpriteBlinkingActive { get; private set; }
 
     private void Awake()
     {
@@ -94,23 +94,16 @@ public class Player : MonoBehaviour
 
     private void Die()
     {
-        if (RemainingLives > 0)
-        {
-            _spriteRenderer.enabled = false;
-            _collider.enabled = false;
+        _spriteRenderer.enabled = false;
+        _collider.enabled = false;
 
-            _colliderDisabledTimer = 100.0f; // this is a janky solution for keeping the player safe until respawn happens
+        _colliderDisabledTimer = 100.0f; // this is a janky solution for keeping the player safe until respawn happens
 
-            _respawnCheckTimer = 0.25f;
-            RemainingLives--;
-            IsDead = true;
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
+        _respawnCheckTimer = 0.25f;
+        DeathCount++;
+        IsDead = true;
 
-        Debug.Log($"You died! Remaining Lives: {RemainingLives}");
+        Debug.Log($"You died! Death Count: {DeathCount}");
     }
 
     private void RespawnIfSafe()
@@ -167,10 +160,5 @@ public class Player : MonoBehaviour
                 _spriteOnTimer = 0.25f;
             }
         }
-
-        //if (_spriteOnTimer < 0 && _spriteOffTimer < 0)
-        //{
-        //    _spriteRenderer.enabled = true;
-        //}
     }
 }
