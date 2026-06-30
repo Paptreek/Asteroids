@@ -51,7 +51,7 @@ public class AsteroidManager : MonoBehaviour
                     }
                 }
 
-                _abilityManager.MaybeDropPowerUp(asteroid.transform.position);
+                _abilityManager.MaybeDropPowerUp(asteroid.transform.position, 5);
 
                 Asteroids.Remove(asteroid);
                 Destroy(asteroid.gameObject);

@@ -12,6 +12,7 @@ public class PowerUpManager : MonoBehaviour
     private float _multiShotTimer;
     private float _shieldTimer;
     private float _piercingAmmoTimer;
+    private float _dropCooldown;
     private InputAction _warp;
     private InputAction _useAbility;
 
@@ -35,6 +36,7 @@ public class PowerUpManager : MonoBehaviour
         _multiShotTimer -= Time.deltaTime;
         _shieldTimer -= Time.deltaTime;
         _piercingAmmoTimer -= Time.deltaTime;
+        _dropCooldown -= Time.deltaTime;
         
         if (_player != null)
         {
@@ -55,15 +57,16 @@ public class PowerUpManager : MonoBehaviour
         WarpUses = MaxWarpUses;
     }
 
-    public void MaybeDropPowerUp(Vector3 positionToDrop)
+    public void MaybeDropPowerUp(Vector3 positionToDrop, int percentChanceToDrop)
     {
-        int chanceToDrop = 10;
+        int chanceToDrop = 100 / percentChanceToDrop;
         int randomNumber = Random.Range(1, chanceToDrop + 1);
 
-        if (randomNumber == chanceToDrop)
+        if (randomNumber == chanceToDrop && _dropCooldown <= 0)
         {
             PowerUp powerUp = Instantiate(_powerUp, positionToDrop, Quaternion.identity);
             powerUp.SetAbilityManager(this);
+            _dropCooldown = 5.0f;
         }
 
         Debug.Log($"PowerUp Drop Roll: {randomNumber} / {chanceToDrop}");
@@ -125,7 +128,8 @@ public class PowerUpManager : MonoBehaviour
 
     private void ManageShieldPowerUp()
     {
-        if (HasShield && _useAbility.WasPressedThisFrame() && _player.IsAliveAndReady())
+        //if (HasShield && _useAbility.WasPressedThisFrame() && _player.IsAliveAndReady())
+        if (Keyboard.current.pKey.wasPressedThisFrame)
         {
             _playerShield.SetActive(true);
 

@@ -130,6 +130,7 @@ public class EnemyShip : MonoBehaviour
             Bullet bullet = Instantiate(_bullet, transform.position, transform.rotation);
             bullet.SetFiringShip(FiringShip.Enemy);
             bullet.SetFiringDirection(firingDirection);
+            bullet.SetScreenWrappable(false);
             
             _cannonTimer = _secondsBetweenShots;
         }
@@ -160,7 +161,7 @@ public class EnemyShip : MonoBehaviour
                 Debug.Log($"Small enemy ship destroyed by player! Total: {_player.SmallShipsDestroyed}");
             }
 
-            _powerUpManager.MaybeDropPowerUp(transform.position);
+            _powerUpManager.MaybeDropPowerUp(transform.position, 20);
             Instantiate(_explosionEffect, transform.position, Quaternion.identity);
             Destroy(gameObject);
         }

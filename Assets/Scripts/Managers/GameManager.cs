@@ -105,7 +105,6 @@ public class GameManager : MonoBehaviour
     {
         if (_player == null)
         {
-            //Debug.Log($"You died. Game over!");
             _playerHasLost = true;
             _enemyShipSpawner.enabled = false;
             _asteroidSpawner.enabled = false;
@@ -119,7 +118,8 @@ public class GameManager : MonoBehaviour
 
         if (_playerHasWon)
         {
-            //Debug.Log($"All rounds completed. You win!");
+            Debug.Log($"All rounds completed. You win!");
+            DestroyAllEnemyShips();
             _enemyShipSpawner.enabled = false;
             _asteroidSpawner.enabled = false;
         }
@@ -242,4 +242,5 @@ public class GameManager : MonoBehaviour
 
         _player.transform.position = new Vector3(0, -6.5f, 0f);
     }
+    // everything above is for testing purposes
 }
