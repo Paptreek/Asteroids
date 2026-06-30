@@ -10,6 +10,8 @@ TagManager:
   - EnemyShip
   - GameOver
   - EnemyCannon
+  - BossCore
+  - BossCannonCenter
   layers:
   - Default
   - TransparentFX

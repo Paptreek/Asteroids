@@ -14,9 +14,12 @@ public class Boss : MonoBehaviour
     private float _expressionChangeTimer;
     private int _hitsTaken;
     private int _maxHP = 3;
+    private int _cannonsDestroyed;
     private BossMovement _movement;
     private SpriteRenderer _spriteRenderer;
     private List<BossCannon> _cannonTracker = new List<BossCannon>();
+
+    public bool IsDead { get; private set; }
 
     private void Awake()
     {
@@ -44,11 +47,19 @@ public class Boss : MonoBehaviour
 
         ChangeExpressionOnHit();
 
-        if (_hitsTaken >= _maxHP)
+        if (_hitsTaken >= _maxHP && !IsDead)
         {
+            IsDead = true;
             Instantiate(_explosionEffectPrefab, transform.position, Quaternion.identity);
-            Destroy(gameObject);
+            GetComponent<SpriteRenderer>().enabled = false;
+            GetComponent<CircleCollider2D>().enabled = false;
+            Destroy(gameObject, 1.0f);
         }
+    }
+
+    public int PointsToAdd()
+    {
+        return _cannonsDestroyed * 100;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -110,6 +121,7 @@ public class Boss : MonoBehaviour
         {
             if (cannon.IsDamaged)
             {
+                _cannonsDestroyed++;
                 _cannonTracker.Remove(cannon);
             }
         }

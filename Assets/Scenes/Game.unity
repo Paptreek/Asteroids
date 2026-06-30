@@ -712,7 +712,7 @@ GameObject:
   - component: {fileID: 309678009}
   m_Layer: 0
   m_Name: Cannon_Top
-  m_TagString: EnemyCannon
+  m_TagString: BossCannonCenter
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1812,7 +1812,7 @@ GameObject:
   - component: {fileID: 564111032}
   m_Layer: 0
   m_Name: Core
-  m_TagString: EnemyShip
+  m_TagString: BossCore
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1971,7 +1971,7 @@ Transform:
   m_GameObject: {fileID: 593906632}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0.043619405, w: 0.9990483}
-  m_LocalPosition: {x: -0.25, y: 0.85, z: 0}
+  m_LocalPosition: {x: -0.25, y: 0.65, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1991,7 +1991,7 @@ GameObject:
   - component: {fileID: 627536400}
   m_Layer: 0
   m_Name: Cannon_Right
-  m_TagString: EnemyCannon
+  m_TagString: BossCannonCenter
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2326,7 +2326,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!212 &719431913
 SpriteRenderer:
   serializedVersion: 2
@@ -2989,6 +2989,7 @@ MonoBehaviour:
   _upgradePanel: {fileID: 992902}
   _upgradePanelBackground: {fileID: 1348446308}
   _upgradeManager: {fileID: 971746366}
+  _boss: {fileID: 1510678825}
 --- !u!1 &878458879
 GameObject:
   m_ObjectHideFlags: 0
@@ -4249,7 +4250,7 @@ CircleCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
@@ -4339,7 +4340,7 @@ Transform:
   m_GameObject: {fileID: 1152038390}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalPosition: {x: 0, y: 0.55, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4527,7 +4528,7 @@ GameObject:
   - component: {fileID: 1241147879}
   m_Layer: 0
   m_Name: Cannon_Left
-  m_TagString: EnemyCannon
+  m_TagString: BossCannonCenter
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4901,7 +4902,7 @@ GameObject:
   - component: {fileID: 1350632791}
   m_Layer: 0
   m_Name: Cannon_Bottom
-  m_TagString: EnemyCannon
+  m_TagString: BossCannonCenter
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5217,6 +5218,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyShipSpawner
   _enemyShip: {fileID: 9156966904686701065, guid: 0f919ced6c58e64478abf296f1e9606a, type: 3}
   _player: {fileID: 719431920}
+  _powerUpManager: {fileID: 1922214655}
 --- !u!4 &1487697756
 Transform:
   m_ObjectHideFlags: 0
@@ -5253,7 +5255,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!212 &1510678820
 SpriteRenderer:
   serializedVersion: 2
@@ -5631,7 +5633,7 @@ Transform:
   m_GameObject: {fileID: 1703397494}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: -0.043619405, w: 0.9990483}
-  m_LocalPosition: {x: 0.25, y: 0.85, z: 0}
+  m_LocalPosition: {x: 0.25, y: 0.65, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

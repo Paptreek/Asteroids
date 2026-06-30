@@ -5,9 +5,9 @@ public class BossSpawnSequence : MonoBehaviour
     [SerializeField] private Transform[] _cornerCannonTransforms = new Transform[4];
     [SerializeField] private Transform[] _centerCannonTransforms = new Transform[4];
 
+    private float _endSpawnSequenceTimer = 3.0f;
     private BossMovement _movement;
     private BossCannonManager _canonManager;
-    private float _endSpawnSequenceTimer = 3.0f;
 
     // ending local positions for the cannon peices
     
@@ -59,20 +59,26 @@ public class BossSpawnSequence : MonoBehaviour
     {
         for (int i = 0; i < 4; i++)
         {
-            Vector3 localPosition = _cornerCannonTransforms[i].localPosition;
+            if (_cornerCannonTransforms[i] != null)
+            {
+                Vector3 localPosition = _cornerCannonTransforms[i].localPosition;
 
-            _cornerCannonTransforms[i].gameObject.SetActive(true);
-            _cornerCannonTransforms[i].localPosition = Vector3.MoveTowards(localPosition, _endPositionsCorners[i], _attachSpeedCorners * Time.deltaTime);
+                _cornerCannonTransforms[i].gameObject.SetActive(true);
+                _cornerCannonTransforms[i].localPosition = Vector3.MoveTowards(localPosition, _endPositionsCorners[i], _attachSpeedCorners * Time.deltaTime);
+            }
         }
 
         Vector3[] centerEndPositions = { _endTop, _endLeft, _endBottom, _endRight };
 
         for (int i = 0; i < 4; i++)
         {
-            Vector3 localPosition = _centerCannonTransforms[i].localPosition;
+            if (_centerCannonTransforms[i] != null)
+            {
+                Vector3 localPosition = _centerCannonTransforms[i].localPosition;
 
-            _centerCannonTransforms[i].gameObject.SetActive(true);
-            _centerCannonTransforms[i].localPosition = Vector3.MoveTowards(localPosition, _endPositionsCenters[i], _attachSpeedCenters * Time.deltaTime);
+                _centerCannonTransforms[i].gameObject.SetActive(true);
+                _centerCannonTransforms[i].localPosition = Vector3.MoveTowards(localPosition, _endPositionsCenters[i], _attachSpeedCenters * Time.deltaTime);
+            }
         }
     }
 

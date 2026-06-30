@@ -9,17 +9,18 @@ public class Player : MonoBehaviour
     private Rigidbody2D _rb;
     private PolygonCollider2D _collider;
     private SpriteRenderer _spriteRenderer;
-    private bool _spriteBlinkingActive;
     private float _respawnCheckTimer;
     private float _colliderDisabledTimer;
     private float _spriteOnTimer;
     private float _spriteOffTimer = 0.25f;
+    private string[] _enemyColliderTags = { "Asteroid", "EnemyShip", "EnemyBullet", "EnemyCannon", "BossCore" };
 
     public bool IsDead { get; set; }
     //public int RemainingLives { get; private set; } = 3;
     public int RemainingLives { get; private set; } = 100; // testing
     public int SmallShipsDestroyed { get; set; }
     public int LargeShipsDestroyed { get; set; }
+    public bool SpriteBlinkingActive { get; private set; }
 
     private void Awake()
     {
@@ -36,9 +37,13 @@ public class Player : MonoBehaviour
         _spriteOffTimer -= Time.deltaTime;
         _spriteOnTimer -= Time.deltaTime;
 
-        if (_spriteBlinkingActive)
+        if (SpriteBlinkingActive)
         {
-            ActivateSpriteBlinking();
+            HandleSpriteBlinking();
+        }
+        else if (!SpriteBlinkingActive && !IsDead)
+        {
+            _spriteRenderer.enabled = true;
         }
 
         ScreenManager.WrapAroundScreen(transform, 17.5f, 13.0f);
@@ -47,22 +52,43 @@ public class Player : MonoBehaviour
         ManageCollider();
     }
 
-    public void ResetPosition()
+    public void ResetPosition(Vector3 position)
     {
         if (this != null)
         {
-            transform.position = Vector3.zero;
+            transform.position = position;
             transform.eulerAngles = Vector3.zero;
             _rb.linearVelocity = Vector2.zero;
         }
     }
 
+    public void ActivateIFrames(float timeInSeconds)
+    {
+        _colliderDisabledTimer = timeInSeconds;
+        SpriteBlinkingActive = true;
+    }
+
+    public bool IsAliveAndReady()
+    {
+        if (!IsDead && !SpriteBlinkingActive)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Asteroid") || collision.CompareTag("EnemyShip") || collision.CompareTag("EnemyBullet") || collision.CompareTag("EnemyCannon"))
+        foreach (string tag in _enemyColliderTags)
         {
-            Die();
-            Instantiate(_explosionEffect, transform.position, Quaternion.identity);
+            if (collision.CompareTag(tag))
+            {
+                Die();
+                Instantiate(_explosionEffect, transform.position, Quaternion.identity);
+            }
         }
     }
 
@@ -93,7 +119,7 @@ public class Player : MonoBehaviour
         {
             if (_respawnArea.GetComponent<RespawnArea>().IsClearOfDanger)
             {
-                ResetPosition();
+                ResetPosition(Vector3.zero);
 
                 IsDead = false;
 
@@ -101,7 +127,7 @@ public class Player : MonoBehaviour
 
                 _colliderDisabledTimer = 2.0f;
 
-                _spriteBlinkingActive = true;
+                SpriteBlinkingActive = true;
             }
         }
     }
@@ -115,11 +141,11 @@ public class Player : MonoBehaviour
         else
         {
             _collider.enabled = true;
-            _spriteBlinkingActive = false;
+            SpriteBlinkingActive = false;
         }
     }
 
-    private void ActivateSpriteBlinking()
+    private void HandleSpriteBlinking()
     {
         if (_spriteRenderer.enabled)
         {
@@ -142,9 +168,9 @@ public class Player : MonoBehaviour
             }
         }
 
-        if (_spriteOnTimer < 0 && _spriteOffTimer < 0)
-        {
-            _spriteRenderer.enabled = true;
-        }
+        //if (_spriteOnTimer < 0 && _spriteOffTimer < 0)
+        //{
+        //    _spriteRenderer.enabled = true;
+        //}
     }
 }

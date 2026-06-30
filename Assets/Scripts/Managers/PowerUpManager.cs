@@ -55,19 +55,18 @@ public class PowerUpManager : MonoBehaviour
         WarpUses = MaxWarpUses;
     }
 
-    public void MaybeDropPowerUp(Asteroid asteroid)
+    public void MaybeDropPowerUp(Vector3 positionToDrop)
     {
-        int randomNumber = Random.Range(1, 11);
-        //int randomNumber = Random.Range(0, 2);
+        int chanceToDrop = 10;
+        int randomNumber = Random.Range(1, chanceToDrop + 1);
 
-        if (randomNumber == 10)
-        //if (randomNumber == 1)
+        if (randomNumber == chanceToDrop)
         {
-            PowerUp powerUp = Instantiate(_powerUp, asteroid.transform.position, Quaternion.identity);
+            PowerUp powerUp = Instantiate(_powerUp, positionToDrop, Quaternion.identity);
             powerUp.SetAbilityManager(this);
         }
 
-        Debug.Log($"PowerUp Drop Roll: {randomNumber} / 10");
+        Debug.Log($"PowerUp Drop Roll: {randomNumber} / {chanceToDrop}");
     }
 
     public void ClearPowerUps()
@@ -79,7 +78,7 @@ public class PowerUpManager : MonoBehaviour
     
     private void Warp()
     {
-        if (WarpUses > 0 && !_player.IsDead)
+        if (WarpUses > 0 && !_player.IsAliveAndReady())
         {
             Instantiate(_warpEffect, transform.position, Quaternion.identity);
 
@@ -96,7 +95,7 @@ public class PowerUpManager : MonoBehaviour
 
     private void ManageMultiShotPowerUp()
     {
-        if (HasMultiShot && _useAbility.WasPressedThisFrame())
+        if (HasMultiShot && _useAbility.WasPressedThisFrame() && _player.IsAliveAndReady())
         {
             MultiShotActivated = true;
             HasMultiShot = false;
@@ -126,7 +125,7 @@ public class PowerUpManager : MonoBehaviour
 
     private void ManageShieldPowerUp()
     {
-        if (HasShield && _useAbility.WasPressedThisFrame())
+        if (HasShield && _useAbility.WasPressedThisFrame() && _player.IsAliveAndReady())
         {
             _playerShield.SetActive(true);
 
@@ -140,7 +139,7 @@ public class PowerUpManager : MonoBehaviour
             _playerShield.transform.position = _player.transform.position;
         }
 
-        if (_shieldTimer <= 0)
+        if (_shieldTimer <= 0 || !_player.GetComponent<SpriteRenderer>().enabled)
         {
             ShieldActivated = false;
             _playerShield.SetActive(false);
@@ -149,7 +148,7 @@ public class PowerUpManager : MonoBehaviour
 
     private void ManagePiercingPowerUp()
     {
-        if (HasPiercingAmmo && _useAbility.WasPressedThisFrame())
+        if (HasPiercingAmmo && _useAbility.WasPressedThisFrame() && _player.IsAliveAndReady())
         {
             PiercingAmmoActivated = true;
             HasPiercingAmmo = false;

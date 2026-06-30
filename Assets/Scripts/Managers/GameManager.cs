@@ -12,27 +12,31 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject _upgradePanel;
     [SerializeField] private GameObject _upgradePanelBackground;
     [SerializeField] private UpgradeManager _upgradeManager;
+    [SerializeField] private Boss _boss;
     
     private bool _playerHasWon;
     private bool _playerHasLost;
     private bool _gameOverCreated;
+    private bool _bossActivated;
     private int _round = 1;
     private int _score;
     private int _bonusScore;
     private float _roundTimer = 120.0f;
     private float _spawnTimerSmall = 45.0f;
     private float _spawnTimerLarge = 30.0f;
+    private BossSpawnSequence _bossSpawnSequence;
 
     // these are for dev mode
     private InputAction _enterDevMode;
     private int _asteroidsToSpawnStart = 4;
     private int _asteroidsToSpawnRound = 3;
     private Asteroid.Size _asteroidSize = Asteroid.Size.Large;
-    private bool _bossTestModeEnabled = true;
+    private bool _bossTestModeEnabled = false;
     
     private void Awake()
     {
         _enterDevMode = InputSystem.actions.FindAction("EnterDevMode");
+        _bossSpawnSequence = _boss.GetComponent<BossSpawnSequence>();
     }
 
     private void Start()
@@ -56,11 +60,24 @@ public class GameManager : MonoBehaviour
         CheckForGameOver();
 
         CheckForDevMode();
+
+        if (_bossActivated && !_bossSpawnSequence.SpawnSequenceComplete)
+        {
+            _player.gameObject.SetActive(false);
+        }
+        
+        if (!_player.gameObject.activeInHierarchy && _bossActivated && _bossSpawnSequence.SpawnSequenceComplete)
+        {
+            _player.gameObject.SetActive(true);
+            _player.ActivateIFrames(2);
+        }
+
+        //Debug.Log($"Current Score: {GetScore()}");
     }
 
     private void CheckToStartNewRound()
     {
-        int maxRounds = 5;
+        int maxRounds = 1;
 
         if (!_bossTestModeEnabled) // remove after done testing
         {
@@ -68,13 +85,18 @@ public class GameManager : MonoBehaviour
             {
                 if (_round < maxRounds)
                 {
-                    GetPlayerUpgradeChoice();
                     StartNextRound();
                 }
                 else
                 {
-                    _playerHasWon = true;
+                    ActivateBoss();
                 }
+            }
+
+            if (_boss == null)
+            {
+                _playerHasWon = true;
+                // insert GameOver stuff here once it's ready
             }
         }
     }
@@ -115,12 +137,14 @@ public class GameManager : MonoBehaviour
         int pointsForSmallAsteroids = _asteroidManager.SmallAsteroidsDestroyed * 25;
         int pointsForAsteroids = pointsForLargeAsteroids + pointsForMediumAsteroids + pointsForSmallAsteroids;
 
-        return _score = _bonusScore + pointsForShips + pointsForAsteroids;
+        return _score = _bonusScore + pointsForShips + pointsForAsteroids + _boss.PointsToAdd();
     }
 
     private void StartNextRound()
     {
         AddBonusScore();
+
+        GetPlayerUpgradeChoice();
 
         _round++;
         _spawnTimerSmall -= 2.5f;
@@ -131,7 +155,7 @@ public class GameManager : MonoBehaviour
         DestroyAllEnemyShips();
 
         _roundTimer = 120.0f;
-        _player.ResetPosition();
+        _player.ResetPosition(Vector3.zero);
         _abilityManager.WarpUses = _abilityManager.MaxWarpUses;
         _enemyShipSpawner.SetSpawnTimers(_spawnTimerSmall, _spawnTimerLarge);
 
@@ -142,13 +166,34 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private void ActivateBoss()
+    {
+        if (!_bossActivated)
+        {
+            AddBonusScore();
+
+            GetPlayerUpgradeChoice();
+
+            _spawnTimerSmall -= 2.5f;
+            _spawnTimerLarge -= 2.5f;
+
+            DestroyAllEnemyShips();
+            _abilityManager.WarpUses = _abilityManager.MaxWarpUses;
+            _enemyShipSpawner.SetSpawnTimers(_spawnTimerSmall, _spawnTimerLarge);
+
+            _player.ResetPosition(new Vector3(0, -6.5f, 0));
+            _boss.gameObject.SetActive(true);
+            _bossActivated = true;
+        }
+    }
+
     private void AddBonusScore()
     {
-        int pointsToAdd = Mathf.RoundToInt(_roundTimer) * 5;
+        int pointsToAddFromTimer = Mathf.RoundToInt(_roundTimer) * 5;
 
-        Debug.Log($"Time Left: {_roundTimer}, Points Added: {pointsToAdd}");
+        Debug.Log($"Time Left: {_roundTimer}, Points Added: {pointsToAddFromTimer}");
 
-        _bonusScore += pointsToAdd;
+        _bonusScore += pointsToAddFromTimer;
     }
 
     private void DestroyAllEnemyShips()
@@ -178,7 +223,7 @@ public class GameManager : MonoBehaviour
         _upgradeManager.DisplayUpgrades();
     }
     
-    // this is for dev mode
+    // everything below is for testing purposes
     private void CheckForDevMode()
     {
         if (_enterDevMode.WasPerformedThisFrame())

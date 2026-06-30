@@ -7,6 +7,7 @@ public class Bullet : MonoBehaviour
     private float _baseSpeedEnemy = 25;
     private float _baseSpeedPlayer = 25;
     private float _firingShipSpeed;
+    private string[] _pierceableColliderTags = { "Asteroid", "EnemyShip", "EnemyCannon", "BossCannonCenter" };
     private FiringShip _firingShip;
 
     public bool PiercingAmmoActivated { get; set; }
@@ -49,9 +50,19 @@ public class Bullet : MonoBehaviour
     {
         if (_firingShip == FiringShip.Player)
         {
-            if (!PiercingAmmoActivated && collision.CompareTag("Asteroid") || collision.CompareTag("EnemyShip") || collision.CompareTag("EnemyCannon"))
+            if (collision.CompareTag($"BossCore"))
             {
                 Destroy(gameObject);
+            }
+            else if (!PiercingAmmoActivated)
+            {
+                foreach (string tag in _pierceableColliderTags)
+                {
+                    if (collision.CompareTag(tag))
+                    {
+                        Destroy(gameObject);
+                    }
+                }
             }
         }
         else

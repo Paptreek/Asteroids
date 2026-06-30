@@ -6,6 +6,7 @@ public class EnemyShipSpawner : MonoBehaviour
 {
     [SerializeField] private EnemyShip _enemyShip;
     [SerializeField] private Player _player;
+    [SerializeField] private PowerUpManager _powerUpManager;
 
     private float _spawnTimerSmall;
     private float _spawnTimerLarge;
@@ -34,6 +35,7 @@ public class EnemyShipSpawner : MonoBehaviour
             EnemyShip enemyShip = Instantiate(_enemyShip);
             enemyShip.SetShipSize(EnemyShip.ShipSize.Small);
             enemyShip.SetPlayerShip(_player);
+            enemyShip.SetPowerUpManager(_powerUpManager);
             EnemyShips.Add(enemyShip);
 
             Debug.Log($"Enemy Ship #: {EnemyShips.Count}");
@@ -47,6 +49,7 @@ public class EnemyShipSpawner : MonoBehaviour
             EnemyShip enemyShip = Instantiate(_enemyShip);
             enemyShip.SetShipSize(EnemyShip.ShipSize.Large);
             enemyShip.SetPlayerShip(_player);
+            enemyShip.SetPowerUpManager(_powerUpManager);
             EnemyShips.Add(enemyShip);
 
             Debug.Log($"Enemy Ship #: {EnemyShips.Count}");
