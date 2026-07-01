@@ -5,6 +5,7 @@ public class AsteroidSpawner : MonoBehaviour
 {
     [SerializeField] private Asteroid _asteroid;
     [SerializeField] private AsteroidManager _asteroidManager;
+    [SerializeField] private PowerUpManager _powerUpManager;
 
     public void SpawnFromDestroyed(Asteroid.Size size, Vector3 location, List<Asteroid> asteroidList)
     {
@@ -19,6 +20,7 @@ public class AsteroidSpawner : MonoBehaviour
 
             Asteroid asteroid = Instantiate(_asteroid);
             asteroid.SetAsteroidManager(_asteroidManager);
+            asteroid.SetPowerUpManager(_powerUpManager);
             asteroid.SetSize(size);
             asteroid.SetInitialSpawnData(direction, new Vector3(location.x + randomLocationX, location.y + randomLocationY));
             asteroidList.Add(asteroid);
@@ -39,6 +41,7 @@ public class AsteroidSpawner : MonoBehaviour
 
             Asteroid asteroid = Instantiate(_asteroid);
             asteroid.SetAsteroidManager(_asteroidManager);
+            asteroid.SetPowerUpManager(_powerUpManager);
             asteroid.SetSize(size); // this isn't really necessary, but useful for testing
             asteroid.SetInitialSpawnData(direction, location);
             asteroidList.Add(asteroid);

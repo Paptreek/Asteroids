@@ -7,37 +7,50 @@ public class GameManager : MonoBehaviour
     [SerializeField] private AsteroidManager _asteroidManager;
     [SerializeField] private AsteroidSpawner _asteroidSpawner;
     [SerializeField] private EnemyShipSpawner _enemyShipSpawner;
-    [SerializeField] private AbilityManager _abilityManager;
+    [SerializeField] private PowerUpManager _abilityManager;
     [SerializeField] private GameObject _gameOverPrefab;
     [SerializeField] private GameObject _upgradePanel;
     [SerializeField] private GameObject _upgradePanelBackground;
     [SerializeField] private UpgradeManager _upgradeManager;
+    [SerializeField] private Boss _boss;
     
     private bool _playerHasWon;
     private bool _playerHasLost;
     private bool _gameOverCreated;
+    private bool _bossActivated;
     private int _round = 1;
-    private int _score;
     private int _bonusScore;
     private float _roundTimer = 120.0f;
     private float _spawnTimerSmall = 45.0f;
     private float _spawnTimerLarge = 30.0f;
+    private BossSpawnSequence _bossSpawnSequence;
+
+    public int Score { get; private set; }
 
     // these are for dev mode
     private InputAction _enterDevMode;
     private int _asteroidsToSpawnStart = 4;
     private int _asteroidsToSpawnRound = 3;
     private Asteroid.Size _asteroidSize = Asteroid.Size.Large;
+    private bool _bossTestModeEnabled = false;
     
     private void Awake()
     {
         _enterDevMode = InputSystem.actions.FindAction("EnterDevMode");
+        _bossSpawnSequence = _boss.GetComponent<BossSpawnSequence>();
     }
 
     private void Start()
     {
-        _asteroidSpawner.SpawnNewRound(_asteroidsToSpawnStart, _asteroidSize, _asteroidManager.Asteroids);
-        _enemyShipSpawner.SetSpawnTimers(_spawnTimerSmall, _spawnTimerLarge);
+        if (!_bossTestModeEnabled) // remove after testing is done
+        {
+            _asteroidSpawner.SpawnNewRound(_asteroidsToSpawnStart, _asteroidSize, _asteroidManager.Asteroids);
+            _enemyShipSpawner.SetSpawnTimers(_spawnTimerSmall, _spawnTimerLarge);
+        }
+        else
+        {
+            EnableBossTestingMode();
+        }
     }
 
     private void Update()
@@ -48,22 +61,46 @@ public class GameManager : MonoBehaviour
         CheckForGameOver();
 
         CheckForDevMode();
+
+        if (_bossActivated && !_bossSpawnSequence.SpawnSequenceComplete)
+        {
+            _player.gameObject.SetActive(false);
+        }
+        
+        if (_player != null)
+        {
+            if (!_player.gameObject.activeInHierarchy && _bossActivated && _bossSpawnSequence.SpawnSequenceComplete)
+            {
+                _player.gameObject.SetActive(true);
+                _player.ActivateIFrames(2);
+            }
+        }
+
+        Debug.Log($"Current Score: {CalculateScore()}");
     }
 
     private void CheckToStartNewRound()
     {
-        int maxRounds = 5;
+        int maxRounds = 1;
 
-        if (_asteroidManager.Asteroids.Count <= 0 && !_playerHasLost)
+        if (!_bossTestModeEnabled) // remove after done testing
         {
-            if (_round < maxRounds)
+            if (_asteroidManager.Asteroids.Count <= 0 && !_playerHasLost)
             {
-                GetPlayerUpgradeChoice();
-                StartNextRound();
+                if (_round < maxRounds)
+                {
+                    StartNextRound();
+                }
+                else
+                {
+                    ActivateBoss();
+                }
             }
-            else
+
+            if (_boss == null)
             {
                 _playerHasWon = true;
+                // insert GameOver stuff here once it's ready
             }
         }
     }
@@ -72,7 +109,6 @@ public class GameManager : MonoBehaviour
     {
         if (_player == null)
         {
-            //Debug.Log($"You died. Game over!");
             _playerHasLost = true;
             _enemyShipSpawner.enabled = false;
             _asteroidSpawner.enabled = false;
@@ -86,14 +122,15 @@ public class GameManager : MonoBehaviour
 
         if (_playerHasWon)
         {
-            //Debug.Log($"All rounds completed. You win!");
+            Debug.Log($"All rounds completed. You win!");
+            DestroyAllEnemyShips();
             _enemyShipSpawner.enabled = false;
             _asteroidSpawner.enabled = false;
         }
 
     }
 
-    private int GetScore()
+    private int CalculateScore()
     {
         int pointsForLargeShips = _player.LargeShipsDestroyed * 25;
         int pointsForSmallShips = _player.SmallShipsDestroyed * 50;
@@ -104,12 +141,34 @@ public class GameManager : MonoBehaviour
         int pointsForSmallAsteroids = _asteroidManager.SmallAsteroidsDestroyed * 25;
         int pointsForAsteroids = pointsForLargeAsteroids + pointsForMediumAsteroids + pointsForSmallAsteroids;
 
-        return _score = _bonusScore + pointsForShips + pointsForAsteroids;
+        int pointsFromBoss = _boss.PointsToAdd();
+
+        int pointsFromDeaths = _player.DeathCount * 250;
+
+        if (!_playerHasWon)
+        {
+            return Score = pointsForShips + pointsForAsteroids + pointsFromBoss;
+        }
+        else
+        {
+            return Score = pointsForShips + pointsForAsteroids + pointsFromBoss - pointsFromDeaths;
+        }
+    }
+
+    private void AddBonusScore()
+    {
+        int pointsToAddFromTimer = Mathf.RoundToInt(_roundTimer) * 5;
+
+        Debug.Log($"Time Left: {_roundTimer}, Points Added: {pointsToAddFromTimer}");
+
+        _bonusScore += pointsToAddFromTimer;
     }
 
     private void StartNextRound()
     {
         AddBonusScore();
+
+        GetPlayerUpgradeChoice();
 
         _round++;
         _spawnTimerSmall -= 2.5f;
@@ -120,7 +179,7 @@ public class GameManager : MonoBehaviour
         DestroyAllEnemyShips();
 
         _roundTimer = 120.0f;
-        _player.ResetPosition();
+        _player.ResetPosition(Vector3.zero);
         _abilityManager.WarpUses = _abilityManager.MaxWarpUses;
         _enemyShipSpawner.SetSpawnTimers(_spawnTimerSmall, _spawnTimerLarge);
 
@@ -131,28 +190,41 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void AddBonusScore()
+    private void ActivateBoss()
     {
-        int pointsToAdd = Mathf.RoundToInt(_roundTimer) * 5;
+        if (!_bossActivated)
+        {
+            AddBonusScore();
 
-        Debug.Log($"Time Left: {_roundTimer}, Points Added: {pointsToAdd}");
+            GetPlayerUpgradeChoice();
 
-        _bonusScore += pointsToAdd;
+            _spawnTimerSmall -= 2.5f;
+            _spawnTimerLarge -= 2.5f;
+
+            DestroyAllEnemyShips();
+            _abilityManager.WarpUses = _abilityManager.MaxWarpUses;
+            _enemyShipSpawner.SetSpawnTimers(_spawnTimerSmall, _spawnTimerLarge);
+
+            _player.ResetPosition(new Vector3(0, -6.5f, 0));
+            _boss.gameObject.SetActive(true);
+            _bossActivated = true;
+        }
     }
 
     private void DestroyAllEnemyShips()
     {
-        foreach (EnemyShip enemyShip in _enemyShipSpawner.EnemyShips)
+        if (_enemyShipSpawner.EnemyShips.Count > 0)
         {
-            if (enemyShip != null)
+            foreach (EnemyShip enemyShip in _enemyShipSpawner.EnemyShips)
             {
-                Destroy(enemyShip.gameObject);
+                if (enemyShip != null)
+                {
+                    Destroy(enemyShip.gameObject);
+                }
             }
-        }
         
-        _enemyShipSpawner.EnemyShips.Clear();
-
-        Debug.Log($"Ships cleared. # of ships: {_enemyShipSpawner.EnemyShips.Count}");
+            _enemyShipSpawner.EnemyShips.Clear();
+        }
     }
 
     private void GetPlayerUpgradeChoice()
@@ -167,7 +239,7 @@ public class GameManager : MonoBehaviour
         _upgradeManager.DisplayUpgrades();
     }
     
-    // this is for dev mode
+    // everything below is for testing purposes
     private void CheckForDevMode()
     {
         if (_enterDevMode.WasPerformedThisFrame())
@@ -178,4 +250,13 @@ public class GameManager : MonoBehaviour
             Debug.Log("DevMode Enabled");
         }
     }
+
+    private void EnableBossTestingMode()
+    {
+        _asteroidSpawner.enabled = false;
+        _enemyShipSpawner.enabled = false;
+
+        _player.transform.position = new Vector3(0, -6.5f, 0f);
+    }
+    // everything above is for testing purposes
 }

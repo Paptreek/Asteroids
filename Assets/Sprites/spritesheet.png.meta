@@ -1,19 +1,112 @@
 fileFormatVersion: 2
-guid: 5363b9103a6a44f4fab1c500877479e1
+guid: a76dc2c97a8f17e439ee4ac410b9dd13
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 8020143640844766479
-    second: spritesheet_0
+      213: -4536875531305701763
+    second: spritesheet100_0
   - first:
-      213: -6251682230944352461
-    second: spritesheet_1
+      213: -8496846458406793156
+    second: spritesheet100_1
   - first:
-      213: -1259408508766424310
-    second: spritesheet_2
+      213: 2101468434680752606
+    second: spritesheet100_2
   - first:
-      213: -5962389079421231736
-    second: spritesheet_3
+      213: 7465410620921075167
+    second: spritesheet100_3
+  - first:
+      213: -6202690290458887906
+    second: spritesheet100_4
+  - first:
+      213: 407819040672156630
+    second: spritesheet100_5
+  - first:
+      213: -4222679549274464054
+    second: spritesheet100_6
+  - first:
+      213: -770575761487351266
+    second: spritesheet100_7
+  - first:
+      213: 6631497456602388572
+    second: spritesheet100_8
+  - first:
+      213: 1242318498830291188
+    second: spritesheet100_9
+  - first:
+      213: -1337967082261581616
+    second: spritesheet100_10
+  - first:
+      213: 168991802197035126
+    second: spritesheet100_11
+  - first:
+      213: 2180489980974041206
+    second: spritesheet100_12
+  - first:
+      213: 2726269027909494591
+    second: spritesheet100_13
+  - first:
+      213: -7810360755295374722
+    second: spritesheet100_14
+  - first:
+      213: -5585859213009349950
+    second: spritesheet100_15
+  - first:
+      213: -2387789130733199701
+    second: spritesheet100_16
+  - first:
+      213: 7674557425707466575
+    second: spritesheet100_17
+  - first:
+      213: 7553637952222818972
+    second: spritesheet100_18
+  - first:
+      213: 2814311070118945490
+    second: spritesheet100_19
+  - first:
+      213: -5937939837791270356
+    second: spritesheet100_20
+  - first:
+      213: 4417509698576763722
+    second: spritesheet100_21
+  - first:
+      213: 3046686685855707226
+    second: spritesheet100_22
+  - first:
+      213: 8617307378339517851
+    second: spritesheet100_23
+  - first:
+      213: -1338837693496677822
+    second: spritesheet100_24
+  - first:
+      213: -5657288695991387124
+    second: spritesheet100_25
+  - first:
+      213: -8077322786639102128
+    second: spritesheet100_26
+  - first:
+      213: 2001143060704308525
+    second: spritesheet100_27
+  - first:
+      213: -5042645738267853558
+    second: spritesheet100_28
+  - first:
+      213: 1563310426672217732
+    second: spritesheet100_29
+  - first:
+      213: -2629757576455806552
+    second: spritesheet100_30
+  - first:
+      213: -396038051599081066
+    second: spritesheet100_31
+  - first:
+      213: -224731906390375833
+    second: spritesheet100_32
+  - first:
+      213: -6277625635053204130
+    second: spritesheet100_33
+  - first:
+      213: -2257503757567955342
+    second: spritesheet100_34
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -46,7 +139,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -57,10 +150,10 @@ TextureImporter:
   compressionQuality: 50
   spriteMode: 2
   spriteExtrude: 1
-  spriteMeshType: 1
+  spriteMeshType: 0
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 16
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -84,7 +177,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -122,13 +215,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Player_Ship
+      name: player_ship
       rect:
         serializedVersion: 2
-        x: 30
-        y: 2410
-        width: 90
-        height: 150
+        x: 3
+        y: 241
+        width: 9
+        height: 15
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -137,20 +230,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: f0d092816264d4f60800000000000000
-      internalID: 8020143640844766479
+      spriteID: d7eac5eddb7c901c0800000000000000
+      internalID: -4536875531305701763
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Asteroid_Large
+      name: asteroid_large
       rect:
         serializedVersion: 2
-        x: 169
-        y: 2229
-        width: 322
-        height: 322
+        x: 17
+        y: 223
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -159,20 +252,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 337b0ff32209d39a0800000000000000
-      internalID: -6251682230944352461
+      spriteID: c3090af0a23251a80800000000000000
+      internalID: -8496846458406793156
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Asteroid_Medium
+      name: asteroid_medium
       rect:
         serializedVersion: 2
-        x: 529
-        y: 2339
-        width: 212
-        height: 212
+        x: 53
+        y: 234
+        width: 21
+        height: 21
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -181,20 +274,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: a037fd742aea58ee0800000000000000
-      internalID: -1259408508766424310
+      spriteID: ed9a7d3486ae92d10800000000000000
+      internalID: 2101468434680752606
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Asteroid_Small
+      name: power_up_m
       rect:
         serializedVersion: 2
-        x: 499
-        y: 2189
-        width: 122
-        height: 122
+        x: 81
+        y: 241
+        width: 14
+        height: 14
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -203,8 +296,338 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 88ddd6ce8b6514da0800000000000000
-      internalID: -5962389079421231736
+      spriteID: fd5dd6208677a9760800000000000000
+      internalID: 7465410620921075167
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: power_up_s
+      rect:
+        serializedVersion: 2
+        x: 97
+        y: 241
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e19fe694b0e9be9a0800000000000000
+      internalID: -6202690290458887906
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: power_up_p
+      rect:
+        serializedVersion: 2
+        x: 113
+        y: 241
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6db87ebb14dd8a500800000000000000
+      internalID: 407819040672156630
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss_corner_top_left
+      rect:
+        serializedVersion: 2
+        x: 129
+        y: 236
+        width: 19
+        height: 19
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ac0603992570665c0800000000000000
+      internalID: -4222679549274464054
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss_corner_top_right
+      rect:
+        serializedVersion: 2
+        x: 150
+        y: 236
+        width: 19
+        height: 19
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e1235087d6d5e45f0800000000000000
+      internalID: -770575761487351266
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss_cannon_top
+      rect:
+        serializedVersion: 2
+        x: 196
+        y: 248
+        width: 10
+        height: 7
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c5811b53dcfc70c50800000000000000
+      internalID: 6631497456602388572
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss_expression_evil
+      rect:
+        serializedVersion: 2
+        x: 232
+        y: 239
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4f01da4b71a9d3110800000000000000
+      internalID: 1242318498830291188
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: player_ship_move
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 221
+        width: 9
+        height: 18
+      alignment: 9
+      pivot: {x: 0.5, y: 0.585}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0d0f1ac07069e6de0800000000000000
+      internalID: -1337967082261581616
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: asteroid_small
+      rect:
+        serializedVersion: 2
+        x: 50
+        y: 219
+        width: 12
+        height: 12
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 67848e31621685200800000000000000
+      internalID: 168991802197035126
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: player_shield
+      rect:
+        serializedVersion: 2
+        x: 75
+        y: 212
+        width: 26
+        height: 26
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6788140c518a24e10800000000000000
+      internalID: 2180489980974041206
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss_corner_bottom_left
+      rect:
+        serializedVersion: 2
+        x: 129
+        y: 215
+        width: 19
+        height: 19
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f37e1ba8c37a5d520800000000000000
+      internalID: 2726269027909494591
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss_corner_bottom_right
+      rect:
+        serializedVersion: 2
+        x: 150
+        y: 215
+        width: 19
+        height: 19
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e72b7fc26460c9390800000000000000
+      internalID: -7810360755295374722
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss_cannon_left
+      rect:
+        serializedVersion: 2
+        x: 171
+        y: 220
+        width: 7
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2c21c3314aa0b72b0800000000000000
+      internalID: -5585859213009349950
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss_core
+      rect:
+        serializedVersion: 2
+        x: 180
+        y: 204
+        width: 42
+        height: 42
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: baedb18cf6edcded0800000000000000
+      internalID: -2387789130733199701
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss_cannon_right
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 220
+        width: 7
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c92762852b9e3d860800000000000000
+      internalID: 7553637952222818972
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss_expression_angry
+      rect:
+        serializedVersion: 2
+        x: 232
+        y: 221
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2d2a3e5e1017e0720800000000000000
+      internalID: 2814311070118945490
       vertices: []
       indices: 
       edges: []
@@ -213,20 +636,20 @@ TextureImporter:
       name: enemy_ship_large
       rect:
         serializedVersion: 2
-        x: 130
-        y: 2100
-        width: 160
-        height: 110
+        x: 8
+        y: 207
+        width: 22
+        height: 14
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: 7813b8ab781530d44b51bed354aafb43
-      internalID: -1727860995
+      spriteID: a4bc2877aa52e4d30800000000000000
+      internalID: 4417509698576763722
       vertices: []
       indices: 
       edges: []
@@ -235,10 +658,230 @@ TextureImporter:
       name: enemy_ship_small
       rect:
         serializedVersion: 2
-        x: 330
-        y: 2120
-        width: 140
-        height: 90
+        x: 33
+        y: 212
+        width: 14
+        height: 9
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a5077541661084a20800000000000000
+      internalID: 3046686685855707226
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss_expression_sad
+      rect:
+        serializedVersion: 2
+        x: 232
+        y: 203
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c0cb99397e54d71b0800000000000000
+      internalID: -5657288695991387124
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss_cannon_bottom
+      rect:
+        serializedVersion: 2
+        x: 196
+        y: 195
+        width: 10
+        height: 7
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 05f353698b597ef80800000000000000
+      internalID: -8077322786639102128
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: game_over_g
+      rect:
+        serializedVersion: 2
+        x: 5
+        y: 4
+        width: 24
+        height: 30
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d2da40ed20d75cb10800000000000000
+      internalID: 2001143060704308525
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: game_over_a
+      rect:
+        serializedVersion: 2
+        x: 35
+        y: 4
+        width: 24
+        height: 30
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a0d386a0b6ce40ab0800000000000000
+      internalID: -5042645738267853558
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: game_over_m
+      rect:
+        serializedVersion: 2
+        x: 65
+        y: 4
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 48e367fdc8ef1b510800000000000000
+      internalID: 1563310426672217732
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: game_over_e
+      rect:
+        serializedVersion: 2
+        x: 101
+        y: 4
+        width: 24
+        height: 30
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8a1a5f1da69318bd0800000000000000
+      internalID: -2629757576455806552
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: game_over_o
+      rect:
+        serializedVersion: 2
+        x: 143
+        y: 4
+        width: 24
+        height: 30
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 69126e88d7df08af0800000000000000
+      internalID: -396038051599081066
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: game_over_v
+      rect:
+        serializedVersion: 2
+        x: 173
+        y: 4
+        width: 18
+        height: 30
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 762c7e5958791ecf0800000000000000
+      internalID: -224731906390375833
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: game_over_r
+      rect:
+        serializedVersion: 2
+        x: 227
+        y: 4
+        width: 24
+        height: 30
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 27e6d031b4cbba0e0800000000000000
+      internalID: -2257503757567955342
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: player_multi_cannon
+      rect:
+        serializedVersion: 2
+        x: 105
+        y: 232
+        width: 9
+        height: 4
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -247,42 +890,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2dca710552632ec4d9266c1c14bc6c6d
-      internalID: 1084659847
+      spriteID: 024a9b5a414962c4ea8ad46a5b5ebdc5
+      internalID: 682158007
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player_Ship_Moving
+      name: boss_cannon_left_dmg
       rect:
         serializedVersion: 2
-        x: 30
-        y: 2210
-        width: 90
-        height: 180
-      alignment: 9
-      pivot: {x: 0.5, y: 0.588}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: b1bf5b02f1f116345a8b2eb102069ef3
-      internalID: 138958977
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: powerup_multishot
-      rect:
-        serializedVersion: 2
-        x: 810
-        y: 2410
-        width: 140
-        height: 140
+        x: 171
+        y: 231
+        width: 7
+        height: 10
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -291,20 +912,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b7e56dc56e12f8546b166fb3c429d98a
-      internalID: 2093745627
+      spriteID: fd5c285453b481541b519a203d23e55c
+      internalID: 899368640
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: powerup_shield
+      name: boss_cannon_top_dmg
       rect:
         serializedVersion: 2
-        x: 970
-        y: 2410
-        width: 140
-        height: 140
+        x: 207
+        y: 248
+        width: 10
+        height: 7
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -313,20 +934,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c33ab709046445949938258f79fc4b3e
-      internalID: -414406506
+      spriteID: 6e0d4354f8c5f3d499c9af6b4258a15d
+      internalID: 412161792
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: powerup_piercing
+      name: boss_cannon_right_dmg
       rect:
         serializedVersion: 2
-        x: 1130
-        y: 2410
-        width: 140
-        height: 140
+        x: 224
+        y: 209
+        width: 7
+        height: 10
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -335,20 +956,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b3fc6fe1d91fa0e4680dbe86cde84a94
-      internalID: -1852216048
+      spriteID: 6c2f9ad8875fbe84da4806f7f121e4f2
+      internalID: 299614376
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: shield
+      name: boss_cannon_bottom_dmg
       rect:
         serializedVersion: 2
-        x: 750
-        y: 2120
-        width: 260
-        height: 260
+        x: 185
+        y: 195
+        width: 10
+        height: 7
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -357,184 +978,30 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d7ca4fb4db034aa43a5210a5a7e56757
-      internalID: 749999793
+      spriteID: 3fdcf3aededc55343841e3f2cee9a196
+      internalID: -272588079
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: multishot_cannons
+      name: power_up_empty
       rect:
         serializedVersion: 2
-        x: 1050
-        y: 2320
-        width: 90
-        height: 40
+        x: 107
+        y: 216
+        width: 14
+        height: 14
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      border: {x: 1, y: 1, z: 1, w: 1}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 473e67ee86d34a54a92390282e93bb0f
-      internalID: 1191715884
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: game_over_G
-      rect:
-        serializedVersion: 2
-        x: 49
-        y: 39
-        width: 242
-        height: 302
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: d2726a7e340ade943bcde3244db9b0be
-      internalID: -1093603415
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: game_over_A
-      rect:
-        serializedVersion: 2
-        x: 348
-        y: 38
-        width: 244
-        height: 304
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 5182c14f737dc4a4d9884ba991be74f1
-      internalID: -1443254322
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: game_over_M
-      rect:
-        serializedVersion: 2
-        x: 648
-        y: 38
-        width: 304
-        height: 304
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 571d469140c0543478295aa906eb7bbc
-      internalID: -1900024802
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: game_over_E
-      rect:
-        serializedVersion: 2
-        x: 1008
-        y: 38
-        width: 244
-        height: 304
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: a1677d667e4e4b44aada26d7a4ad0a51
-      internalID: -2029476203
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: game_over_O
-      rect:
-        serializedVersion: 2
-        x: 1428
-        y: 38
-        width: 244
-        height: 304
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: df519a1544ead3b47a396dad1a4a6ff0
-      internalID: -2128871065
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: game_over_V
-      rect:
-        serializedVersion: 2
-        x: 1728
-        y: 38
-        width: 184
-        height: 304
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: f78261e389734634b837e9b8710167b6
-      internalID: 1076352515
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: game_over_R
-      rect:
-        serializedVersion: 2
-        x: 2268
-        y: 38
-        width: 244
-        height: 304
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 595b57dcfd677c442a593efe629e5d11
-      internalID: -506011166
+      spriteID: 649aee7a7f2ccdb4dbafd98a36d35507
+      internalID: 2037162075
       vertices: []
       indices: 
       edges: []
@@ -543,7 +1010,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 9e2c1bf51ebd47f4d99e13051f804cbc
+    spriteID: 6e42857ad79980b47afe8a3a914160ec
     internalID: 0
     vertices: []
     indices: 
@@ -553,29 +1020,49 @@ TextureImporter:
     spriteCustomMetadata:
       entries:
       - key: SpriteEditor.SliceSettings
-        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":2,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":0,"keepEmptyRects":false,"isAlternate":false}'
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":1,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":0,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      Asteroid_Large: -6251682230944352461
-      Asteroid_Medium: -1259408508766424310
-      Asteroid_Small: -5962389079421231736
-      Player_Ship: 8020143640844766479
-      Player_Ship_Moving: 138958977
-      enemy_ship_large: -1727860995
-      enemy_ship_small: 1084659847
-      game_over_A: -1443254322
-      game_over_E: -2029476203
-      game_over_G: -1093603415
-      game_over_M: -1900024802
-      game_over_O: -2128871065
-      game_over_R: -506011166
-      game_over_V: 1076352515
-      multishot_cannons: 1191715884
-      powerup_multishot: 2093745627
-      powerup_piercing: -1852216048
-      powerup_shield: -414406506
-      shield: 749999793
-      shield_large: 1680362057
-      spritesheet_5: 844463404
+      asteroid_large: -8496846458406793156
+      asteroid_medium: 2101468434680752606
+      asteroid_small: 168991802197035126
+      boss_cannon_bottom: -8077322786639102128
+      boss_cannon_bottom_dmg: -272588079
+      boss_cannon_left: -5585859213009349950
+      boss_cannon_left_dmg: 899368640
+      boss_cannon_right: 7553637952222818972
+      boss_cannon_right_dmg: 299614376
+      boss_cannon_top: 6631497456602388572
+      boss_cannon_top_dmg: 412161792
+      boss_core: -2387789130733199701
+      boss_corner_bottom_left: 2726269027909494591
+      boss_corner_bottom_right: -7810360755295374722
+      boss_corner_top_left: -4222679549274464054
+      boss_corner_top_right: -770575761487351266
+      boss_expression_angry: 2814311070118945490
+      boss_expression_evil: 1242318498830291188
+      boss_expression_sad: -5657288695991387124
+      enemy_ship_large: 4417509698576763722
+      enemy_ship_small: 3046686685855707226
+      game_over_a: -5042645738267853558
+      game_over_e: -2629757576455806552
+      game_over_g: 2001143060704308525
+      game_over_m: 1563310426672217732
+      game_over_o: -396038051599081066
+      game_over_r: -2257503757567955342
+      game_over_v: -224731906390375833
+      player_multi_cannon: 682158007
+      player_shield: 2180489980974041206
+      player_ship: -4536875531305701763
+      player_ship_move: -1337967082261581616
+      power_up_empty: 2037162075
+      power_up_m: 7465410620921075167
+      power_up_p: 407819040672156630
+      power_up_s: -6202690290458887906
+      spritesheet100_17: 7674557425707466575
+      spritesheet100_20: -5937939837791270356
+      spritesheet100_23: 8617307378339517851
+      spritesheet100_24: -1338837693496677822
+      spritesheet100_33: -6277625635053204130
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

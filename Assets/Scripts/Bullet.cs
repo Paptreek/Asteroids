@@ -2,11 +2,13 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    private FiringShip _firingShip;
+    private bool _screenWrappable = true;
     private float _destroyTimer = 0.75f;
     private float _baseSpeedEnemy = 25;
     private float _baseSpeedPlayer = 25;
     private float _firingShipSpeed;
+    private string[] _pierceableColliderTags = { "Asteroid", "EnemyShip", "EnemyCannon", "BossCannonCenter" };
+    private FiringShip _firingShip;
 
     public bool PiercingAmmoActivated { get; set; }
 
@@ -23,7 +25,11 @@ public class Bullet : MonoBehaviour
             transform.Translate(new Vector2(0, (_firingShipSpeed + _baseSpeedPlayer) * Time.deltaTime));
         }
 
-        ScreenManager.WrapAroundScreen(transform, 18.0f, 14.0f);
+        if (_screenWrappable)
+        {
+            ScreenManager.WrapAroundScreen(transform, 18.0f, 14.0f);
+        }
+
         DestroyAfterCountdown();
     }
 
@@ -44,9 +50,19 @@ public class Bullet : MonoBehaviour
     {
         if (_firingShip == FiringShip.Player)
         {
-            if (!PiercingAmmoActivated && collision.CompareTag("Asteroid") || collision.CompareTag("EnemyShip"))
+            if (collision.CompareTag($"BossCore"))
             {
                 Destroy(gameObject);
+            }
+            else if (!PiercingAmmoActivated)
+            {
+                foreach (string tag in _pierceableColliderTags)
+                {
+                    if (collision.CompareTag(tag))
+                    {
+                        Destroy(gameObject);
+                    }
+                }
             }
         }
         else
@@ -85,6 +101,11 @@ public class Bullet : MonoBehaviour
     public void SetFiringDirection(float firingDirection)
     {
         transform.eulerAngles = new Vector3(0, 0, firingDirection);
+    }
+
+    public void SetScreenWrappable(bool isScreenWrappable)
+    {
+        _screenWrappable = isScreenWrappable;
     }
 }
 

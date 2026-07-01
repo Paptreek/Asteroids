@@ -12,6 +12,7 @@ public class Asteroid : MonoBehaviour
     private SpriteRenderer _spriteRenderer;
     private CircleCollider2D _collider;
     private AsteroidManager _asteroidManager;
+    private PowerUpManager _powerUpManager;
 
     public bool HasBeenHit { get; private set; }
     public bool DestroyedByPlayer { get; private set; }
@@ -57,7 +58,7 @@ public class Asteroid : MonoBehaviour
             AsteroidSize = Size.Large;
             _moveSpeed = 3;
             _spriteRenderer.sprite = _sprites[0];
-            _collider.radius = 1.55f;
+            _collider.radius = 1.0f;
         }
 
         if (size == Size.Medium)
@@ -65,7 +66,7 @@ public class Asteroid : MonoBehaviour
             AsteroidSize = Size.Medium;
             _moveSpeed = 4;
             _spriteRenderer.sprite = _sprites[1];
-            _collider.radius = 1.05f;
+            _collider.radius = 0.65f;
         }
 
         if (size == Size.Small)
@@ -73,8 +74,13 @@ public class Asteroid : MonoBehaviour
             AsteroidSize = Size.Small;
             _moveSpeed = 5;
             _spriteRenderer.sprite = _sprites[2];
-            _collider.radius = 0.6f;
+            _collider.radius = 0.375f;
         }
+    }
+
+    public void SetPowerUpManager(PowerUpManager powerUpManager)
+    {
+        _powerUpManager = powerUpManager;
     }
 
     private void AssignStartingRotation()
@@ -117,6 +123,7 @@ public class Asteroid : MonoBehaviour
 
             HasBeenHit = true;
             DestroyedByPlayer = true;
+            _powerUpManager.MaybeDropPowerUp(transform.position, 5);
         }
     }
 

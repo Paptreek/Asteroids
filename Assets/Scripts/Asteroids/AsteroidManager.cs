@@ -5,7 +5,7 @@ public class AsteroidManager : MonoBehaviour
 {
     [SerializeField] private AsteroidSpawner _asteroidSpawner;
     [SerializeField] private Asteroid _asteroid;
-    [SerializeField] private AbilityManager _abilityManager;
+    [SerializeField] private PowerUpManager _powerUpManager;
 
     public int LargeAsteroidsDestroyed { get; private set; }
     public int MediumAsteroidsDestroyed { get; private set; }
@@ -23,7 +23,7 @@ public class AsteroidManager : MonoBehaviour
         {
             if (asteroid.HasBeenHit)
             {
-                if (asteroid.AsteroidSize == Asteroid.Size.Large && asteroid.DestroyedByPlayer)
+                if (asteroid.AsteroidSize == Asteroid.Size.Large)
                 {
                     if (asteroid.DestroyedByPlayer)
                     {
@@ -50,8 +50,6 @@ public class AsteroidManager : MonoBehaviour
                         SmallAsteroidsDestroyed++;
                     }
                 }
-
-                _abilityManager.MaybeDropPowerUp(asteroid);
 
                 Asteroids.Remove(asteroid);
                 Destroy(asteroid.gameObject);

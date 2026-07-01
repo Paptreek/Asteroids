@@ -1,22 +1,24 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class AbilityManager : MonoBehaviour
+public class PowerUpManager : MonoBehaviour
 {
     [SerializeField] private ParticleSystem _warpEffect;
     [SerializeField] private Player _player;
     [SerializeField] private GameObject _playerShield;
     [SerializeField] private GameObject _multishotCannonSpriteObj;
     [SerializeField] private PowerUp _powerUp;
+    [SerializeField] private Transform _playerWarpLocation;
 
     private float _multiShotTimer;
     private float _shieldTimer;
     private float _piercingAmmoTimer;
+    private float _dropCooldown;
     private InputAction _warp;
     private InputAction _useAbility;
 
-    public int MaxWarpUses { get; private set; } = 1;
-    public int WarpUses { get; set; } = 1;
+    public int MaxWarpUses { get; private set; } = 3;
+    public int WarpUses { get; set; } = 3;
     public bool HasMultiShot { get; set; }
     public bool MultiShotActivated { get; set; }
     public bool HasShield { get; set; }
@@ -35,15 +37,19 @@ public class AbilityManager : MonoBehaviour
         _multiShotTimer -= Time.deltaTime;
         _shieldTimer -= Time.deltaTime;
         _piercingAmmoTimer -= Time.deltaTime;
+        _dropCooldown -= Time.deltaTime;
         
-        if (_warp.WasPressedThisFrame())
+        if (_player != null)
         {
-            Warp();
-        }
+            if (_warp.WasPressedThisFrame())
+            {
+                Warp();
+            }
 
-        ManageMultiShotPowerUp();
-        ManageShieldPowerUp();
-        ManagePiercingPowerUp();
+            ManageMultiShotPowerUp();
+            ManageShieldPowerUp();
+            ManagePiercingPowerUp();
+        }
     }
 
     public void IncreaseMaxWarpUses()
@@ -52,19 +58,19 @@ public class AbilityManager : MonoBehaviour
         WarpUses = MaxWarpUses;
     }
 
-    public void MaybeDropPowerUp(Asteroid asteroid)
+    public void MaybeDropPowerUp(Vector3 positionToDrop, int percentChanceToDrop)
     {
-        int randomNumber = Random.Range(0, 13);
-        //int randomNumber = Random.Range(0, 2);
+        int chanceToDrop = 100 / percentChanceToDrop;
+        int randomNumber = Random.Range(1, chanceToDrop + 1);
 
-        if (randomNumber == 12)
-        //if (randomNumber == 1)
+        if (randomNumber == chanceToDrop && _dropCooldown <= 0)
         {
-            PowerUp powerUp = Instantiate(_powerUp, asteroid.transform.position, Quaternion.identity);
+            PowerUp powerUp = Instantiate(_powerUp, positionToDrop, Quaternion.identity);
             powerUp.SetAbilityManager(this);
+            _dropCooldown = 5.0f;
         }
 
-        Debug.Log($"PowerUp Drop Roll: {randomNumber} / 12");
+        Debug.Log($"PowerUp Drop Roll: {randomNumber} / {chanceToDrop}");
     }
 
     public void ClearPowerUps()
@@ -76,24 +82,18 @@ public class AbilityManager : MonoBehaviour
     
     private void Warp()
     {
-        if (WarpUses > 0 && !_player.IsDead)
+        if (WarpUses > 0 && _player.IsAliveAndReady())
         {
-            Instantiate(_warpEffect, transform.position, Quaternion.identity);
-
-            float newPositionX = Random.Range(-18.0f, 18.0f);
-            float newPositionY = Random.Range(-14.0f, 14.0f);
-
-            _player.transform.position = new Vector3(newPositionX, newPositionY);
-
             Instantiate(_warpEffect, _player.transform.position, Quaternion.identity);
-
+            _player.transform.position = _playerWarpLocation.position;
+            Instantiate(_warpEffect, _player.transform.position, Quaternion.identity);
             WarpUses--;
         }
     }
 
     private void ManageMultiShotPowerUp()
     {
-        if (HasMultiShot && _useAbility.WasPressedThisFrame())
+        if (HasMultiShot && _useAbility.WasPressedThisFrame() && _player.IsAliveAndReady())
         {
             MultiShotActivated = true;
             HasMultiShot = false;
@@ -123,10 +123,10 @@ public class AbilityManager : MonoBehaviour
 
     private void ManageShieldPowerUp()
     {
-        if (HasShield && _useAbility.WasPressedThisFrame())
+        if (HasShield && _useAbility.WasPressedThisFrame() && _player.IsAliveAndReady())
         {
             _playerShield.SetActive(true);
-            _player.GetComponent<PolygonCollider2D>().enabled = false;
+
             ShieldActivated = true;
             HasShield = false;
             _shieldTimer = 2.5f;
@@ -137,21 +137,16 @@ public class AbilityManager : MonoBehaviour
             _playerShield.transform.position = _player.transform.position;
         }
 
-        if (_shieldTimer <= 0)
+        if (_shieldTimer <= 0 || !_player.GetComponent<SpriteRenderer>().enabled)
         {
             ShieldActivated = false;
             _playerShield.SetActive(false);
-
-            if (_player.EnableCollisionTimer <= 0)
-            {
-                _player.GetComponent<PolygonCollider2D>().enabled = true;
-            }
         }
     }
 
     private void ManagePiercingPowerUp()
     {
-        if (HasPiercingAmmo && _useAbility.WasPressedThisFrame())
+        if (HasPiercingAmmo && _useAbility.WasPressedThisFrame() && _player.IsAliveAndReady())
         {
             PiercingAmmoActivated = true;
             HasPiercingAmmo = false;

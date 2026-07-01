@@ -5,7 +5,7 @@ using UnityEngine.UI;
 public class UpgradeManager : MonoBehaviour
 {
     [SerializeField] private PlayerMovement _playerMovement;
-    [SerializeField] private AbilityManager _abilityManager;
+    [SerializeField] private PowerUpManager _abilityManager;
     [SerializeField] private PlayerShipCannon _playerShipCannon;
 
     [SerializeField] private GameObject _upgradePanel;
