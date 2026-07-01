@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,7 +10,6 @@ public class UpgradeManager : MonoBehaviour
     [SerializeField] private PlayerShipCannon _playerShipCannon;
 
     [SerializeField] private GameObject _upgradePanel;
-    [SerializeField] private GameObject _upgradePanelBackground;
 
     [SerializeField] private GameObject _attackSpeedPanel;
     [SerializeField] private GameObject _bulletSpeedPanel;
@@ -22,6 +22,8 @@ public class UpgradeManager : MonoBehaviour
     [SerializeField] private Button _selectThrustersButton;
     [SerializeField] private Button _selectTurnSpeedButton;
     [SerializeField] private Button _selectWarpUsesButton;
+
+    [SerializeField] private TMP_Text _roundText;
 
     private GameObject _leftPanel;
     private GameObject _centerPanel;
@@ -72,7 +74,7 @@ public class UpgradeManager : MonoBehaviour
         float leftPositionX = -202.5f;
         float centerPositionX = 0.0f;
         float rightPositionX = 202.5f;
-        float postionY = -27.2f;
+        float postionY = -48.5f;
 
         _leftPanel.transform.localPosition = new Vector3(leftPositionX, postionY);
         _centerPanel.transform.localPosition = new Vector3(centerPositionX, postionY);
@@ -81,6 +83,11 @@ public class UpgradeManager : MonoBehaviour
         _leftPanel.SetActive(true);
         _centerPanel.SetActive(true);
         _rightPanel.SetActive(true);
+    }
+
+    public void SetRoundText(string roundText)
+    {
+        _roundText.text = roundText;
     }
 
     private void UpgradeAttackSpeed()
@@ -120,7 +127,7 @@ public class UpgradeManager : MonoBehaviour
 
     private void HidePanelsAndResume()
     {
-        _upgradePanelBackground.SetActive(false);
+        //_upgradePanelBackground.SetActive(false);
         _upgradePanel.SetActive(false);
 
         _leftPanel.SetActive(false);

@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -8,15 +9,11 @@ public class GameManager : MonoBehaviour
     [SerializeField] private AsteroidSpawner _asteroidSpawner;
     [SerializeField] private EnemyShipSpawner _enemyShipSpawner;
     [SerializeField] private PowerUpManager _abilityManager;
-    [SerializeField] private GameObject _gameOverPrefab;
     [SerializeField] private GameObject _upgradePanel;
-    [SerializeField] private GameObject _upgradePanelBackground;
     [SerializeField] private UpgradeManager _upgradeManager;
     [SerializeField] private Boss _boss;
     
     private bool _playerHasWon;
-    private bool _playerHasLost;
-    private bool _gameOverCreated;
     private bool _bossActivated;
     private int _round = 1;
     private int _bonusScore;
@@ -59,6 +56,7 @@ public class GameManager : MonoBehaviour
 
         CheckToStartNewRound();
         CheckForGameOver();
+        CalculateScore();
 
         CheckForDevMode();
 
@@ -75,51 +73,37 @@ public class GameManager : MonoBehaviour
                 _player.ActivateIFrames(2);
             }
         }
-
-        Debug.Log($"Current Score: {CalculateScore()}");
     }
 
     private void CheckToStartNewRound()
     {
-        int maxRounds = 1;
+        int maxRounds = 5;
 
         if (!_bossTestModeEnabled) // remove after done testing
         {
-            if (_asteroidManager.Asteroids.Count <= 0 && !_playerHasLost)
+            if (_asteroidManager.Asteroids.Count <= 0)
             {
                 if (_round < maxRounds)
                 {
+                    _upgradeManager.SetRoundText($"[ NEXT: ROUND {_round + 1} / {maxRounds} ]");
                     StartNextRound();
                 }
                 else
                 {
+                    _upgradeManager.SetRoundText($"[ NEXT: BOSS BATTLE ]");
                     ActivateBoss();
                 }
             }
 
-            if (_boss == null)
+            if (_boss.IsDead)
             {
                 _playerHasWon = true;
-                // insert GameOver stuff here once it's ready
             }
         }
     }
 
     private void CheckForGameOver()
     {
-        if (_player == null)
-        {
-            _playerHasLost = true;
-            _enemyShipSpawner.enabled = false;
-            _asteroidSpawner.enabled = false;
-
-            if (!_gameOverCreated)
-            {
-                Instantiate(_gameOverPrefab);
-                _gameOverCreated = true;
-            }
-        }
-
         if (_playerHasWon)
         {
             Debug.Log($"All rounds completed. You win!");
@@ -145,13 +129,15 @@ public class GameManager : MonoBehaviour
 
         int pointsFromDeaths = _player.DeathCount * 250;
 
+        Score = pointsForShips + pointsForAsteroids + pointsFromBoss + _bonusScore;
+
         if (!_playerHasWon)
         {
-            return Score = pointsForShips + pointsForAsteroids + pointsFromBoss;
+            return Score;
         }
         else
         {
-            return Score = pointsForShips + pointsForAsteroids + pointsFromBoss - pointsFromDeaths;
+            return Score - pointsFromDeaths;
         }
     }
 
@@ -231,7 +217,6 @@ public class GameManager : MonoBehaviour
     {
         Time.timeScale = 0;
 
-        _upgradePanelBackground.SetActive(true);
         _upgradePanel.SetActive(true);
 
         _upgradeManager.ShuffleUpgrades(_upgradeManager.UpgradeOptions);
