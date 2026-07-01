@@ -19,12 +19,13 @@ public class GameManager : MonoBehaviour
     private bool _gameOverCreated;
     private bool _bossActivated;
     private int _round = 1;
-    private int _score;
     private int _bonusScore;
     private float _roundTimer = 120.0f;
     private float _spawnTimerSmall = 45.0f;
     private float _spawnTimerLarge = 30.0f;
     private BossSpawnSequence _bossSpawnSequence;
+
+    public int Score { get; private set; }
 
     // these are for dev mode
     private InputAction _enterDevMode;
@@ -75,7 +76,7 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        Debug.Log($"Current Score: {GetScore()}");
+        Debug.Log($"Current Score: {CalculateScore()}");
     }
 
     private void CheckToStartNewRound()
@@ -129,7 +130,7 @@ public class GameManager : MonoBehaviour
 
     }
 
-    private int GetScore()
+    private int CalculateScore()
     {
         int pointsForLargeShips = _player.LargeShipsDestroyed * 25;
         int pointsForSmallShips = _player.SmallShipsDestroyed * 50;
@@ -140,9 +141,18 @@ public class GameManager : MonoBehaviour
         int pointsForSmallAsteroids = _asteroidManager.SmallAsteroidsDestroyed * 25;
         int pointsForAsteroids = pointsForLargeAsteroids + pointsForMediumAsteroids + pointsForSmallAsteroids;
 
-        int negativePointsFromDeaths = _player.DeathCount * 250;
+        int pointsFromBoss = _boss.PointsToAdd();
 
-        return _score = Mathf.Clamp((_bonusScore + pointsForShips + pointsForAsteroids + _boss.PointsToAdd() - negativePointsFromDeaths), 0, 99999);
+        int pointsFromDeaths = _player.DeathCount * 250;
+
+        if (!_playerHasWon)
+        {
+            return Score = pointsForShips + pointsForAsteroids + pointsFromBoss;
+        }
+        else
+        {
+            return Score = pointsForShips + pointsForAsteroids + pointsFromBoss - pointsFromDeaths;
+        }
     }
 
     private void AddBonusScore()
@@ -203,17 +213,18 @@ public class GameManager : MonoBehaviour
 
     private void DestroyAllEnemyShips()
     {
-        foreach (EnemyShip enemyShip in _enemyShipSpawner.EnemyShips)
+        if (_enemyShipSpawner.EnemyShips.Count > 0)
         {
-            if (enemyShip != null)
+            foreach (EnemyShip enemyShip in _enemyShipSpawner.EnemyShips)
             {
-                Destroy(enemyShip.gameObject);
+                if (enemyShip != null)
+                {
+                    Destroy(enemyShip.gameObject);
+                }
             }
-        }
         
-        _enemyShipSpawner.EnemyShips.Clear();
-
-        Debug.Log($"Ships cleared. # of ships: {_enemyShipSpawner.EnemyShips.Count}");
+            _enemyShipSpawner.EnemyShips.Clear();
+        }
     }
 
     private void GetPlayerUpgradeChoice()

@@ -5,7 +5,7 @@ public class AsteroidManager : MonoBehaviour
 {
     [SerializeField] private AsteroidSpawner _asteroidSpawner;
     [SerializeField] private Asteroid _asteroid;
-    [SerializeField] private PowerUpManager _abilityManager;
+    [SerializeField] private PowerUpManager _powerUpManager;
 
     public int LargeAsteroidsDestroyed { get; private set; }
     public int MediumAsteroidsDestroyed { get; private set; }
@@ -50,8 +50,6 @@ public class AsteroidManager : MonoBehaviour
                         SmallAsteroidsDestroyed++;
                     }
                 }
-
-                _abilityManager.MaybeDropPowerUp(asteroid.transform.position, 5);
 
                 Asteroids.Remove(asteroid);
                 Destroy(asteroid.gameObject);

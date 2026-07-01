@@ -12,6 +12,7 @@ public class Asteroid : MonoBehaviour
     private SpriteRenderer _spriteRenderer;
     private CircleCollider2D _collider;
     private AsteroidManager _asteroidManager;
+    private PowerUpManager _powerUpManager;
 
     public bool HasBeenHit { get; private set; }
     public bool DestroyedByPlayer { get; private set; }
@@ -77,6 +78,11 @@ public class Asteroid : MonoBehaviour
         }
     }
 
+    public void SetPowerUpManager(PowerUpManager powerUpManager)
+    {
+        _powerUpManager = powerUpManager;
+    }
+
     private void AssignStartingRotation()
     {
         float randomRotation = Random.Range(0.0f, 360.0f);
@@ -117,6 +123,7 @@ public class Asteroid : MonoBehaviour
 
             HasBeenHit = true;
             DestroyedByPlayer = true;
+            _powerUpManager.MaybeDropPowerUp(transform.position, 5);
         }
     }
 

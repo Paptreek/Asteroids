@@ -150,7 +150,7 @@ TextureImporter:
   compressionQuality: 50
   spriteMode: 2
   spriteExtrude: 1
-  spriteMeshType: 1
+  spriteMeshType: 0
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 16
@@ -984,6 +984,28 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: power_up_empty
+      rect:
+        serializedVersion: 2
+        x: 107
+        y: 216
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 1, y: 1, z: 1, w: 1}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 649aee7a7f2ccdb4dbafd98a36d35507
+      internalID: 2037162075
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []
@@ -1032,6 +1054,7 @@ TextureImporter:
       player_shield: 2180489980974041206
       player_ship: -4536875531305701763
       player_ship_move: -1337967082261581616
+      power_up_empty: 2037162075
       power_up_m: 7465410620921075167
       power_up_p: 407819040672156630
       power_up_s: -6202690290458887906

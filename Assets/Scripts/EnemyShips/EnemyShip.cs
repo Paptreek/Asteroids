@@ -8,7 +8,6 @@ public class EnemyShip : MonoBehaviour
     [SerializeField] private Sprite _spriteSmall;
     [SerializeField] private PolygonCollider2D _colliderSmall;
     [SerializeField] private PolygonCollider2D _colliderLarge;
-    [SerializeField] private PowerUpManager _powerUpManager;
 
     private float _cannonTimer = 1.0f; // value is for first bullet, then it turns to _secondsBetweenShots for the rest
     private float _secondsBetweenShots;
@@ -20,6 +19,7 @@ public class EnemyShip : MonoBehaviour
     private Player _player;
     private SpriteRenderer _spriteRenderer;
     private PolygonCollider2D _collider;
+    private PowerUpManager _powerUpManager;
 
     public ShipSize EnemyShipSize { get; private set; }
     public enum ShipSize { Large, Small }
