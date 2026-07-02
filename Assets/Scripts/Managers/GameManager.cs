@@ -1,4 +1,3 @@
-using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -8,7 +7,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private AsteroidManager _asteroidManager;
     [SerializeField] private AsteroidSpawner _asteroidSpawner;
     [SerializeField] private EnemyShipSpawner _enemyShipSpawner;
-    [SerializeField] private PowerUpManager _abilityManager;
+    [SerializeField] private PowerUpManager _powerUpManager;
     [SerializeField] private GameObject _upgradePanel;
     [SerializeField] private UpgradeManager _upgradeManager;
     [SerializeField] private Boss _boss;
@@ -166,7 +165,7 @@ public class GameManager : MonoBehaviour
 
         _roundTimer = 120.0f;
         _player.ResetPosition(Vector3.zero);
-        _abilityManager.WarpUses = _abilityManager.MaxWarpUses;
+        _powerUpManager.WarpUses = _powerUpManager.MaxWarpUses;
         _enemyShipSpawner.SetSpawnTimers(_spawnTimerSmall, _spawnTimerLarge);
 
         if (_player != null)
@@ -188,7 +187,7 @@ public class GameManager : MonoBehaviour
             _spawnTimerLarge -= 2.5f;
 
             DestroyAllEnemyShips();
-            _abilityManager.WarpUses = _abilityManager.MaxWarpUses;
+            _powerUpManager.WarpUses = _powerUpManager.MaxWarpUses;
             _enemyShipSpawner.SetSpawnTimers(_spawnTimerSmall, _spawnTimerLarge);
 
             _player.ResetPosition(new Vector3(0, -6.5f, 0));

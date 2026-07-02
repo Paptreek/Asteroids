@@ -4,10 +4,10 @@ using UnityEngine.InputSystem;
 public class PlayerShipCannon : MonoBehaviour
 {
     [SerializeField] private Bullet _bullet;
+    [SerializeField] private PowerUpManager _powerUpManager;
     [SerializeField] private Transform _cannonTransformCenter;
     [SerializeField] private Transform _cannonTransformLeft;
     [SerializeField] private Transform _cannonTransformRight;
-    [SerializeField] private PowerUpManager _abilityManager;
 
     private InputAction _attackAction;
     private Player _player;
@@ -50,12 +50,12 @@ public class PlayerShipCannon : MonoBehaviour
             bulletCenter.SetFiringShip(FiringShip.Player);
             bulletCenter.SetBulletSpeed(BulletSpeedUpgradeAmount);
 
-            if (_abilityManager.PiercingAmmoActivated)
+            if (_powerUpManager.PiercingAmmoActivated)
             {
                 bulletCenter.PiercingAmmoActivated = true;
             }
 
-            if (_abilityManager.MultiShotActivated)
+            if (_powerUpManager.MultiShotActivated)
             {
                 Bullet bulletLeft = Instantiate(_bullet, _cannonPositionLeft, _cannonTransformLeft.rotation);
                 bulletLeft.SetFiringShipSpeed(this);
@@ -67,7 +67,7 @@ public class PlayerShipCannon : MonoBehaviour
                 bulletRight.SetFiringShip(FiringShip.Player);
                 bulletRight.SetBulletSpeed(BulletSpeedUpgradeAmount);
 
-                if (_abilityManager.PiercingAmmoActivated)
+                if (_powerUpManager.PiercingAmmoActivated)
                 {
                     bulletLeft.PiercingAmmoActivated = true;
                     bulletRight.PiercingAmmoActivated = true;

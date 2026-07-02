@@ -12,9 +12,11 @@ public class Boss : MonoBehaviour
     private float _coreRotationTimer;
     private float _coreRotationSpeed;
     private float _expressionChangeTimer;
+
     private int _hitsTaken;
     private int _maxHP = 3;
     private int _cannonsDestroyed;
+
     private BossMovement _movement;
     private SpriteRenderer _spriteRenderer;
     private List<BossCannon> _cannonTracker = new List<BossCannon>();

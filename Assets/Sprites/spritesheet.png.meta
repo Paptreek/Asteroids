@@ -1006,6 +1006,116 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: slider_handle
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 201
+        width: 5
+        height: 5
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 825dfafc89489294bbffbc3f2fc3c5bc
+      internalID: -1785858659
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: slider_fill
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 197
+        width: 2
+        height: 2
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b6ac7bd57de461a4b9dcbcae02f11aae
+      internalID: -1138636089
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_button_play
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 196
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 29c56cd601d40e4449432a674c820d38
+      internalID: -747898454
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_button_music
+      rect:
+        serializedVersion: 2
+        x: 18
+        y: 196
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 55393e0e78d0450458b0a48640e1254c
+      internalID: 97201307
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_button_back
+      rect:
+        serializedVersion: 2
+        x: 28
+        y: 196
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: df992092703a5d14b9409d6118522caa
+      internalID: -2138180936
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []
@@ -1058,11 +1168,16 @@ TextureImporter:
       power_up_m: 7465410620921075167
       power_up_p: 407819040672156630
       power_up_s: -6202690290458887906
+      slider_fill: -1138636089
+      slider_handle: -1785858659
       spritesheet100_17: 7674557425707466575
       spritesheet100_20: -5937939837791270356
       spritesheet100_23: 8617307378339517851
       spritesheet100_24: -1338837693496677822
       spritesheet100_33: -6277625635053204130
+      ui_button_back: -2138180936
+      ui_button_music: 97201307
+      ui_button_play: -747898454
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

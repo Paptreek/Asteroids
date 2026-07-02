@@ -9,7 +9,7 @@ public class PowerUp : MonoBehaviour
     private float _enableFlashTimer = 5.0f;
     private float _spriteRendererFlashTimer = 0.5f;
     private SpriteRenderer _spriteRenderer;
-    private PowerUpManager _abilityManager;
+    private PowerUpManager _powerUpManager;
     private Type _type;
 
     public enum Type { MultiShot, Shield, PiercingAmmo }
@@ -37,9 +37,9 @@ public class PowerUp : MonoBehaviour
         Destroy(gameObject, 5.0f);
     }
 
-    public void SetAbilityManager(PowerUpManager abilityManager)
+    public void SetPowerUpManager(PowerUpManager powerUpManager)
     {
-        _abilityManager = abilityManager;
+        _powerUpManager = powerUpManager;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -81,19 +81,19 @@ public class PowerUp : MonoBehaviour
 
     private void AddPowerUpToPlayer()
     {
-        _abilityManager.ClearPowerUps();
+        _powerUpManager.ClearPowerUps();
 
         if (_type == Type.MultiShot)
         {
-            _abilityManager.HasMultiShot = true;
+            _powerUpManager.HasMultiShot = true;
         }
         else if (_type == Type.Shield)
         {
-            _abilityManager.HasShield = true;
+            _powerUpManager.HasShield = true;
         }
         else if (_type == Type.PiercingAmmo)
         {
-            _abilityManager.HasPiercingAmmo = true;
+            _powerUpManager.HasPiercingAmmo = true;
         }
     }
 

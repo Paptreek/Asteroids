@@ -6,22 +6,16 @@ using UnityEngine.UI;
 public class UpgradeManager : MonoBehaviour
 {
     [SerializeField] private PlayerMovement _playerMovement;
-    [SerializeField] private PowerUpManager _abilityManager;
+    [SerializeField] private PowerUpManager _powerUpManager;
     [SerializeField] private PlayerShipCannon _playerShipCannon;
 
     [SerializeField] private GameObject _upgradePanel;
 
-    [SerializeField] private GameObject _attackSpeedPanel;
-    [SerializeField] private GameObject _bulletSpeedPanel;
-    [SerializeField] private GameObject _thrustersPanel;
-    [SerializeField] private GameObject _turnSpeedPanel;
-    [SerializeField] private GameObject _warpUsesPanel;
-
-    [SerializeField] private Button _selectAttackSpeedButton;
-    [SerializeField] private Button _selectBulletSpeedButton;
-    [SerializeField] private Button _selectThrustersButton;
-    [SerializeField] private Button _selectTurnSpeedButton;
-    [SerializeField] private Button _selectWarpUsesButton;
+    [SerializeField] private Button _attackSpeedButton;
+    [SerializeField] private Button _bulletSpeedButton;
+    [SerializeField] private Button _thrustersButton;
+    [SerializeField] private Button _turnSpeedButton;
+    [SerializeField] private Button _warpUsesButton;
 
     [SerializeField] private TMP_Text _roundText;
 
@@ -33,20 +27,20 @@ public class UpgradeManager : MonoBehaviour
 
     private void Awake()
     {
-        UpgradeOptions.Add(_attackSpeedPanel);
-        UpgradeOptions.Add(_bulletSpeedPanel);
-        UpgradeOptions.Add(_thrustersPanel);
-        UpgradeOptions.Add(_turnSpeedPanel);
-        UpgradeOptions.Add(_warpUsesPanel);
+        UpgradeOptions.Add(_attackSpeedButton.gameObject);
+        UpgradeOptions.Add(_bulletSpeedButton.gameObject);
+        UpgradeOptions.Add(_thrustersButton.gameObject);
+        UpgradeOptions.Add(_turnSpeedButton.gameObject);
+        UpgradeOptions.Add(_warpUsesButton.gameObject);
     }
 
     private void Start()
     {
-        _selectAttackSpeedButton.onClick.AddListener(UpgradeAttackSpeed);
-        _selectBulletSpeedButton.onClick.AddListener(UpgradeBulletSpeed);
-        _selectThrustersButton.onClick.AddListener(UpgradeThrusters);
-        _selectTurnSpeedButton.onClick.AddListener(UpgradeTurnSpeed);
-        _selectWarpUsesButton.onClick.AddListener(UpgradeWarpUses);
+        _attackSpeedButton.onClick.AddListener(UpgradeAttackSpeed);
+        _bulletSpeedButton.onClick.AddListener(UpgradeBulletSpeed);
+        _thrustersButton.onClick.AddListener(UpgradeThrusters);
+        _turnSpeedButton.onClick.AddListener(UpgradeTurnSpeed);
+        _warpUsesButton.onClick.AddListener(UpgradeWarpUses);
     }
 
     public void ShuffleUpgrades<T>(List<T> array)
@@ -121,13 +115,12 @@ public class UpgradeManager : MonoBehaviour
     private void UpgradeWarpUses()
     {
         Debug.Log($"Warp Uses Upgraded!");
-        _abilityManager.IncreaseMaxWarpUses();
+        _powerUpManager.IncreaseMaxWarpUses();
         HidePanelsAndResume();
     }
 
     private void HidePanelsAndResume()
     {
-        //_upgradePanelBackground.SetActive(false);
         _upgradePanel.SetActive(false);
 
         _leftPanel.SetActive(false);
