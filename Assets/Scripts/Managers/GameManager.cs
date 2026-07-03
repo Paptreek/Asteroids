@@ -130,6 +130,11 @@ public class GameManager : MonoBehaviour
 
         Score = pointsForShips + pointsForAsteroids + pointsFromBoss + _bonusScore;
 
+        if (Score > PlayerPrefs.GetInt("HighScore"))
+        {
+            SetHighScore();
+        }
+
         if (!_playerHasWon)
         {
             return Score;
@@ -147,6 +152,11 @@ public class GameManager : MonoBehaviour
         Debug.Log($"Time Left: {_roundTimer}, Points Added: {pointsToAddFromTimer}");
 
         _bonusScore += pointsToAddFromTimer;
+    }
+
+    private void SetHighScore()
+    {
+        PlayerPrefs.SetInt("HighScore", Score);
     }
 
     private void StartNextRound()

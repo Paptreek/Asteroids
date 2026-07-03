@@ -6,12 +6,15 @@ namespace TitleScreen
     public class TitleScreen : MonoBehaviour
     {
         [SerializeField] private AsteroidSpawner _asteroidSpawner;
+        [SerializeField] private AudioClip _music;
 
         private List<Asteroid> _asteroids = new List<Asteroid>();
 
         private void Start()
         {
             SpawnAsteroids();
+
+            AudioManager.Instance.PlayMusic(_music);
         }
 
         private void SpawnAsteroids()
