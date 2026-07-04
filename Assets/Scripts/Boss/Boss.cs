@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Boss : MonoBehaviour
 {
@@ -56,6 +57,13 @@ public class Boss : MonoBehaviour
             GetComponent<SpriteRenderer>().enabled = false;
             GetComponent<CircleCollider2D>().enabled = false;
             Destroy(gameObject, 1.0f);
+        }
+
+        // def delete this before build lol
+        if (Keyboard.current.bKey.wasPressedThisFrame)
+        {
+            IsDead = true;
+            Destroy(gameObject);
         }
     }
 

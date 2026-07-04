@@ -34,12 +34,21 @@ public class AudioManager : MonoBehaviour
     public void SetEffectsVolume(Slider effectsSlider)
     {
         _audioSettings.SetEffectsVolume(effectsSlider);
-        _audioMixer.SetFloat("effectsVolume", Mathf.Log10(_audioSettings.MusicVolume) * 20);
+        _audioMixer.SetFloat("effectsVolume", Mathf.Log10(_audioSettings.EffectsVolume) * 20);
+    }
+
+    public void SetMusicLowpass(float cutoff)
+    {
+        _audioMixer.SetFloat("musicLowpassCutoff", cutoff);
     }
 
     public void PlayMusic(AudioClip clip)
     {
         _music.clip = clip;
-        _music.Play();
+
+        if (!_music.isPlaying)
+        {
+            _music.Play();
+        }
     }
 }

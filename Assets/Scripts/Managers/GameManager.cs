@@ -11,17 +11,23 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject _upgradePanel;
     [SerializeField] private UpgradeManager _upgradeManager;
     [SerializeField] private Boss _boss;
+    [SerializeField] private GameObject _pauseMenuMain;
     
     private bool _playerHasWon;
     private bool _bossActivated;
+    private bool _gameOverActivated;
     private int _round = 1;
-    private int _bonusScore;
     private float _roundTimer = 120.0f;
+    private float _playTimeCounter;
     private float _spawnTimerSmall = 45.0f;
     private float _spawnTimerLarge = 30.0f;
     private BossSpawnSequence _bossSpawnSequence;
 
     public int Score { get; private set; }
+    public int TotalPlayTime { get; private set; }
+    public int BonusTimeScore { get; private set; }
+    public int PointsFromAsteroids { get; private set; }
+    public int PointsFromShips { get; private set; }
 
     // these are for dev mode
     private InputAction _enterDevMode;
@@ -52,9 +58,11 @@ public class GameManager : MonoBehaviour
     private void Update()
     {
         _roundTimer -= Time.deltaTime;
+        _playTimeCounter += Time.deltaTime;
 
         CheckToStartNewRound();
         CheckForGameOver();
+
         CalculateScore();
 
         CheckForDevMode();
@@ -74,9 +82,37 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public int GetDestroyedAsteroidCount()
+    {
+        return _asteroidManager.LargeAsteroidsDestroyed + _asteroidManager.MediumAsteroidsDestroyed + _asteroidManager.SmallAsteroidsDestroyed;
+    }
+
+    public int GetDestroyedShipCount()
+    {
+        return _player.LargeShipsDestroyed + _player.SmallShipsDestroyed;
+    }
+
+    public int GetPlayerDeathCount() => _player.DeathCount;
+
+    public int GetBonusDeathScore()
+    {
+        int bonusScore = _player.DeathCount switch
+        {
+            0 => 9999,
+            1 => 7500,
+            2 => 5000,
+            3 => 2000,
+            4 => 1000,
+            5 => 500,
+            _ => 0
+        };
+
+        return bonusScore;
+    }
+
     private void CheckToStartNewRound()
     {
-        int maxRounds = 5;
+        int maxRounds = 1;
 
         if (!_bossTestModeEnabled) // remove after done testing
         {
@@ -97,71 +133,77 @@ public class GameManager : MonoBehaviour
             if (_boss.IsDead)
             {
                 _playerHasWon = true;
+             
+                if (Score > PlayerPrefs.GetInt("HighScore"))
+                {
+                    SetHighScore();
+                }
             }
         }
     }
 
     private void CheckForGameOver()
     {
-        if (_playerHasWon)
+        if (_playerHasWon && !_gameOverActivated)
         {
             Debug.Log($"All rounds completed. You win!");
+
+            IncreaseTotalPlayTime();
             DestroyAllEnemyShips();
             _enemyShipSpawner.enabled = false;
             _asteroidSpawner.enabled = false;
+
+            _gameOverActivated = true;
         }
 
     }
 
-    private int CalculateScore()
+    private void CalculateScore()
     {
         int pointsForLargeShips = _player.LargeShipsDestroyed * 25;
         int pointsForSmallShips = _player.SmallShipsDestroyed * 50;
-        int pointsForShips = pointsForLargeShips + pointsForSmallShips;
+        PointsFromShips = pointsForLargeShips + pointsForSmallShips;
         
         int pointsForLargeAsteroids = _asteroidManager.LargeAsteroidsDestroyed * 5;
         int pointsForMediumAsteroids = _asteroidManager.MediumAsteroidsDestroyed * 10;
         int pointsForSmallAsteroids = _asteroidManager.SmallAsteroidsDestroyed * 25;
-        int pointsForAsteroids = pointsForLargeAsteroids + pointsForMediumAsteroids + pointsForSmallAsteroids;
+        PointsFromAsteroids = pointsForLargeAsteroids + pointsForMediumAsteroids + pointsForSmallAsteroids;
 
         int pointsFromBoss = _boss.PointsToAdd();
 
-        int pointsFromDeaths = _player.DeathCount * 250;
-
-        Score = pointsForShips + pointsForAsteroids + pointsFromBoss + _bonusScore;
-
-        if (Score > PlayerPrefs.GetInt("HighScore"))
+        if (_playerHasWon)
         {
-            SetHighScore();
-        }
-
-        if (!_playerHasWon)
-        {
-            return Score;
+            Score = PointsFromShips + PointsFromAsteroids + pointsFromBoss + BonusTimeScore + GetBonusDeathScore();
         }
         else
         {
-            return Score - pointsFromDeaths;
+            Score = PointsFromShips + PointsFromAsteroids + pointsFromBoss + BonusTimeScore;
         }
     }
 
-    private void AddBonusScore()
+    private void AddBonusTimeScore()
     {
         int pointsToAddFromTimer = Mathf.RoundToInt(_roundTimer) * 5;
 
         Debug.Log($"Time Left: {_roundTimer}, Points Added: {pointsToAddFromTimer}");
 
-        _bonusScore += pointsToAddFromTimer;
+        BonusTimeScore += pointsToAddFromTimer;
     }
 
-    private void SetHighScore()
+    private void IncreaseTotalPlayTime()
     {
-        PlayerPrefs.SetInt("HighScore", Score);
+        TotalPlayTime += Mathf.RoundToInt(_playTimeCounter);
+        Debug.Log($"Total Play Time Increased: {TotalPlayTime}");
+
+        _playTimeCounter = 0;
     }
+
+    private void SetHighScore() => PlayerPrefs.SetInt("HighScore", Score);
 
     private void StartNextRound()
     {
-        AddBonusScore();
+        AddBonusTimeScore();
+        IncreaseTotalPlayTime();
 
         GetPlayerUpgradeChoice();
 
@@ -189,7 +231,8 @@ public class GameManager : MonoBehaviour
     {
         if (!_bossActivated)
         {
-            AddBonusScore();
+            AddBonusTimeScore();
+            IncreaseTotalPlayTime();
 
             GetPlayerUpgradeChoice();
 
