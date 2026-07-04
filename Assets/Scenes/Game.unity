@@ -3946,7 +3946,7 @@ MonoBehaviour:
   _upgradePanel: {fileID: 992902}
   _upgradeManager: {fileID: 971746366}
   _boss: {fileID: 1510678825}
-  _pauseMenuMain: {fileID: 0}
+  _gameOverManagerObj: {fileID: 1404435031}
 --- !u!1 &878458879
 GameObject:
   m_ObjectHideFlags: 0
@@ -4737,6 +4737,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 6673546417831368167, guid: 42e67c3a996711d4eba4065d474fe140, type: 3}
   m_PrefabInstance: {fileID: 939463502}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &939463504 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1117633928470505138, guid: 42e67c3a996711d4eba4065d474fe140, type: 3}
+  m_PrefabInstance: {fileID: 939463502}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Button
 --- !u!1 &954012823
 GameObject:
   m_ObjectHideFlags: 0
@@ -7099,7 +7110,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1404435032
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7112,13 +7123,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd58ded93e8f32f4d8496eda0738b120, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameOverManager
-  _gameOverPanel: {fileID: 0}
+  _gameOverPanel: {fileID: 1753799534}
   _gameManager: {fileID: 867290861}
   _totalTimeText: {fileID: 513137752}
   _asteroidsDestroyedText: {fileID: 1003934359}
   _shipsDestroyedText: {fileID: 1954339385}
   _totalDeathsText: {fileID: 1787939581}
   _totalScoreText: {fileID: 668265423}
+  _playButton: {fileID: 939463504}
+  _quitButton: {fileID: 1729646536}
 --- !u!4 &1404435033
 Transform:
   m_ObjectHideFlags: 0
@@ -8262,6 +8275,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 2095008498151922843, guid: 07f0fc2583fb00048bd29107a9d85f5e, type: 3}
   m_PrefabInstance: {fileID: 1729646534}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1729646536 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4433147010914644254, guid: 07f0fc2583fb00048bd29107a9d85f5e, type: 3}
+  m_PrefabInstance: {fileID: 1729646534}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Button
 --- !u!1 &1753799534
 GameObject:
   m_ObjectHideFlags: 0

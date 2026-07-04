@@ -10,6 +10,14 @@ namespace TitleScreen
 
         private List<Asteroid> _asteroids = new List<Asteroid>();
 
+        private void Awake()
+        {
+            if (Time.timeScale == 0)
+            {
+                Time.timeScale = 1;
+            }
+        }
+
         private void Start()
         {
             SpawnAsteroids();

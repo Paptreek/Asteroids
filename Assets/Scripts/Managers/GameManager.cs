@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject _upgradePanel;
     [SerializeField] private UpgradeManager _upgradeManager;
     [SerializeField] private Boss _boss;
-    [SerializeField] private GameObject _pauseMenuMain;
+    [SerializeField] private GameObject _gameOverManagerObj;
     
     private bool _playerHasWon;
     private bool _bossActivated;
@@ -38,6 +38,11 @@ public class GameManager : MonoBehaviour
     
     private void Awake()
     {
+        if (Time.timeScale == 0)
+        {
+            Time.timeScale = 1;
+        }
+
         _enterDevMode = InputSystem.actions.FindAction("EnterDevMode");
         _bossSpawnSequence = _boss.GetComponent<BossSpawnSequence>();
     }
@@ -153,9 +158,10 @@ public class GameManager : MonoBehaviour
             _enemyShipSpawner.enabled = false;
             _asteroidSpawner.enabled = false;
 
+            _gameOverManagerObj.SetActive(true);
+
             _gameOverActivated = true;
         }
-
     }
 
     private void CalculateScore()

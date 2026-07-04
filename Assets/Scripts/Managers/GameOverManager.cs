@@ -1,6 +1,8 @@
 using System;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameOverManager : MonoBehaviour
 {
@@ -14,13 +16,45 @@ public class GameOverManager : MonoBehaviour
     [SerializeField] private TMP_Text _totalDeathsText;
     [SerializeField] private TMP_Text _totalScoreText;
 
-    private void Update() // maybe move everything to Start() once testing is done
+    [SerializeField] private Button _playButton;
+    [SerializeField] private Button _quitButton;
+
+    private void Awake()
+    {
+        _gameOverPanel.SetActive(true);
+
+        _playButton.onClick.AddListener(StartNewGame);
+        _quitButton.onClick.AddListener(QuitGame);
+    }
+
+    private void Start()
     {
         DisplayTotalTime();
         DisplayAsteroidsDestroyed();
         DisplayShipsDestroyed();
         DisplayDeaths();
         DisplayFinalScore();
+
+        Time.timeScale = 0;
+    }
+
+    private void Update() // maybe move everything to Start() once testing is done
+    {
+        //DisplayTotalTime();
+        //DisplayAsteroidsDestroyed();
+        //DisplayShipsDestroyed();
+        //DisplayDeaths();
+        //DisplayFinalScore();
+    }
+
+    private void StartNewGame()
+    {
+        SceneManager.LoadScene("Game");
+    }
+
+    private void QuitGame()
+    {
+        SceneManager.LoadScene("Title");
     }
 
     private void DisplayTotalTime()
