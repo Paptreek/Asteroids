@@ -7,25 +7,27 @@ public class GameManager : MonoBehaviour
     [SerializeField] private AsteroidManager _asteroidManager;
     [SerializeField] private AsteroidSpawner _asteroidSpawner;
     [SerializeField] private EnemyShipSpawner _enemyShipSpawner;
-    [SerializeField] private PowerUpManager _abilityManager;
-    [SerializeField] private GameObject _gameOverPrefab;
+    [SerializeField] private PowerUpManager _powerUpManager;
     [SerializeField] private GameObject _upgradePanel;
-    [SerializeField] private GameObject _upgradePanelBackground;
     [SerializeField] private UpgradeManager _upgradeManager;
     [SerializeField] private Boss _boss;
+    [SerializeField] private GameObject _gameOverManagerObj;
     
     private bool _playerHasWon;
-    private bool _playerHasLost;
-    private bool _gameOverCreated;
     private bool _bossActivated;
+    private bool _gameOverActivated;
     private int _round = 1;
-    private int _bonusScore;
     private float _roundTimer = 120.0f;
+    private float _playTimeCounter;
     private float _spawnTimerSmall = 45.0f;
     private float _spawnTimerLarge = 30.0f;
     private BossSpawnSequence _bossSpawnSequence;
 
     public int Score { get; private set; }
+    public int TotalPlayTime { get; private set; }
+    public int BonusTimeScore { get; private set; }
+    public int PointsFromAsteroids { get; private set; }
+    public int PointsFromShips { get; private set; }
 
     // these are for dev mode
     private InputAction _enterDevMode;
@@ -36,6 +38,11 @@ public class GameManager : MonoBehaviour
     
     private void Awake()
     {
+        if (Time.timeScale == 0)
+        {
+            Time.timeScale = 1;
+        }
+
         _enterDevMode = InputSystem.actions.FindAction("EnterDevMode");
         _bossSpawnSequence = _boss.GetComponent<BossSpawnSequence>();
     }
@@ -56,9 +63,12 @@ public class GameManager : MonoBehaviour
     private void Update()
     {
         _roundTimer -= Time.deltaTime;
+        _playTimeCounter += Time.deltaTime;
 
         CheckToStartNewRound();
         CheckForGameOver();
+
+        CalculateScore();
 
         CheckForDevMode();
 
@@ -75,8 +85,34 @@ public class GameManager : MonoBehaviour
                 _player.ActivateIFrames(2);
             }
         }
+    }
 
-        Debug.Log($"Current Score: {CalculateScore()}");
+    public int GetDestroyedAsteroidCount()
+    {
+        return _asteroidManager.LargeAsteroidsDestroyed + _asteroidManager.MediumAsteroidsDestroyed + _asteroidManager.SmallAsteroidsDestroyed;
+    }
+
+    public int GetDestroyedShipCount()
+    {
+        return _player.LargeShipsDestroyed + _player.SmallShipsDestroyed;
+    }
+
+    public int GetPlayerDeathCount() => _player.DeathCount;
+
+    public int GetBonusDeathScore()
+    {
+        int bonusScore = _player.DeathCount switch
+        {
+            0 => 9999,
+            1 => 7500,
+            2 => 5000,
+            3 => 2000,
+            4 => 1000,
+            5 => 500,
+            _ => 0
+        };
+
+        return bonusScore;
     }
 
     private void CheckToStartNewRound()
@@ -85,88 +121,95 @@ public class GameManager : MonoBehaviour
 
         if (!_bossTestModeEnabled) // remove after done testing
         {
-            if (_asteroidManager.Asteroids.Count <= 0 && !_playerHasLost)
+            if (_asteroidManager.Asteroids.Count <= 0)
             {
                 if (_round < maxRounds)
                 {
+                    _upgradeManager.SetRoundText($"[ NEXT: ROUND {_round + 1} / {maxRounds} ]");
                     StartNextRound();
                 }
                 else
                 {
+                    _upgradeManager.SetRoundText($"[ NEXT: BOSS BATTLE ]");
                     ActivateBoss();
                 }
             }
 
-            if (_boss == null)
+            if (_boss.IsDead)
             {
                 _playerHasWon = true;
-                // insert GameOver stuff here once it's ready
+             
+                if (Score > PlayerPrefs.GetInt("HighScore"))
+                {
+                    SetHighScore();
+                }
             }
         }
     }
 
     private void CheckForGameOver()
     {
-        if (_player == null)
-        {
-            _playerHasLost = true;
-            _enemyShipSpawner.enabled = false;
-            _asteroidSpawner.enabled = false;
-
-            if (!_gameOverCreated)
-            {
-                Instantiate(_gameOverPrefab);
-                _gameOverCreated = true;
-            }
-        }
-
-        if (_playerHasWon)
+        if (_playerHasWon && !_gameOverActivated)
         {
             Debug.Log($"All rounds completed. You win!");
+
+            IncreaseTotalPlayTime();
             DestroyAllEnemyShips();
             _enemyShipSpawner.enabled = false;
             _asteroidSpawner.enabled = false;
-        }
 
+            _gameOverManagerObj.SetActive(true);
+
+            _gameOverActivated = true;
+        }
     }
 
-    private int CalculateScore()
+    private void CalculateScore()
     {
         int pointsForLargeShips = _player.LargeShipsDestroyed * 25;
         int pointsForSmallShips = _player.SmallShipsDestroyed * 50;
-        int pointsForShips = pointsForLargeShips + pointsForSmallShips;
+        PointsFromShips = pointsForLargeShips + pointsForSmallShips;
         
         int pointsForLargeAsteroids = _asteroidManager.LargeAsteroidsDestroyed * 5;
         int pointsForMediumAsteroids = _asteroidManager.MediumAsteroidsDestroyed * 10;
         int pointsForSmallAsteroids = _asteroidManager.SmallAsteroidsDestroyed * 25;
-        int pointsForAsteroids = pointsForLargeAsteroids + pointsForMediumAsteroids + pointsForSmallAsteroids;
+        PointsFromAsteroids = pointsForLargeAsteroids + pointsForMediumAsteroids + pointsForSmallAsteroids;
 
         int pointsFromBoss = _boss.PointsToAdd();
 
-        int pointsFromDeaths = _player.DeathCount * 250;
-
-        if (!_playerHasWon)
+        if (_playerHasWon)
         {
-            return Score = pointsForShips + pointsForAsteroids + pointsFromBoss;
+            Score = PointsFromShips + PointsFromAsteroids + pointsFromBoss + BonusTimeScore + GetBonusDeathScore();
         }
         else
         {
-            return Score = pointsForShips + pointsForAsteroids + pointsFromBoss - pointsFromDeaths;
+            Score = PointsFromShips + PointsFromAsteroids + pointsFromBoss + BonusTimeScore;
         }
     }
 
-    private void AddBonusScore()
+    private void AddBonusTimeScore()
     {
         int pointsToAddFromTimer = Mathf.RoundToInt(_roundTimer) * 5;
 
         Debug.Log($"Time Left: {_roundTimer}, Points Added: {pointsToAddFromTimer}");
 
-        _bonusScore += pointsToAddFromTimer;
+        BonusTimeScore += pointsToAddFromTimer;
     }
+
+    private void IncreaseTotalPlayTime()
+    {
+        TotalPlayTime += Mathf.RoundToInt(_playTimeCounter);
+        Debug.Log($"Total Play Time Increased: {TotalPlayTime}");
+
+        _playTimeCounter = 0;
+    }
+
+    private void SetHighScore() => PlayerPrefs.SetInt("HighScore", Score);
 
     private void StartNextRound()
     {
-        AddBonusScore();
+        AddBonusTimeScore();
+        IncreaseTotalPlayTime();
 
         GetPlayerUpgradeChoice();
 
@@ -180,7 +223,7 @@ public class GameManager : MonoBehaviour
 
         _roundTimer = 120.0f;
         _player.ResetPosition(Vector3.zero);
-        _abilityManager.WarpUses = _abilityManager.MaxWarpUses;
+        _powerUpManager.WarpUses = _powerUpManager.MaxWarpUses;
         _enemyShipSpawner.SetSpawnTimers(_spawnTimerSmall, _spawnTimerLarge);
 
         if (_player != null)
@@ -194,7 +237,8 @@ public class GameManager : MonoBehaviour
     {
         if (!_bossActivated)
         {
-            AddBonusScore();
+            AddBonusTimeScore();
+            IncreaseTotalPlayTime();
 
             GetPlayerUpgradeChoice();
 
@@ -202,7 +246,7 @@ public class GameManager : MonoBehaviour
             _spawnTimerLarge -= 2.5f;
 
             DestroyAllEnemyShips();
-            _abilityManager.WarpUses = _abilityManager.MaxWarpUses;
+            _powerUpManager.WarpUses = _powerUpManager.MaxWarpUses;
             _enemyShipSpawner.SetSpawnTimers(_spawnTimerSmall, _spawnTimerLarge);
 
             _player.ResetPosition(new Vector3(0, -6.5f, 0));
@@ -231,7 +275,6 @@ public class GameManager : MonoBehaviour
     {
         Time.timeScale = 0;
 
-        _upgradePanelBackground.SetActive(true);
         _upgradePanel.SetActive(true);
 
         _upgradeManager.ShuffleUpgrades(_upgradeManager.UpgradeOptions);

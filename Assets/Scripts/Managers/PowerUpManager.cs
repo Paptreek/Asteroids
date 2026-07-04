@@ -66,7 +66,7 @@ public class PowerUpManager : MonoBehaviour
         if (randomNumber == chanceToDrop && _dropCooldown <= 0)
         {
             PowerUp powerUp = Instantiate(_powerUp, positionToDrop, Quaternion.identity);
-            powerUp.SetAbilityManager(this);
+            powerUp.SetPowerUpManager(this);
             _dropCooldown = 5.0f;
         }
 

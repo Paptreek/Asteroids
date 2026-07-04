@@ -8,8 +8,6 @@ public class BossSpawnSequence : MonoBehaviour
     private float _endSpawnSequenceTimer = 3.0f;
     private BossMovement _movement;
     private BossCannonManager _canonManager;
-
-    // ending local positions for the cannon peices
     
     private float _attachSpeedCorners = 4.0f;
     private float _attachSpeedCenters = 4.0f;
