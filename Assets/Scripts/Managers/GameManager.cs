@@ -14,9 +14,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject _gameOverManagerObj;
     [SerializeField] private AudioClip _mainThemeMusic;
     
-    private bool _playerHasWon;
     private bool _bossActivated;
-    private bool _gameOverActivated;
+    private bool _gameOverPanelActivated;
     private int _round = 1;
     private float _roundTimer = 120.0f;
     private float _playTimeCounter;
@@ -24,6 +23,8 @@ public class GameManager : MonoBehaviour
     private float _spawnTimerLarge = 30.0f;
     private BossSpawnSequence _bossSpawnSequence;
 
+    public bool PlayerHasWon { get; private set; }
+    public bool PlayerHasLost { get; private set; }
     public int Score { get; private set; }
     public int TotalPlayTime { get; private set; }
     public int BonusTimeScore { get; private set; }
@@ -50,8 +51,9 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        AudioManager.Instance.ResetMusicVolume();
-        AudioManager.Instance.PlayMusic(_mainThemeMusic);
+        //AudioManager.Instance.ResetMusicVolume();
+        //AudioManager.Instance.PlayMusic(_mainThemeMusic);
+        AudioManager.Instance.FadeMusicOut();
 
         if (!_bossTestModeEnabled) // remove after testing is done
         {
@@ -70,10 +72,8 @@ public class GameManager : MonoBehaviour
         _playTimeCounter += Time.deltaTime;
 
         CheckToStartNewRound();
-        CheckForGameOver();
-
         CalculateScore();
-
+        CheckForGameOver();
         CheckForDevMode();
 
         if (_bossActivated && !_bossSpawnSequence.SpawnSequenceComplete)
@@ -101,23 +101,24 @@ public class GameManager : MonoBehaviour
         return _player.LargeShipsDestroyed + _player.SmallShipsDestroyed;
     }
 
-    public int GetPlayerDeathCount() => _player.DeathCount;
+    public int GetPlayerLifeCount() => _player.RemainingLives;
 
-    public int GetBonusDeathScore()
+    public int GetBonusLivesScore()
     {
-        int bonusScore = _player.DeathCount switch
+        int bonusScore = _player.RemainingLives switch
         {
-            0 => 9999,
-            1 => 7500,
-            2 => 5000,
-            3 => 2000,
-            4 => 1000,
-            5 => 500,
+            5 => 9999,
+            4 => 7500,
+            3 => 5000,
+            2 => 2500,
             _ => 0
         };
 
         return bonusScore;
     }
+
+    public int GetBossPartsDestroyedCount() => _boss.CannonsDestroyed;
+    public int GetPointsFromBoss() => _boss.PointsToAdd();
 
     private void CheckToStartNewRound()
     {
@@ -134,7 +135,7 @@ public class GameManager : MonoBehaviour
                 }
                 else
                 {
-                    AudioManager.Instance.FadeMusicOut();
+                    //AudioManager.Instance.FadeMusicOut();
                     _upgradeManager.SetRoundText($"[ NEXT: BOSS BATTLE ]");
                     ActivateBoss();
                 }
@@ -142,8 +143,17 @@ public class GameManager : MonoBehaviour
 
             if (_boss.IsDead)
             {
-                _playerHasWon = true;
+                PlayerHasWon = true;
              
+                if (Score > PlayerPrefs.GetInt("HighScore"))
+                {
+                    SetHighScore();
+                }
+            }
+            else if (_player.RemainingLives <= 0)
+            {
+                PlayerHasLost = true;
+
                 if (Score > PlayerPrefs.GetInt("HighScore"))
                 {
                     SetHighScore();
@@ -154,9 +164,9 @@ public class GameManager : MonoBehaviour
 
     private void CheckForGameOver()
     {
-        if (_playerHasWon && !_gameOverActivated)
+        if (PlayerHasWon && !_gameOverPanelActivated || PlayerHasLost && !_gameOverPanelActivated)
         {
-            Debug.Log($"All rounds completed. You win!");
+            AudioManager.Instance.FadeMusicOut();
 
             IncreaseTotalPlayTime();
             DestroyAllEnemyShips();
@@ -165,7 +175,7 @@ public class GameManager : MonoBehaviour
 
             _gameOverManagerObj.SetActive(true);
 
-            _gameOverActivated = true;
+            _gameOverPanelActivated = true;
         }
     }
 
@@ -182,9 +192,9 @@ public class GameManager : MonoBehaviour
 
         int pointsFromBoss = _boss.PointsToAdd();
 
-        if (_playerHasWon)
+        if (PlayerHasWon || PlayerHasLost)
         {
-            Score = PointsFromShips + PointsFromAsteroids + pointsFromBoss + BonusTimeScore + GetBonusDeathScore();
+            Score = PointsFromShips + PointsFromAsteroids + pointsFromBoss + BonusTimeScore + GetBonusLivesScore();
         }
         else
         {

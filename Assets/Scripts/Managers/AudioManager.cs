@@ -53,12 +53,12 @@ public class AudioManager : MonoBehaviour
     public void FadeMusicOut() => _fadeOut = true;
     public void FadeMusicIn() => _fadeIn = true;
 
-    public void ResetMusicVolume()
+    public void SetMusicVolume(float volume)
     {
         _fadeOut = false;
         _fadeIn = false;
 
-        _music.volume = 0.75f;
+        _music.volume = volume;
     }
 
     public void PlayMusic(AudioClip clip)
@@ -70,6 +70,8 @@ public class AudioManager : MonoBehaviour
             _music.Play();
         }
     }
+
+    public void StopMusic() => _music.Stop();
 
     public void PlayPlayerShoot(AudioClip clip) => _playerShoot.PlayOneShot(clip);
 
@@ -108,10 +110,18 @@ public class AudioManager : MonoBehaviour
         {
             _music.volume -= Time.unscaledDeltaTime * 0.5f;
         }
+        else
+        {
+            _fadeOut = false;
+        }
 
         if (_fadeIn && _music.volume < 1)
         {
             _music.volume += Time.deltaTime * 0.75f;
+        }
+        else
+        {
+            _fadeIn = false;
         }
     }
 }

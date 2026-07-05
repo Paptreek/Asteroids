@@ -1147,7 +1147,7 @@ TextureImporter:
         width: 9
         height: 9
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1156,6 +1156,50 @@ TextureImporter:
       bones: []
       spriteID: 07d6eb9602907754ab88c5792a57df43
       internalID: 131352896
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: player_life_full
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 196
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 412af7443d5cac94f84b08c49496cf4c
+      internalID: 101409757
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: player_life_empty
+      rect:
+        serializedVersion: 2
+        x: 58
+        y: 196
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4e260b5bdf6aa834997115a2a8fe4e92
+      internalID: 3186262
       vertices: []
       indices: 
       edges: []
@@ -1204,6 +1248,8 @@ TextureImporter:
       game_over_o: -396038051599081066
       game_over_r: -2257503757567955342
       game_over_v: -224731906390375833
+      player_life_empty: 3186262
+      player_life_full: 101409757
       player_multi_cannon: 682158007
       player_shield: 2180489980974041206
       player_ship: -4536875531305701763

@@ -10,10 +10,12 @@ public class GameOverManager : MonoBehaviour
 
     [SerializeField] private GameManager _gameManager;
 
+    [SerializeField] private TMP_Text _gameOverText;
     [SerializeField] private TMP_Text _totalTimeText;
     [SerializeField] private TMP_Text _asteroidsDestroyedText;
     [SerializeField] private TMP_Text _shipsDestroyedText;
-    [SerializeField] private TMP_Text _totalDeathsText;
+    [SerializeField] private TMP_Text _livesLeftText;
+    [SerializeField] private TMP_Text _bossScoreText;
     [SerializeField] private TMP_Text _totalScoreText;
 
     [SerializeField] private Button _playButton;
@@ -29,22 +31,15 @@ public class GameOverManager : MonoBehaviour
 
     private void Start()
     {
+        DisplayGameOverText();
         DisplayTotalTime();
         DisplayAsteroidsDestroyed();
         DisplayShipsDestroyed();
-        DisplayDeaths();
+        DisplayLivesLeft();
+        DisplayBossScore();
         DisplayFinalScore();
 
         Time.timeScale = 0;
-    }
-
-    private void Update() // maybe move everything to Start() once testing is done
-    {
-        //DisplayTotalTime();
-        //DisplayAsteroidsDestroyed();
-        //DisplayShipsDestroyed();
-        //DisplayDeaths();
-        //DisplayFinalScore();
     }
 
     private void StartNewGame()
@@ -55,6 +50,18 @@ public class GameOverManager : MonoBehaviour
     private void QuitGame()
     {
         SceneManager.LoadScene("Title");
+    }
+
+    private void DisplayGameOverText()
+    {
+        if (_gameManager.PlayerHasWon)
+        {
+            _gameOverText.text = $"VICTORY";
+        }
+        else
+        {
+            _gameOverText.text = $"DEFEAT";
+        }
     }
 
     private void DisplayTotalTime()
@@ -84,12 +91,20 @@ public class GameOverManager : MonoBehaviour
         _shipsDestroyedText.text = $"ships: {destroyedShips:00}\t\t=\t{pointsFromShips:0000} pts";
     }
 
-    private void DisplayDeaths()
+    private void DisplayLivesLeft()
     {
-        int deathCount = _gameManager.GetPlayerDeathCount();
-        int pointsFromDeaths = _gameManager.GetBonusDeathScore();
+        int lifeCount = _gameManager.GetPlayerLifeCount();
+        int pointsFromLives = _gameManager.GetBonusLivesScore();
 
-        _totalDeathsText.text = $"deaths: {deathCount:00}\t\t=\t{pointsFromDeaths:0000} pts";
+        _livesLeftText.text = $"lives left: {lifeCount:0}\t\t=\t{pointsFromLives:0000} pts";
+    }
+
+    private void DisplayBossScore()
+    {
+        int bossPartsDestroyed = _gameManager.GetBossPartsDestroyedCount();
+        int pointsFromBoss = _gameManager.GetPointsFromBoss();
+
+        _bossScoreText.text = $"boss parts: {bossPartsDestroyed}\t=\t{pointsFromBoss:0000} pts";
     }
 
     private void DisplayFinalScore()

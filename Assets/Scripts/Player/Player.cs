@@ -18,6 +18,7 @@ public class Player : MonoBehaviour
     public bool IsDead { get; set; }
     public bool SpriteBlinkingActive { get; private set; }
     public int DeathCount { get; private set; }
+    public int RemainingLives { get; private set; } = 5;
     public int SmallShipsDestroyed { get; set; }
     public int LargeShipsDestroyed { get; set; }
 
@@ -100,6 +101,7 @@ public class Player : MonoBehaviour
 
         _respawnCheckTimer = 0.25f;
         DeathCount++;
+        RemainingLives--;
         IsDead = true;
 
         Debug.Log($"You died! Death Count: {DeathCount}");
