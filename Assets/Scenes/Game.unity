@@ -902,6 +902,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BossCannon
   _damagedCannonSprite: {fileID: 412161792, guid: a76dc2c97a8f17e439ee4ac410b9dd13, type: 3}
   _explosionEffectPrefab: {fileID: 0}
+  _hitTakenSound: {fileID: 8300000, guid: 91948220820d7c94fa1301822e0f8c27, type: 3}
+  _explosionSound: {fileID: 8300000, guid: debb6faddf7565d46a105f4cfc952b5f, type: 3}
 --- !u!1 &327249418
 GameObject:
   m_ObjectHideFlags: 0
@@ -1530,6 +1532,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BossCannon
   _damagedCannonSprite: {fileID: 0}
   _explosionEffectPrefab: {fileID: 4229611710592519415, guid: 210b1c104a2a4b1458186703fd24a933, type: 3}
+  _hitTakenSound: {fileID: 8300000, guid: 91948220820d7c94fa1301822e0f8c27, type: 3}
+  _explosionSound: {fileID: 8300000, guid: debb6faddf7565d46a105f4cfc952b5f, type: 3}
 --- !u!1 &379349208
 GameObject:
   m_ObjectHideFlags: 0
@@ -2403,14 +2407,14 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: -0.30693412, y: -1.3189182}
-      - {x: 0.3166537, y: -1.3159344}
-      - {x: 1.3158535, y: -0.3067246}
-      - {x: 1.3182757, y: 0.3149295}
-      - {x: 0.30820778, y: 1.3249652}
-      - {x: -0.30617368, y: 1.325205}
-      - {x: -1.3169184, y: 0.31214833}
-      - {x: -1.3157091, y: -0.31755012}
+    - - {x: -0.31136623, y: -1.3216379}
+      - {x: 0.31487775, y: -1.317774}
+      - {x: 1.319893, y: -0.30982074}
+      - {x: 1.3174433, y: 0.31183335}
+      - {x: 0.31661606, y: 1.3232529}
+      - {x: -0.31326184, y: 1.3239326}
+      - {x: -1.3231741, y: 0.3086122}
+      - {x: -1.3175328, y: -0.31533405}
   m_UseDelaunayMesh: 1
 --- !u!212 &564111034
 SpriteRenderer:
@@ -2739,6 +2743,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BossCannon
   _damagedCannonSprite: {fileID: 299614376, guid: a76dc2c97a8f17e439ee4ac410b9dd13, type: 3}
   _explosionEffectPrefab: {fileID: 0}
+  _hitTakenSound: {fileID: 8300000, guid: 91948220820d7c94fa1301822e0f8c27, type: 3}
+  _explosionSound: {fileID: 8300000, guid: debb6faddf7565d46a105f4cfc952b5f, type: 3}
 --- !u!224 &640916284 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2095008498151922843, guid: 07f0fc2583fb00048bd29107a9d85f5e, type: 3}
@@ -3056,6 +3062,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BossCannon
   _damagedCannonSprite: {fileID: 0}
   _explosionEffectPrefab: {fileID: 4229611710592519415, guid: 210b1c104a2a4b1458186703fd24a933, type: 3}
+  _hitTakenSound: {fileID: 8300000, guid: 91948220820d7c94fa1301822e0f8c27, type: 3}
+  _explosionSound: {fileID: 8300000, guid: debb6faddf7565d46a105f4cfc952b5f, type: 3}
 --- !u!1 &719431912
 GameObject:
   m_ObjectHideFlags: 0
@@ -3805,6 +3813,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BossCannon
   _damagedCannonSprite: {fileID: 0}
   _explosionEffectPrefab: {fileID: 4229611710592519415, guid: 210b1c104a2a4b1458186703fd24a933, type: 3}
+  _hitTakenSound: {fileID: 8300000, guid: 91948220820d7c94fa1301822e0f8c27, type: 3}
+  _explosionSound: {fileID: 8300000, guid: debb6faddf7565d46a105f4cfc952b5f, type: 3}
 --- !u!1 &771811323
 GameObject:
   m_ObjectHideFlags: 0
@@ -3951,6 +3961,7 @@ MonoBehaviour:
   _upgradeManager: {fileID: 971746366}
   _boss: {fileID: 1510678825}
   _gameOverManagerObj: {fileID: 1404435031}
+  _mainThemeMusic: {fileID: 8300000, guid: c8315ed6954d8d84fbf526516e14e486, type: 3}
 --- !u!1 &878458879
 GameObject:
   m_ObjectHideFlags: 0
@@ -4639,6 +4650,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BossCannon
   _damagedCannonSprite: {fileID: 0}
   _explosionEffectPrefab: {fileID: 4229611710592519415, guid: 210b1c104a2a4b1458186703fd24a933, type: 3}
+  _hitTakenSound: {fileID: 8300000, guid: 91948220820d7c94fa1301822e0f8c27, type: 3}
+  _explosionSound: {fileID: 8300000, guid: debb6faddf7565d46a105f4cfc952b5f, type: 3}
 --- !u!1001 &939463502
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4928,6 +4941,8 @@ MonoBehaviour:
   _turnSpeedButton: {fileID: 740117867}
   _warpUsesButton: {fileID: 1848453805}
   _roundText: {fileID: 750686348}
+  _bossThemeMusic: {fileID: 8300000, guid: 62477c17ca6ea6943a67a290b19a631e, type: 3}
+  IsFinalRound: 0
 --- !u!4 &971746367
 Transform:
   m_ObjectHideFlags: 0
@@ -6329,6 +6344,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BossCannon
   _damagedCannonSprite: {fileID: 899368640, guid: a76dc2c97a8f17e439ee4ac410b9dd13, type: 3}
   _explosionEffectPrefab: {fileID: 0}
+  _hitTakenSound: {fileID: 8300000, guid: 91948220820d7c94fa1301822e0f8c27, type: 3}
+  _explosionSound: {fileID: 8300000, guid: debb6faddf7565d46a105f4cfc952b5f, type: 3}
 --- !u!1 &1332637073
 GameObject:
   m_ObjectHideFlags: 0
@@ -6778,6 +6795,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BossCannon
   _damagedCannonSprite: {fileID: -272588079, guid: a76dc2c97a8f17e439ee4ac410b9dd13, type: 3}
   _explosionEffectPrefab: {fileID: 0}
+  _hitTakenSound: {fileID: 8300000, guid: 91948220820d7c94fa1301822e0f8c27, type: 3}
+  _explosionSound: {fileID: 8300000, guid: debb6faddf7565d46a105f4cfc952b5f, type: 3}
 --- !u!1 &1368078651
 GameObject:
   m_ObjectHideFlags: 0

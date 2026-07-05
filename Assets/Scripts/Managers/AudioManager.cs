@@ -9,10 +9,13 @@ public class AudioManager : MonoBehaviour
 
     [SerializeField] private AudioSource _music;
     [SerializeField] private AudioSource _playerShoot;
-    [SerializeField] private AudioSource _enemyExplosion;
+    [SerializeField] private AudioSource _enemyDamaged;
     [SerializeField] private AudioSource _shipMovement;
     [SerializeField] private AudioSource _powerUpPickUp;
     [SerializeField] private AudioSource _powerUpActivate;
+
+    private bool _fadeOut;
+    private bool _fadeIn;
 
     public static AudioManager Instance { get; private set; }
 
@@ -30,6 +33,11 @@ public class AudioManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
+    private void Update()
+    {
+        HandleMusicFading();
+    }
+
     public void SetMusicVolume(Slider musicSlider)
     {
         _audioSettings.SetMusicVolume(musicSlider);
@@ -42,9 +50,15 @@ public class AudioManager : MonoBehaviour
         _audioMixer.SetFloat("effectsVolume", Mathf.Log10(_audioSettings.EffectsVolume) * 20);
     }
 
-    public void SetMusicLowpass(float cutoff)
+    public void FadeMusicOut() => _fadeOut = true;
+    public void FadeMusicIn() => _fadeIn = true;
+
+    public void ResetMusicVolume()
     {
-        _audioMixer.SetFloat("musicLowpassCutoff", cutoff);
+        _fadeOut = false;
+        _fadeIn = false;
+
+        _music.volume = 0.75f;
     }
 
     public void PlayMusic(AudioClip clip)
@@ -59,10 +73,10 @@ public class AudioManager : MonoBehaviour
 
     public void PlayPlayerShoot(AudioClip clip) => _playerShoot.PlayOneShot(clip);
 
-    public void PlayEnemyExplosion(AudioClip clip)
+    public void PlayEnemyDamaged(AudioClip clip)
     {
-        _enemyExplosion.clip = clip;
-        _enemyExplosion.Play();
+        _enemyDamaged.clip = clip;
+        _enemyDamaged.Play();
     }
 
     public void PlayShipMove(AudioClip clip)
@@ -86,5 +100,18 @@ public class AudioManager : MonoBehaviour
     public void PlayPowerUpActivate(AudioClip clip)
     {
         _powerUpActivate.PlayOneShot(clip);
+    }
+
+    private void HandleMusicFading()
+    {
+        if (_fadeOut && _music.volume > 0 && !_fadeIn)
+        {
+            _music.volume -= Time.unscaledDeltaTime * 0.5f;
+        }
+
+        if (_fadeIn && _music.volume < 1)
+        {
+            _music.volume += Time.deltaTime * 0.75f;
+        }
     }
 }

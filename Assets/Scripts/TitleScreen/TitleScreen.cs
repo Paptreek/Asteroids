@@ -22,6 +22,7 @@ namespace TitleScreen
         {
             SpawnAsteroids();
 
+            AudioManager.Instance.ResetMusicVolume();
             AudioManager.Instance.PlayMusic(_music);
         }
 

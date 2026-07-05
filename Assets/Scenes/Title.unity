@@ -685,7 +685,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.75
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -1152,7 +1152,7 @@ GameObject:
   - component: {fileID: 813304471}
   - component: {fileID: 813304470}
   m_Layer: 0
-  m_Name: EnemyExplosion
+  m_Name: EnemyDamaged
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1658,7 +1658,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TitleScreen
   _asteroidSpawner: {fileID: 89053074}
-  _music: {fileID: 8300000, guid: 57c72b88eb6c17148b831fc643745654, type: 3}
+  _music: {fileID: 8300000, guid: c8315ed6954d8d84fbf526516e14e486, type: 3}
 --- !u!4 &981168663
 Transform:
   m_ObjectHideFlags: 0
@@ -2407,7 +2407,7 @@ MonoBehaviour:
   _audioSettings: {fileID: 11400000, guid: 3c66cce3160f86249a5c549082ee9bda, type: 2}
   _music: {fileID: 515876516}
   _playerShoot: {fileID: 565724524}
-  _enemyExplosion: {fileID: 813304470}
+  _enemyDamaged: {fileID: 813304470}
   _shipMovement: {fileID: 1029403546}
   _powerUpPickUp: {fileID: 1141482290}
   _powerUpActivate: {fileID: 902119683}

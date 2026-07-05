@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private UpgradeManager _upgradeManager;
     [SerializeField] private Boss _boss;
     [SerializeField] private GameObject _gameOverManagerObj;
+    [SerializeField] private AudioClip _mainThemeMusic;
     
     private bool _playerHasWon;
     private bool _bossActivated;
@@ -33,7 +34,7 @@ public class GameManager : MonoBehaviour
     private InputAction _enterDevMode;
     private int _asteroidsToSpawnStart = 4;
     private int _asteroidsToSpawnRound = 3;
-    private Asteroid.Size _asteroidSize = Asteroid.Size.Large;
+    private Asteroid.Size _asteroidSize = Asteroid.Size.Small;
     private bool _bossTestModeEnabled = false;
     
     private void Awake()
@@ -49,6 +50,9 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        AudioManager.Instance.ResetMusicVolume();
+        AudioManager.Instance.PlayMusic(_mainThemeMusic);
+
         if (!_bossTestModeEnabled) // remove after testing is done
         {
             _asteroidSpawner.SpawnNewRound(_asteroidsToSpawnStart, _asteroidSize, _asteroidManager.Asteroids);
@@ -117,7 +121,7 @@ public class GameManager : MonoBehaviour
 
     private void CheckToStartNewRound()
     {
-        int maxRounds = 5;
+        int maxRounds = 1;
 
         if (!_bossTestModeEnabled) // remove after done testing
         {
@@ -130,6 +134,7 @@ public class GameManager : MonoBehaviour
                 }
                 else
                 {
+                    AudioManager.Instance.FadeMusicOut();
                     _upgradeManager.SetRoundText($"[ NEXT: BOSS BATTLE ]");
                     ActivateBoss();
                 }
@@ -249,6 +254,7 @@ public class GameManager : MonoBehaviour
             _powerUpManager.WarpUses = _powerUpManager.MaxWarpUses;
             _enemyShipSpawner.SetSpawnTimers(_spawnTimerSmall, _spawnTimerLarge);
 
+            _upgradeManager.IsFinalRound = true;
             _player.ResetPosition(new Vector3(0, -6.5f, 0));
             _boss.gameObject.SetActive(true);
             _bossActivated = true;

@@ -4,6 +4,8 @@ public class BossCannon : MonoBehaviour
 {
     [SerializeField] private Sprite _damagedCannonSprite;
     [SerializeField] private GameObject _explosionEffectPrefab;
+    [SerializeField] private AudioClip _hitTakenSound;
+    [SerializeField] private AudioClip _explosionSound;
 
     private int _hitsTaken;
     private int _maxHP = 3;
@@ -31,6 +33,7 @@ public class BossCannon : MonoBehaviour
             }
             else
             {
+                AudioManager.Instance.PlayEnemyDamaged(_explosionSound);
                 Instantiate(_explosionEffectPrefab, transform.position, Quaternion.identity);
                 Destroy(gameObject);
             }
@@ -41,6 +44,7 @@ public class BossCannon : MonoBehaviour
     {
         if (collision.CompareTag($"PlayerBullet") || collision.CompareTag($"Player"))
         {
+            AudioManager.Instance.PlayEnemyDamaged(_hitTakenSound);
             WasJustHit = true;
             _hitsTaken++;
             Debug.Log($"Cannon hits taken: {_hitsTaken}");

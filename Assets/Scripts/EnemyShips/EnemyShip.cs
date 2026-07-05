@@ -95,7 +95,7 @@ public class EnemyShip : MonoBehaviour
     public void DestroyShip()
     {
         AudioManager.Instance.StopShipMove(_shipMoveSound);
-        AudioManager.Instance.PlayEnemyExplosion(_explosionSound);
+        AudioManager.Instance.PlayEnemyDamaged(_explosionSound);
         Instantiate(_explosionEffect, transform.position, Quaternion.identity);
         Destroy(gameObject);
     }

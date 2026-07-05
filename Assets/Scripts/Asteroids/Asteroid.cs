@@ -113,7 +113,7 @@ public class Asteroid : MonoBehaviour
     {
         if (collision.CompareTag("EnemyBullet") || collision.CompareTag("EnemyShip") || collision.CompareTag("GameOver"))
         {
-            AudioManager.Instance.PlayEnemyExplosion(_explosionSound);
+            AudioManager.Instance.PlayEnemyDamaged(_explosionSound);
     
             if (_asteroidManager.Asteroids.Count > 1)
             {
@@ -125,7 +125,7 @@ public class Asteroid : MonoBehaviour
 
         if (collision.CompareTag("PlayerBullet") || collision.CompareTag("Player"))
         {
-            AudioManager.Instance.PlayEnemyExplosion(_explosionSound);
+            AudioManager.Instance.PlayEnemyDamaged(_explosionSound);
 
             if (_asteroidManager.Asteroids.Count > 1)
             {
