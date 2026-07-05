@@ -117,7 +117,7 @@ public class GameManager : MonoBehaviour
 
     private void CheckToStartNewRound()
     {
-        int maxRounds = 1;
+        int maxRounds = 5;
 
         if (!_bossTestModeEnabled) // remove after done testing
         {
@@ -263,7 +263,7 @@ public class GameManager : MonoBehaviour
             {
                 if (enemyShip != null)
                 {
-                    Destroy(enemyShip.gameObject);
+                    enemyShip.DestroyShip();
                 }
             }
         

@@ -6,8 +6,13 @@ public class AudioManager : MonoBehaviour
 {
     [SerializeField] private AudioMixer _audioMixer;
     [SerializeField] private AudioSettings _audioSettings;
+
     [SerializeField] private AudioSource _music;
-    [SerializeField] private AudioSource _soundEffect;
+    [SerializeField] private AudioSource _playerShoot;
+    [SerializeField] private AudioSource _enemyExplosion;
+    [SerializeField] private AudioSource _shipMovement;
+    [SerializeField] private AudioSource _powerUpPickUp;
+    [SerializeField] private AudioSource _powerUpActivate;
 
     public static AudioManager Instance { get; private set; }
 
@@ -50,5 +55,36 @@ public class AudioManager : MonoBehaviour
         {
             _music.Play();
         }
+    }
+
+    public void PlayPlayerShoot(AudioClip clip) => _playerShoot.PlayOneShot(clip);
+
+    public void PlayEnemyExplosion(AudioClip clip)
+    {
+        _enemyExplosion.clip = clip;
+        _enemyExplosion.Play();
+    }
+
+    public void PlayShipMove(AudioClip clip)
+    {
+        if (!_shipMovement.isPlaying)
+        {
+            _shipMovement.PlayOneShot(clip);
+        }
+    }
+
+    public void StopShipMove(AudioClip clip)
+    {
+        _shipMovement.Stop();
+    }
+
+    public void PlayPowerUpPickUp(AudioClip clip)
+    {
+        _powerUpPickUp.PlayOneShot(clip);
+    }
+
+    public void PlayPowerUpActivate(AudioClip clip)
+    {
+        _powerUpActivate.PlayOneShot(clip);
     }
 }

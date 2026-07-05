@@ -182,3 +182,4 @@ MonoBehaviour:
   _multiShotSprite: {fileID: 7465410620921075167, guid: a76dc2c97a8f17e439ee4ac410b9dd13, type: 3}
   _shieldSprite: {fileID: -6202690290458887906, guid: a76dc2c97a8f17e439ee4ac410b9dd13, type: 3}
   _pierceSprite: {fileID: 407819040672156630, guid: a76dc2c97a8f17e439ee4ac410b9dd13, type: 3}
+  _pickUpSound: {fileID: 8300000, guid: a4500d957f952e146bf8f57db6a20f0f, type: 3}

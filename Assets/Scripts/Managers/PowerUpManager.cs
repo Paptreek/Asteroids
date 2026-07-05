@@ -9,6 +9,9 @@ public class PowerUpManager : MonoBehaviour
     [SerializeField] private GameObject _multishotCannonSpriteObj;
     [SerializeField] private PowerUp _powerUp;
     [SerializeField] private Transform _playerWarpLocation;
+    [SerializeField] private AudioClip _activateMultiSound;
+    [SerializeField] private AudioClip _activatePierceSound;
+    [SerializeField] private AudioClip _activateShieldSound;
 
     private float _multiShotTimer;
     private float _shieldTimer;
@@ -99,7 +102,8 @@ public class PowerUpManager : MonoBehaviour
             HasMultiShot = false;
 
             _multiShotTimer = 5.0f;
-            
+
+            AudioManager.Instance.PlayPowerUpActivate(_activateMultiSound);
             _multishotCannonSpriteObj.SetActive(true);
         }
 
@@ -127,6 +131,7 @@ public class PowerUpManager : MonoBehaviour
         {
             _playerShield.SetActive(true);
 
+            AudioManager.Instance.PlayPowerUpActivate(_activateShieldSound);
             ShieldActivated = true;
             HasShield = false;
             _shieldTimer = 2.5f;
@@ -151,6 +156,8 @@ public class PowerUpManager : MonoBehaviour
             PiercingAmmoActivated = true;
             HasPiercingAmmo = false;
             _piercingAmmoTimer = 5.0f;
+
+            AudioManager.Instance.PlayPowerUpActivate(_activatePierceSound);
         }
 
         if (_piercingAmmoTimer <= 0)
