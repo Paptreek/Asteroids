@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private UpgradeManager _upgradeManager;
     [SerializeField] private Boss _boss;
     [SerializeField] private GameObject _gameOverManagerObj;
-    [SerializeField] private AudioClip _mainThemeMusic;
+    [SerializeField] private AudioClip _ambience;
     
     private bool _bossActivated;
     private bool _gameOverPanelActivated;
@@ -35,7 +35,7 @@ public class GameManager : MonoBehaviour
     private InputAction _enterDevMode;
     private int _asteroidsToSpawnStart = 4;
     private int _asteroidsToSpawnRound = 3;
-    private Asteroid.Size _asteroidSize = Asteroid.Size.Small;
+    private Asteroid.Size _asteroidSize = Asteroid.Size.Large;
     private bool _bossTestModeEnabled = false;
     
     private void Awake()
@@ -51,9 +51,8 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        //AudioManager.Instance.ResetMusicVolume();
-        //AudioManager.Instance.PlayMusic(_mainThemeMusic);
         AudioManager.Instance.FadeMusicOut();
+        AudioManager.Instance.PlayAmbience(_ambience);
 
         if (!_bossTestModeEnabled) // remove after testing is done
         {
@@ -122,7 +121,7 @@ public class GameManager : MonoBehaviour
 
     private void CheckToStartNewRound()
     {
-        int maxRounds = 1;
+        int maxRounds = 5;
 
         if (!_bossTestModeEnabled) // remove after done testing
         {
@@ -135,7 +134,6 @@ public class GameManager : MonoBehaviour
                 }
                 else
                 {
-                    //AudioManager.Instance.FadeMusicOut();
                     _upgradeManager.SetRoundText($"[ NEXT: BOSS BATTLE ]");
                     ActivateBoss();
                 }
@@ -167,6 +165,8 @@ public class GameManager : MonoBehaviour
         if (PlayerHasWon && !_gameOverPanelActivated || PlayerHasLost && !_gameOverPanelActivated)
         {
             AudioManager.Instance.FadeMusicOut();
+            AudioManager.Instance.StopPlayerShipMovement();
+            AudioManager.Instance.StopEnemyShipMovement();
 
             IncreaseTotalPlayTime();
             DestroyAllEnemyShips();
@@ -223,6 +223,9 @@ public class GameManager : MonoBehaviour
 
     private void StartNextRound()
     {
+        AudioManager.Instance.StopPlayerShipMovement();
+        AudioManager.Instance.StopEnemyShipMovement();
+        
         AddBonusTimeScore();
         IncreaseTotalPlayTime();
 

@@ -5,10 +5,12 @@ public class Player : MonoBehaviour
     [SerializeField] private ParticleSystem _explosionEffect;
     [SerializeField] private GameObject _respawnArea;
     [SerializeField] private PowerUpManager _powerUpManager;
+    [SerializeField] private AudioClip _playerDeathSound;
 
     private Rigidbody2D _rb;
     private PolygonCollider2D _collider;
     private SpriteRenderer _spriteRenderer;
+    private float _deathTimer;
     private float _respawnCheckTimer;
     private float _colliderDisabledTimer;
     private float _spriteOnTimer;
@@ -31,6 +33,8 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
+        _deathTimer -= Time.deltaTime;
+
         _colliderDisabledTimer -= Time.deltaTime;
         _respawnCheckTimer -= Time.deltaTime;
 
@@ -70,7 +74,7 @@ public class Player : MonoBehaviour
 
     public bool IsAliveAndReady()
     {
-        if (!IsDead && !SpriteBlinkingActive)
+        if (!IsDead && !SpriteBlinkingActive && gameObject.activeInHierarchy && Time.timeScale == 1)
         {
             return true;
         }
@@ -84,7 +88,7 @@ public class Player : MonoBehaviour
     {
         foreach (string tag in _enemyColliderTags)
         {
-            if (collision.CompareTag(tag))
+            if (collision.CompareTag(tag) && _deathTimer <= 0)
             {
                 Die();
                 Instantiate(_explosionEffect, transform.position, Quaternion.identity);
@@ -94,6 +98,10 @@ public class Player : MonoBehaviour
 
     private void Die()
     {
+        AudioManager.Instance.PlayPlayerDeath(_playerDeathSound);
+
+        _deathTimer = 0.25f;
+
         _spriteRenderer.enabled = false;
         _collider.enabled = false;
 

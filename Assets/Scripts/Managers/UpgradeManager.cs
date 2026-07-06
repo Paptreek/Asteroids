@@ -137,6 +137,7 @@ public class UpgradeManager : MonoBehaviour
         if (IsFinalRound)
         {
             //AudioManager.Instance.FadeMusicIn();
+            AudioManager.Instance.StopAmbience();
             AudioManager.Instance.SetMusicVolume(1);
             AudioManager.Instance.PlayMusic(_bossThemeMusic);
         }

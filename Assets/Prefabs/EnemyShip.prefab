@@ -192,6 +192,7 @@ MonoBehaviour:
   _shipMoveSoundSmall: {fileID: 8300000, guid: 102649d2b6d56434fac40b0fe4703f54, type: 3}
   _explosionSoundLow: {fileID: 8300000, guid: 07ea43a54307f3e4fbdc0991b1ddbe17, type: 3}
   _explosionSoundHigh: {fileID: 8300000, guid: 32a71b9b00739cd4ca0200d20c18d5eb, type: 3}
+  _shootSound: {fileID: 8300000, guid: 5cdb516358b25244db3a8c66161468c9, type: 3}
 --- !u!1 &5144048300750835243
 GameObject:
   m_ObjectHideFlags: 0

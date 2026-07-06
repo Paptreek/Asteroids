@@ -36,6 +36,7 @@ public class PauseMenuManager : MonoBehaviour
     {
         if (Keyboard.current.escapeKey.wasPressedThisFrame)
         {
+            AudioManager.Instance.StopPlayerShipMovement();
             TogglePauseMenu();
         }
 

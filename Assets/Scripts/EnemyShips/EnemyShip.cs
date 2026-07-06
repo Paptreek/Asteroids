@@ -12,6 +12,7 @@ public class EnemyShip : MonoBehaviour
     [SerializeField] private AudioClip _shipMoveSoundSmall;
     [SerializeField] private AudioClip _explosionSoundLow;
     [SerializeField] private AudioClip _explosionSoundHigh;
+    [SerializeField] private AudioClip _shootSound;
 
     private float _cannonTimer = 1.0f; // value is for first bullet, then it turns to _secondsBetweenShots for the rest
     private float _secondsBetweenShots;
@@ -48,10 +49,11 @@ public class EnemyShip : MonoBehaviour
 
         Move();
         FireBullet();
-        AudioManager.Instance.PlayShipMove(_shipMoveSound);
+        AudioManager.Instance.PlayEnemyShipMovement(_shipMoveSound);
 
         if (Mathf.Abs(transform.position.x) > 18.10f)
         {
+            AudioManager.Instance.StopEnemyShipMovement();
             Destroy(gameObject);
         }
 
@@ -94,7 +96,7 @@ public class EnemyShip : MonoBehaviour
 
     public void DestroyShip()
     {
-        AudioManager.Instance.StopShipMove(_shipMoveSound);
+        AudioManager.Instance.StopEnemyShipMovement();
         AudioManager.Instance.PlayEnemyDamaged(_explosionSound);
         Instantiate(_explosionEffect, transform.position, Quaternion.identity);
         Destroy(gameObject);
@@ -150,6 +152,8 @@ public class EnemyShip : MonoBehaviour
             bullet.SetFiringShip(FiringShip.Enemy);
             bullet.SetFiringDirection(firingDirection);
             bullet.SetScreenWrappable(false);
+
+            AudioManager.Instance.PlayEnemyShoot(_shootSound);
             
             _cannonTimer = _secondsBetweenShots;
         }

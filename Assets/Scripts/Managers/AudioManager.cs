@@ -8,9 +8,14 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private AudioSettings _audioSettings;
 
     [SerializeField] private AudioSource _music;
+    [SerializeField] private AudioSource _ambience;
     [SerializeField] private AudioSource _playerShoot;
+    [SerializeField] private AudioSource _playerWarp;
+    [SerializeField] private AudioSource _playerDeath;
+    [SerializeField] private AudioSource _playerShipMovement;
+    [SerializeField] private AudioSource _enemyShoot;
     [SerializeField] private AudioSource _enemyDamaged;
-    [SerializeField] private AudioSource _shipMovement;
+    [SerializeField] private AudioSource _enemyShipMovement;
     [SerializeField] private AudioSource _powerUpPickUp;
     [SerializeField] private AudioSource _powerUpActivate;
 
@@ -38,6 +43,8 @@ public class AudioManager : MonoBehaviour
         HandleMusicFading();
     }
 
+    #region UTILITY
+
     public void SetMusicVolume(Slider musicSlider)
     {
         _audioSettings.SetMusicVolume(musicSlider);
@@ -50,8 +57,9 @@ public class AudioManager : MonoBehaviour
         _audioMixer.SetFloat("effectsVolume", Mathf.Log10(_audioSettings.EffectsVolume) * 20);
     }
 
-    public void FadeMusicOut() => _fadeOut = true;
-    public void FadeMusicIn() => _fadeIn = true;
+    #endregion
+
+    #region MUSIC
 
     public void SetMusicVolume(float volume)
     {
@@ -71,9 +79,64 @@ public class AudioManager : MonoBehaviour
         }
     }
 
+    public void FadeMusicOut() => _fadeOut = true;
+    public void FadeMusicIn() => _fadeIn = true;
+
     public void StopMusic() => _music.Stop();
 
+    public void PlayAmbience(AudioClip clip)
+    {
+        _ambience.clip = clip;
+        
+        if (!_ambience.isPlaying)
+        {
+            _ambience.Play();
+        }
+    }
+
+    public void StopAmbience() => _ambience.Stop();
+
+    #endregion
+
+    #region PLAYER
+
     public void PlayPlayerShoot(AudioClip clip) => _playerShoot.PlayOneShot(clip);
+
+    public void PlayPlayerShipMovement(AudioClip clip)
+    {
+        if (_playerShipMovement.volume < 0.5f)
+        {
+            _playerShipMovement.volume += Time.deltaTime * 2;
+        }
+
+        if (!_playerShipMovement.isPlaying)
+        {
+            _playerShipMovement.PlayOneShot(clip);
+        }
+    }
+
+    public void FadeOutPlayerShipMovement() => _playerShipMovement.volume -= Time.deltaTime;
+    public void StopPlayerShipMovement() => _playerShipMovement.Stop();
+
+    public void PlayPlayerWarp(AudioClip clip)
+    {
+        _playerWarp.PlayOneShot(clip);
+    }
+
+    public void PlayPlayerDeath(AudioClip clip)
+    {
+        _playerDeath.PlayOneShot(clip);
+    }
+
+    #endregion
+
+    #region ENEMIES
+
+    public void PlayEnemyShoot(AudioClip clip)
+    {
+        _enemyShoot.clip = clip;
+        _enemyShoot.Play();
+    }
 
     public void PlayEnemyDamaged(AudioClip clip)
     {
@@ -81,18 +144,19 @@ public class AudioManager : MonoBehaviour
         _enemyDamaged.Play();
     }
 
-    public void PlayShipMove(AudioClip clip)
+    public void PlayEnemyShipMovement(AudioClip clip)
     {
-        if (!_shipMovement.isPlaying)
+        if (!_enemyShipMovement.isPlaying)
         {
-            _shipMovement.PlayOneShot(clip);
+            _enemyShipMovement.PlayOneShot(clip);
         }
     }
 
-    public void StopShipMove(AudioClip clip)
-    {
-        _shipMovement.Stop();
-    }
+    public void StopEnemyShipMovement() => _enemyShipMovement.Stop();
+
+    #endregion
+
+    #region ETC
 
     public void PlayPowerUpPickUp(AudioClip clip)
     {
@@ -103,6 +167,8 @@ public class AudioManager : MonoBehaviour
     {
         _powerUpActivate.PlayOneShot(clip);
     }
+
+    #endregion
 
     private void HandleMusicFading()
     {

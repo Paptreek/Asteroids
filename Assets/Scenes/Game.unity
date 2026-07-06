@@ -3254,6 +3254,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d7f53fa0b50f5040be47786838e3e6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
+  _shipThrusterSound: {fileID: 8300000, guid: c64d4a7203d1693499aaf3b6cbc21a43, type: 3}
 --- !u!50 &719431916
 Rigidbody2D:
   serializedVersion: 5
@@ -3385,6 +3386,7 @@ MonoBehaviour:
   _explosionEffect: {fileID: 4475403969655251890, guid: 210b1c104a2a4b1458186703fd24a933, type: 3}
   _respawnArea: {fileID: 55871867}
   _powerUpManager: {fileID: 1922214655}
+  _playerDeathSound: {fileID: 8300000, guid: 423920c4624deb64ebde7fc278c14e3c, type: 3}
 --- !u!114 &719431921
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4036,7 +4038,7 @@ MonoBehaviour:
   _upgradeManager: {fileID: 971746366}
   _boss: {fileID: 1510678825}
   _gameOverManagerObj: {fileID: 1404435031}
-  _mainThemeMusic: {fileID: 8300000, guid: c8315ed6954d8d84fbf526516e14e486, type: 3}
+  _ambience: {fileID: 8300000, guid: 40b0b2d0f4ab5fa4a90ba35e6b50f155, type: 3}
 --- !u!1 &878458879
 GameObject:
   m_ObjectHideFlags: 0
@@ -9684,6 +9686,7 @@ MonoBehaviour:
   _activateMultiSound: {fileID: 8300000, guid: ddd5a0035eb17aa439555639891a58df, type: 3}
   _activatePierceSound: {fileID: 8300000, guid: 0fd3a9ab443647e42bfbbbb948d16098, type: 3}
   _activateShieldSound: {fileID: 8300000, guid: e40bb59085f7831429bae0722f671b95, type: 3}
+  _playerWarpSound: {fileID: 8300000, guid: c6b8dca139d5d1149a517b2effc0e9c1, type: 3}
 --- !u!4 &1922214656
 Transform:
   m_ObjectHideFlags: 0

@@ -3,6 +3,8 @@ using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
+    [SerializeField] private AudioClip _shipThrusterSound;
+
     private float _moveSpeed = 750f;
     private float _turnSpeed = 250;
     private Rigidbody2D _rb;
@@ -40,8 +42,13 @@ public class PlayerMovement : MonoBehaviour
 
         if (_moveAction.IsPressed())
         {
+            AudioManager.Instance.PlayPlayerShipMovement(_shipThrusterSound);
             _animator.SetTrigger("Moving");
             _rb.AddRelativeForceY(moveSpeed);
+        }
+        else
+        {
+            AudioManager.Instance.FadeOutPlayerShipMovement();
         }
     }
 
