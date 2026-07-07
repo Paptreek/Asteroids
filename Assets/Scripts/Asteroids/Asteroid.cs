@@ -4,6 +4,9 @@ public class Asteroid : MonoBehaviour
 {
     [SerializeField] private Sprite[] _sprites = new Sprite[3];
     [SerializeField] private ParticleSystem _explosionEffect;
+    [SerializeField] private AudioClip _explosionSoundLow;
+    [SerializeField] private AudioClip _explosionSoundMid;
+    [SerializeField] private AudioClip _explosionSoundHigh;
     
     private float _moveSpeed;
     private float _rotationSpeed;
@@ -13,6 +16,7 @@ public class Asteroid : MonoBehaviour
     private CircleCollider2D _collider;
     private AsteroidManager _asteroidManager;
     private PowerUpManager _powerUpManager;
+    private AudioClip _explosionSound;
 
     public bool HasBeenHit { get; private set; }
     public bool DestroyedByPlayer { get; private set; }
@@ -59,6 +63,7 @@ public class Asteroid : MonoBehaviour
             _moveSpeed = 3;
             _spriteRenderer.sprite = _sprites[0];
             _collider.radius = 1.0f;
+            _explosionSound = _explosionSoundLow;
         }
 
         if (size == Size.Medium)
@@ -67,6 +72,7 @@ public class Asteroid : MonoBehaviour
             _moveSpeed = 4;
             _spriteRenderer.sprite = _sprites[1];
             _collider.radius = 0.65f;
+            _explosionSound = _explosionSoundMid;
         }
 
         if (size == Size.Small)
@@ -75,6 +81,7 @@ public class Asteroid : MonoBehaviour
             _moveSpeed = 5;
             _spriteRenderer.sprite = _sprites[2];
             _collider.radius = 0.375f;
+            _explosionSound = _explosionSoundHigh;
         }
     }
 
@@ -106,6 +113,8 @@ public class Asteroid : MonoBehaviour
     {
         if (collision.CompareTag("EnemyBullet") || collision.CompareTag("EnemyShip") || collision.CompareTag("GameOver"))
         {
+            AudioManager.Instance.PlayEnemyDamaged(_explosionSound);
+    
             if (_asteroidManager.Asteroids.Count > 1)
             {
                 Instantiate(_explosionEffect, transform.position, Quaternion.identity);
@@ -116,6 +125,8 @@ public class Asteroid : MonoBehaviour
 
         if (collision.CompareTag("PlayerBullet") || collision.CompareTag("Player"))
         {
+            AudioManager.Instance.PlayEnemyDamaged(_explosionSound);
+
             if (_asteroidManager.Asteroids.Count > 1)
             {
                 Instantiate(_explosionEffect, transform.position, Quaternion.identity);
@@ -123,7 +134,7 @@ public class Asteroid : MonoBehaviour
 
             HasBeenHit = true;
             DestroyedByPlayer = true;
-            _powerUpManager.MaybeDropPowerUp(transform.position, 5);
+            _powerUpManager.MaybeDropPowerUp(transform.position, 10);
         }
     }
 

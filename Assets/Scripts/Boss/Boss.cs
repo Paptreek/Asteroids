@@ -16,13 +16,13 @@ public class Boss : MonoBehaviour
 
     private int _hitsTaken;
     private int _maxHP = 3;
-    private int _cannonsDestroyed;
 
     private BossMovement _movement;
     private SpriteRenderer _spriteRenderer;
     private List<BossCannon> _cannonTracker = new List<BossCannon>();
 
     public bool IsDead { get; private set; }
+    public int CannonsDestroyed { get; private set; }
 
     private void Awake()
     {
@@ -60,16 +60,16 @@ public class Boss : MonoBehaviour
         }
 
         // def delete this before build lol
-        if (Keyboard.current.bKey.wasPressedThisFrame)
-        {
-            IsDead = true;
-            Destroy(gameObject);
-        }
+        //if (Keyboard.current.bKey.wasPressedThisFrame)
+        //{
+        //    IsDead = true;
+        //    Destroy(gameObject);
+        //}
     }
 
     public int PointsToAdd()
     {
-        return _cannonsDestroyed * 100;
+        return CannonsDestroyed * 100;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -131,7 +131,7 @@ public class Boss : MonoBehaviour
         {
             if (cannon.IsDamaged)
             {
-                _cannonsDestroyed++;
+                CannonsDestroyed++;
                 _cannonTracker.Remove(cannon);
             }
         }

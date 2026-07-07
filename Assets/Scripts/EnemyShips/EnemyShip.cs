@@ -8,6 +8,11 @@ public class EnemyShip : MonoBehaviour
     [SerializeField] private Sprite _spriteSmall;
     [SerializeField] private PolygonCollider2D _colliderSmall;
     [SerializeField] private PolygonCollider2D _colliderLarge;
+    [SerializeField] private AudioClip _shipMoveSoundLarge;
+    [SerializeField] private AudioClip _shipMoveSoundSmall;
+    [SerializeField] private AudioClip _explosionSoundLow;
+    [SerializeField] private AudioClip _explosionSoundHigh;
+    [SerializeField] private AudioClip _shootSound;
 
     private float _cannonTimer = 1.0f; // value is for first bullet, then it turns to _secondsBetweenShots for the rest
     private float _secondsBetweenShots;
@@ -20,6 +25,8 @@ public class EnemyShip : MonoBehaviour
     private SpriteRenderer _spriteRenderer;
     private PolygonCollider2D _collider;
     private PowerUpManager _powerUpManager;
+    private AudioClip _shipMoveSound;
+    private AudioClip _explosionSound;
 
     public ShipSize EnemyShipSize { get; private set; }
     public enum ShipSize { Large, Small }
@@ -42,9 +49,11 @@ public class EnemyShip : MonoBehaviour
 
         Move();
         FireBullet();
+        AudioManager.Instance.PlayEnemyShipMovement(_shipMoveSound);
 
         if (Mathf.Abs(transform.position.x) > 18.10f)
         {
+            AudioManager.Instance.StopEnemyShipMovement();
             Destroy(gameObject);
         }
 
@@ -61,6 +70,8 @@ public class EnemyShip : MonoBehaviour
             _secondsBetweenShots = 2.0f;
             _spriteRenderer.sprite = _spriteLarge;
             _collider.points = _colliderLarge.points;
+            _shipMoveSound = _shipMoveSoundLarge;
+            _explosionSound = _explosionSoundLow;
         }
         else
         {
@@ -68,6 +79,8 @@ public class EnemyShip : MonoBehaviour
             _secondsBetweenShots = 1.0f;
             _spriteRenderer.sprite = _spriteSmall;
             _collider.points = _colliderSmall.points;
+            _shipMoveSound = _shipMoveSoundSmall;
+            _explosionSound = _explosionSoundHigh;
         }
     }
 
@@ -79,6 +92,14 @@ public class EnemyShip : MonoBehaviour
     public void SetPowerUpManager(PowerUpManager powerUpManager)
     {
         _powerUpManager = powerUpManager;
+    }
+
+    public void DestroyShip()
+    {
+        AudioManager.Instance.StopEnemyShipMovement();
+        AudioManager.Instance.PlayEnemyDamaged(_explosionSound);
+        Instantiate(_explosionEffect, transform.position, Quaternion.identity);
+        Destroy(gameObject);
     }
 
     private void SetPositionAndDirection()
@@ -131,6 +152,8 @@ public class EnemyShip : MonoBehaviour
             bullet.SetFiringShip(FiringShip.Enemy);
             bullet.SetFiringDirection(firingDirection);
             bullet.SetScreenWrappable(false);
+
+            AudioManager.Instance.PlayEnemyShoot(_shootSound);
             
             _cannonTimer = _secondsBetweenShots;
         }
@@ -142,8 +165,7 @@ public class EnemyShip : MonoBehaviour
         {
             Debug.Log($"Enemy ship collided with an asteroid!");
 
-            Instantiate(_explosionEffect, transform.position, Quaternion.identity);
-            Destroy(gameObject);
+            DestroyShip();
         }
 
         if (collision.CompareTag("Player") || collision.CompareTag("PlayerBullet"))
@@ -153,17 +175,18 @@ public class EnemyShip : MonoBehaviour
             if (EnemyShipSize == ShipSize.Large)
             {
                 _player.LargeShipsDestroyed++;
+                _powerUpManager.MaybeDropPowerUp(transform.position, 50);
                 Debug.Log($"Large enemy ship destroyed by player! Total: {_player.LargeShipsDestroyed}");
             }
             else
             {
                 _player.SmallShipsDestroyed++;
+                _powerUpManager.MaybeDropPowerUp(transform.position, 100);
                 Debug.Log($"Small enemy ship destroyed by player! Total: {_player.SmallShipsDestroyed}");
             }
 
-            _powerUpManager.MaybeDropPowerUp(transform.position, 20);
-            Instantiate(_explosionEffect, transform.position, Quaternion.identity);
-            Destroy(gameObject);
+
+            DestroyShip();
         }
     }
 

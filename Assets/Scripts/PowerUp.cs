@@ -5,6 +5,7 @@ public class PowerUp : MonoBehaviour
     [SerializeField] private Sprite _multiShotSprite;
     [SerializeField] private Sprite _shieldSprite;
     [SerializeField] private Sprite _pierceSprite;
+    [SerializeField] private AudioClip _pickUpSound;
 
     private float _enableFlashTimer = 5.0f;
     private float _spriteRendererFlashTimer = 0.5f;
@@ -46,6 +47,7 @@ public class PowerUp : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
+            AudioManager.Instance.PlayPowerUpPickUp(_pickUpSound);
             AddPowerUpToPlayer();
             Destroy(gameObject);
         }

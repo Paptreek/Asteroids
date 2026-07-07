@@ -8,6 +8,10 @@ public class PlayerShipCannon : MonoBehaviour
     [SerializeField] private Transform _cannonTransformCenter;
     [SerializeField] private Transform _cannonTransformLeft;
     [SerializeField] private Transform _cannonTransformRight;
+    [SerializeField] private AudioClip _shootSound;
+    [SerializeField] private AudioClip _multiShotSound;
+    [SerializeField] private AudioClip _piercingShotSound;
+    [SerializeField] private AudioClip _piercingMultiShotSound;
 
     private InputAction _attackAction;
     private Player _player;
@@ -45,6 +49,23 @@ public class PlayerShipCannon : MonoBehaviour
 
         if (_attackAction.IsPressed() && _cooldownTimer <= 0 && !_player.IsDead)
         {
+            if (_powerUpManager.MultiShotActivated && _powerUpManager.PiercingAmmoActivated)
+            {
+                AudioManager.Instance.PlayPlayerShoot(_piercingMultiShotSound);
+            }
+            else if (_powerUpManager.MultiShotActivated)
+            {
+                AudioManager.Instance.PlayPlayerShoot(_multiShotSound);
+            }
+            else if (_powerUpManager.PiercingAmmoActivated)
+            {
+                AudioManager.Instance.PlayPlayerShoot(_piercingShotSound);
+            }
+            else
+            {
+                AudioManager.Instance.PlayPlayerShoot(_shootSound);
+            }
+
             Bullet bulletCenter = Instantiate(_bullet, _cannonPositionCenter, transform.rotation);
             bulletCenter.SetFiringShipSpeed(this);
             bulletCenter.SetFiringShip(FiringShip.Player);

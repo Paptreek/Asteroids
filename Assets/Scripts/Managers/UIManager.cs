@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -10,16 +11,19 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Sprite _multiAttackSprite;
     [SerializeField] private Sprite _shieldSprite;
     [SerializeField] private Sprite _pierceSprite;
-    [SerializeField] private Sprite _emptySprite;
+    [SerializeField] private Sprite _emptyPowerUpSprite;
+    [SerializeField] private Sprite _emptyHeartSprite;
     [SerializeField] private GameManager _gameManager;
     [SerializeField] private Player _player;
     [SerializeField] private PowerUpManager _powerUpManager;
+    [SerializeField] private Image[] _playerLives = new Image[5];
 
     private void Update()
     {
         DisplayScore();
         DisplayWarpCount();
         DisplayCurrentPowerUp();
+        DisplayCurrentLives();
     }
 
     private void DisplayScore()
@@ -48,7 +52,22 @@ public class UIManager : MonoBehaviour
         }
         else
         {
-            _powerUpIndicator.sprite = _emptySprite;
+            _powerUpIndicator.sprite = _emptyPowerUpSprite;
         }
+    }
+
+    private void DisplayCurrentLives()
+    {
+        Sprite playerLivesSprite;
+
+        playerLivesSprite = _player.RemainingLives switch
+        {
+            4 => _playerLives[4].sprite = _emptyHeartSprite,
+            3 => _playerLives[3].sprite = _emptyHeartSprite,
+            2 => _playerLives[2].sprite = _emptyHeartSprite,
+            1 => _playerLives[1].sprite = _emptyHeartSprite,
+            0 => _playerLives[0].sprite = _emptyHeartSprite,
+            _ => _playerLives[4].sprite = _playerLives[4].sprite,
+        };
     }
 }

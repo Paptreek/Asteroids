@@ -3,12 +3,14 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     [SerializeField] private ParticleSystem _explosionEffect;
-    [SerializeField] private GameObject _respawnArea;
+    //[SerializeField] private GameObject _respawnArea;
     [SerializeField] private PowerUpManager _powerUpManager;
+    [SerializeField] private AudioClip _playerDeathSound;
 
     private Rigidbody2D _rb;
     private PolygonCollider2D _collider;
     private SpriteRenderer _spriteRenderer;
+    private float _deathTimer;
     private float _respawnCheckTimer;
     private float _colliderDisabledTimer;
     private float _spriteOnTimer;
@@ -18,6 +20,7 @@ public class Player : MonoBehaviour
     public bool IsDead { get; set; }
     public bool SpriteBlinkingActive { get; private set; }
     public int DeathCount { get; private set; }
+    public int RemainingLives { get; private set; } = 5;
     public int SmallShipsDestroyed { get; set; }
     public int LargeShipsDestroyed { get; set; }
 
@@ -30,6 +33,8 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
+        _deathTimer -= Time.deltaTime;
+
         _colliderDisabledTimer -= Time.deltaTime;
         _respawnCheckTimer -= Time.deltaTime;
 
@@ -69,7 +74,7 @@ public class Player : MonoBehaviour
 
     public bool IsAliveAndReady()
     {
-        if (!IsDead && !SpriteBlinkingActive)
+        if (!IsDead && !SpriteBlinkingActive && gameObject.activeInHierarchy && Time.timeScale == 1)
         {
             return true;
         }
@@ -83,7 +88,7 @@ public class Player : MonoBehaviour
     {
         foreach (string tag in _enemyColliderTags)
         {
-            if (collision.CompareTag(tag))
+            if (collision.CompareTag(tag) && _deathTimer <= 0)
             {
                 Die();
                 Instantiate(_explosionEffect, transform.position, Quaternion.identity);
@@ -93,6 +98,10 @@ public class Player : MonoBehaviour
 
     private void Die()
     {
+        AudioManager.Instance.PlayPlayerDeath(_playerDeathSound);
+
+        _deathTimer = 0.25f;
+
         _spriteRenderer.enabled = false;
         _collider.enabled = false;
 
@@ -100,6 +109,7 @@ public class Player : MonoBehaviour
 
         _respawnCheckTimer = 0.25f;
         DeathCount++;
+        RemainingLives--;
         IsDead = true;
 
         Debug.Log($"You died! Death Count: {DeathCount}");
@@ -107,11 +117,11 @@ public class Player : MonoBehaviour
 
     private void RespawnIfSafe()
     {
-        if (IsDead && _respawnCheckTimer <= 0)
+        if (IsDead /*&& _respawnCheckTimer <= 0*/)
         {
-            if (_respawnArea.GetComponent<RespawnArea>().IsClearOfDanger)
-            {
-                ResetPosition(Vector3.zero);
+            //if (_respawnArea.GetComponent<RespawnArea>().IsClearOfDanger)
+            //{
+            ResetPosition(Vector3.zero);
 
                 IsDead = false;
 
@@ -120,7 +130,7 @@ public class Player : MonoBehaviour
                 _colliderDisabledTimer = 2.0f;
 
                 SpriteBlinkingActive = true;
-            }
+            //}
         }
     }
 

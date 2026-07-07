@@ -19,10 +19,14 @@ public class UpgradeManager : MonoBehaviour
 
     [SerializeField] private TMP_Text _roundText;
 
+    [SerializeField] private AudioClip _bossThemeMusic;
+    [SerializeField] private AudioClip _confirmUpgradeSound;
+
     private GameObject _leftPanel;
     private GameObject _centerPanel;
     private GameObject _rightPanel;
 
+    public bool IsFinalRound;
     public List<GameObject> UpgradeOptions { get; private set; } = new List<GameObject>();
 
     private void Awake()
@@ -121,6 +125,8 @@ public class UpgradeManager : MonoBehaviour
 
     private void HidePanelsAndResume()
     {
+        AudioManager.Instance.PlayButtonPressed(_confirmUpgradeSound);
+
         _upgradePanel.SetActive(false);
 
         _leftPanel.SetActive(false);
@@ -130,5 +136,13 @@ public class UpgradeManager : MonoBehaviour
         Time.timeScale = 1;
 
         _leftPanel.GetComponentInChildren<Button>().Select();
+
+        if (IsFinalRound)
+        {
+            //AudioManager.Instance.FadeMusicIn();
+            AudioManager.Instance.StopAmbience();
+            AudioManager.Instance.SetMusicVolume(1);
+            AudioManager.Instance.PlayMusic(_bossThemeMusic);
+        }
     }
 }

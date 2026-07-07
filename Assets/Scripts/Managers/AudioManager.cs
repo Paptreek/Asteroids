@@ -6,8 +6,23 @@ public class AudioManager : MonoBehaviour
 {
     [SerializeField] private AudioMixer _audioMixer;
     [SerializeField] private AudioSettings _audioSettings;
+
     [SerializeField] private AudioSource _music;
-    [SerializeField] private AudioSource _soundEffect;
+    [SerializeField] private AudioSource _ambience;
+    [SerializeField] private AudioSource _playerShoot;
+    [SerializeField] private AudioSource _playerWarp;
+    [SerializeField] private AudioSource _playerDeath;
+    [SerializeField] private AudioSource _playerShipMovement;
+    [SerializeField] private AudioSource _enemyShoot;
+    [SerializeField] private AudioSource _enemyDamaged;
+    [SerializeField] private AudioSource _enemyShipMovement;
+    [SerializeField] private AudioSource _powerUpPickUp;
+    [SerializeField] private AudioSource _powerUpActivate;
+    [SerializeField] private AudioSource _buttonPressed;
+    [SerializeField] private AudioSource _gameOver;
+
+    private bool _fadeOut;
+    private bool _fadeIn;
 
     public static AudioManager Instance { get; private set; }
 
@@ -25,6 +40,13 @@ public class AudioManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
+    private void Update()
+    {
+        HandleMusicFading();
+    }
+
+    #region UTILITY
+
     public void SetMusicVolume(Slider musicSlider)
     {
         _audioSettings.SetMusicVolume(musicSlider);
@@ -37,9 +59,16 @@ public class AudioManager : MonoBehaviour
         _audioMixer.SetFloat("effectsVolume", Mathf.Log10(_audioSettings.EffectsVolume) * 20);
     }
 
-    public void SetMusicLowpass(float cutoff)
+    #endregion
+
+    #region MUSIC
+
+    public void SetMusicVolume(float volume)
     {
-        _audioMixer.SetFloat("musicLowpassCutoff", cutoff);
+        _fadeOut = false;
+        _fadeIn = false;
+
+        _music.volume = volume;
     }
 
     public void PlayMusic(AudioClip clip)
@@ -49,6 +78,133 @@ public class AudioManager : MonoBehaviour
         if (!_music.isPlaying)
         {
             _music.Play();
+        }
+    }
+
+    public void FadeMusicOut() => _fadeOut = true;
+    public void FadeMusicIn() => _fadeIn = true;
+
+    public void StopMusic() => _music.Stop();
+
+    public void PlayAmbience(AudioClip clip)
+    {
+        _ambience.clip = clip;
+        
+        if (!_ambience.isPlaying)
+        {
+            _ambience.Play();
+        }
+    }
+
+    public void StopAmbience() => _ambience.Stop();
+
+    #endregion
+
+    #region PLAYER
+
+    public void PlayPlayerShoot(AudioClip clip) => _playerShoot.PlayOneShot(clip);
+
+    public void PlayPlayerShipMovement(AudioClip clip)
+    {
+        if (_playerShipMovement.volume < 0.5f)
+        {
+            _playerShipMovement.volume += Time.deltaTime * 2;
+        }
+
+        if (!_playerShipMovement.isPlaying)
+        {
+            _playerShipMovement.PlayOneShot(clip);
+        }
+    }
+
+    public void FadeOutPlayerShipMovement() => _playerShipMovement.volume -= Time.deltaTime;
+    public void StopPlayerShipMovement() => _playerShipMovement.Stop();
+
+    public void PlayPlayerWarp(AudioClip clip)
+    {
+        _playerWarp.PlayOneShot(clip);
+    }
+
+    public void PlayPlayerDeath(AudioClip clip)
+    {
+        _playerDeath.PlayOneShot(clip);
+    }
+
+    #endregion
+
+    #region ENEMIES
+
+    public void PlayEnemyShoot(AudioClip clip)
+    {
+        _enemyShoot.clip = clip;
+        _enemyShoot.Play();
+    }
+
+    public void PlayEnemyDamaged(AudioClip clip)
+    {
+        _enemyDamaged.clip = clip;
+        _enemyDamaged.Play();
+    }
+
+    public void PlayEnemyShipMovement(AudioClip clip)
+    {
+        if (!_enemyShipMovement.isPlaying)
+        {
+            _enemyShipMovement.PlayOneShot(clip);
+        }
+    }
+
+    public void StopEnemyShipMovement() => _enemyShipMovement.Stop();
+
+    #endregion
+
+    #region ETC
+
+    public void PlayPowerUpPickUp(AudioClip clip)
+    {
+        _powerUpPickUp.PlayOneShot(clip);
+    }
+
+    public void PlayPowerUpActivate(AudioClip clip)
+    {
+        _powerUpActivate.PlayOneShot(clip);
+    }
+
+    public void PlayButtonPressed(AudioClip clip)
+    {
+        _buttonPressed.PlayOneShot(clip);
+    }
+
+    public void PlayGameOverSound(AudioClip clip)
+    {
+        _gameOver.PlayOneShot(clip);
+    }
+
+    #endregion
+
+    private void HandleMusicFading()
+    {
+        if (_fadeOut && _music.volume > 0 && !_fadeIn)
+        {
+            _music.volume -= Time.unscaledDeltaTime * 0.5f;
+
+            if (_music.volume == 0)
+            {
+                _music.Stop();
+            }
+        }
+        else
+        {
+            _fadeOut = false;
+        }
+
+        if (_fadeIn && _music.volume < 1)
+        {
+            _music.volume += Time.deltaTime * 0.75f;
+        }
+        else
+        {
+            _fadeIn = false;
         }
     }
 }

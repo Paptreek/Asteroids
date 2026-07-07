@@ -9,6 +9,10 @@ public class PowerUpManager : MonoBehaviour
     [SerializeField] private GameObject _multishotCannonSpriteObj;
     [SerializeField] private PowerUp _powerUp;
     [SerializeField] private Transform _playerWarpLocation;
+    [SerializeField] private AudioClip _activateMultiSound;
+    [SerializeField] private AudioClip _activatePierceSound;
+    [SerializeField] private AudioClip _activateShieldSound;
+    [SerializeField] private AudioClip _playerWarpSound;
 
     private float _multiShotTimer;
     private float _shieldTimer;
@@ -70,7 +74,7 @@ public class PowerUpManager : MonoBehaviour
             _dropCooldown = 5.0f;
         }
 
-        Debug.Log($"PowerUp Drop Roll: {randomNumber} / {chanceToDrop}");
+        //Debug.Log($"PowerUp Drop Roll: {randomNumber} / {chanceToDrop}");
     }
 
     public void ClearPowerUps()
@@ -84,6 +88,7 @@ public class PowerUpManager : MonoBehaviour
     {
         if (WarpUses > 0 && _player.IsAliveAndReady())
         {
+            AudioManager.Instance.PlayPlayerWarp(_playerWarpSound);
             Instantiate(_warpEffect, _player.transform.position, Quaternion.identity);
             _player.transform.position = _playerWarpLocation.position;
             Instantiate(_warpEffect, _player.transform.position, Quaternion.identity);
@@ -99,7 +104,8 @@ public class PowerUpManager : MonoBehaviour
             HasMultiShot = false;
 
             _multiShotTimer = 5.0f;
-            
+
+            AudioManager.Instance.PlayPowerUpActivate(_activateMultiSound);
             _multishotCannonSpriteObj.SetActive(true);
         }
 
@@ -127,6 +133,7 @@ public class PowerUpManager : MonoBehaviour
         {
             _playerShield.SetActive(true);
 
+            AudioManager.Instance.PlayPowerUpActivate(_activateShieldSound);
             ShieldActivated = true;
             HasShield = false;
             _shieldTimer = 2.5f;
@@ -151,6 +158,8 @@ public class PowerUpManager : MonoBehaviour
             PiercingAmmoActivated = true;
             HasPiercingAmmo = false;
             _piercingAmmoTimer = 5.0f;
+
+            AudioManager.Instance.PlayPowerUpActivate(_activatePierceSound);
         }
 
         if (_piercingAmmoTimer <= 0)
