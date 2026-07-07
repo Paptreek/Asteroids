@@ -20,6 +20,7 @@ public class UpgradeManager : MonoBehaviour
     [SerializeField] private TMP_Text _roundText;
 
     [SerializeField] private AudioClip _bossThemeMusic;
+    [SerializeField] private AudioClip _confirmUpgradeSound;
 
     private GameObject _leftPanel;
     private GameObject _centerPanel;
@@ -124,6 +125,8 @@ public class UpgradeManager : MonoBehaviour
 
     private void HidePanelsAndResume()
     {
+        AudioManager.Instance.PlayButtonPressed(_confirmUpgradeSound);
+
         _upgradePanel.SetActive(false);
 
         _leftPanel.SetActive(false);

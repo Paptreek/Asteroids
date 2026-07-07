@@ -3,7 +3,7 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     [SerializeField] private ParticleSystem _explosionEffect;
-    [SerializeField] private GameObject _respawnArea;
+    //[SerializeField] private GameObject _respawnArea;
     [SerializeField] private PowerUpManager _powerUpManager;
     [SerializeField] private AudioClip _playerDeathSound;
 
@@ -117,11 +117,11 @@ public class Player : MonoBehaviour
 
     private void RespawnIfSafe()
     {
-        if (IsDead && _respawnCheckTimer <= 0)
+        if (IsDead /*&& _respawnCheckTimer <= 0*/)
         {
-            if (_respawnArea.GetComponent<RespawnArea>().IsClearOfDanger)
-            {
-                ResetPosition(Vector3.zero);
+            //if (_respawnArea.GetComponent<RespawnArea>().IsClearOfDanger)
+            //{
+            ResetPosition(Vector3.zero);
 
                 IsDead = false;
 
@@ -130,7 +130,7 @@ public class Player : MonoBehaviour
                 _colliderDisabledTimer = 2.0f;
 
                 SpriteBlinkingActive = true;
-            }
+            //}
         }
     }
 

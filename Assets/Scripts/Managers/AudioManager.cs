@@ -18,6 +18,8 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private AudioSource _enemyShipMovement;
     [SerializeField] private AudioSource _powerUpPickUp;
     [SerializeField] private AudioSource _powerUpActivate;
+    [SerializeField] private AudioSource _buttonPressed;
+    [SerializeField] private AudioSource _gameOver;
 
     private bool _fadeOut;
     private bool _fadeIn;
@@ -168,6 +170,16 @@ public class AudioManager : MonoBehaviour
         _powerUpActivate.PlayOneShot(clip);
     }
 
+    public void PlayButtonPressed(AudioClip clip)
+    {
+        _buttonPressed.PlayOneShot(clip);
+    }
+
+    public void PlayGameOverSound(AudioClip clip)
+    {
+        _gameOver.PlayOneShot(clip);
+    }
+
     #endregion
 
     private void HandleMusicFading()
@@ -175,6 +187,11 @@ public class AudioManager : MonoBehaviour
         if (_fadeOut && _music.volume > 0 && !_fadeIn)
         {
             _music.volume -= Time.unscaledDeltaTime * 0.5f;
+
+            if (_music.volume == 0)
+            {
+                _music.Stop();
+            }
         }
         else
         {

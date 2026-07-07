@@ -13,6 +13,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Boss _boss;
     [SerializeField] private GameObject _gameOverManagerObj;
     [SerializeField] private AudioClip _ambience;
+    [SerializeField] private AudioClip _victorySound;
+    [SerializeField] private AudioClip _defeatSound;
     
     private bool _bossActivated;
     private bool _gameOverPanelActivated;
@@ -73,7 +75,7 @@ public class GameManager : MonoBehaviour
         CheckToStartNewRound();
         CalculateScore();
         CheckForGameOver();
-        CheckForDevMode();
+        //CheckForDevMode();
 
         if (_bossActivated && !_bossSpawnSequence.SpawnSequenceComplete)
         {
@@ -164,7 +166,6 @@ public class GameManager : MonoBehaviour
     {
         if (PlayerHasWon && !_gameOverPanelActivated || PlayerHasLost && !_gameOverPanelActivated)
         {
-            AudioManager.Instance.FadeMusicOut();
             AudioManager.Instance.StopPlayerShipMovement();
             AudioManager.Instance.StopEnemyShipMovement();
 
@@ -176,6 +177,17 @@ public class GameManager : MonoBehaviour
             _gameOverManagerObj.SetActive(true);
 
             _gameOverPanelActivated = true;
+
+            if (PlayerHasWon)
+            {
+                AudioManager.Instance.StopMusic();
+                AudioManager.Instance.PlayGameOverSound(_victorySound);
+            }
+            else if (PlayerHasLost)
+            {
+                AudioManager.Instance.StopAmbience();
+                AudioManager.Instance.PlayGameOverSound(_defeatSound);
+            }
         }
     }
 

@@ -332,7 +332,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &55871868
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -460,7 +460,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 6, y: 6, z: 6}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
@@ -3384,7 +3384,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerShip
   _explosionEffect: {fileID: 4475403969655251890, guid: 210b1c104a2a4b1458186703fd24a933, type: 3}
-  _respawnArea: {fileID: 55871867}
   _powerUpManager: {fileID: 1922214655}
   _playerDeathSound: {fileID: 8300000, guid: 423920c4624deb64ebde7fc278c14e3c, type: 3}
 --- !u!114 &719431921
@@ -4039,6 +4038,8 @@ MonoBehaviour:
   _boss: {fileID: 1510678825}
   _gameOverManagerObj: {fileID: 1404435031}
   _ambience: {fileID: 8300000, guid: 40b0b2d0f4ab5fa4a90ba35e6b50f155, type: 3}
+  _victorySound: {fileID: 8300000, guid: 59ee586b78dd6a940be75b284d455d5c, type: 3}
+  _defeatSound: {fileID: 8300000, guid: b20b9fe9a888dc446b3252f69c3caec7, type: 3}
 --- !u!1 &878458879
 GameObject:
   m_ObjectHideFlags: 0
@@ -5019,6 +5020,7 @@ MonoBehaviour:
   _warpUsesButton: {fileID: 1848453805}
   _roundText: {fileID: 750686348}
   _bossThemeMusic: {fileID: 8300000, guid: 62477c17ca6ea6943a67a290b19a631e, type: 3}
+  _confirmUpgradeSound: {fileID: 8300000, guid: 42b593d673c75fd46ad925fbe23a2fb4, type: 3}
   IsFinalRound: 0
 --- !u!4 &971746367
 Transform:

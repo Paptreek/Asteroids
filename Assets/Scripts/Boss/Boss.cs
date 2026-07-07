@@ -60,11 +60,11 @@ public class Boss : MonoBehaviour
         }
 
         // def delete this before build lol
-        if (Keyboard.current.bKey.wasPressedThisFrame)
-        {
-            IsDead = true;
-            Destroy(gameObject);
-        }
+        //if (Keyboard.current.bKey.wasPressedThisFrame)
+        //{
+        //    IsDead = true;
+        //    Destroy(gameObject);
+        //}
     }
 
     public int PointsToAdd()
